@@ -1,0 +1,119 @@
+\newgeometry{margin=2mm}
+
+% --- Visual changes (for satisfaction) ---
+% - Have the Model Name and Model Bahckbone with the same width
+% - Get the Task column narrower; same for modality
+% - Make the Dataset column less wide by trimming some of the dataset long names
+
+\begin{landscape}
+\scriptsize
+
+% Playing with column format: >{\centering\arraybackslash}p{1cm} >{$}c<{$}
+\newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}}
+\begin{longtable}{ c c c c c c c M{1.7cm} M{1.05cm} M{1.3cm} M{1.3cm} M{0.8cm} }
+ \caption[An optional table caption ...]{Taxonomy of the survey's records. \label{table:main_table}}\\
+ \toprule
+ \multirow[c]{2}{*}{Task} & \multirow[c]{2}{*}{Modality} & \multirow[c]{2}{*}{Dataset (\# classes)} & \multirow[c]{2}{*}{Article} & \multicolumn{2}{c}{Model} & \multirow[c]{2}{*}{Board} & \multicolumn{5}{c}{Metrics} \\
+ \cmidrule(rl){5-6}\cmidrule(rl){8-12}
+ &  &  &  & Name & Backbone &  & ~~Score\newline[\textbf{\%}] & Footprint [\textbf{MB}] & Processing Speed & Throughput [\textbf{GOP/s}] & Power [\textbf{W}] \\
+ \midrule
+ \endhead
+ 
+\parbox[t]{2mm}{\multirow{20}{*}{\rotatebox[origin=c]{90}{Classification}}} & \multirow[c]{12}{*}{RGB} & \multirow[c]{4}{*}{NWPU-RESISC45 (45)} & \cite{yanAutomaticDeploymentConvolutional2022a} & Improved VGG16 & VGG16 & Artix-7 & 88.08 (OA) & 14.80 & 1780 ms & 40.96 & 3.41 \\
+ & & & \cite{zhangEfficientFPGABasedImplementation2020} & Q-IORN & VGG16 & Virtex-7 & 88.31 (OA) & 121.51 & 6.77 FPS & 209.60 & 6.32 \\
+ & & & \cite{niAlgorithmHardwareCoOptimization2023} & ResNet-34 & ResNet-34 & Virtex-7 & 92.81 (OA) & 21.29 & 40.2 ms & 182 & 14.97 \\
+ & & & \cite{niAlgorithmHardwareCoOptimization2023} & VGG16 & VGG16 & Virtex-7 & 91.90 (OA) & 14.70 & 89.1 ms & 344 & 14.97 \\
+              \cmidrule{3-12}
+ & & \multirow[c]{2}{*}{L8 Biome (2)} & \cite{pitonakCloudSatNet1FPGABasedHardwareAccelerated2022} & CloudSatNet-1 Q2 &  & Z7020 & 83.41 (OA) & 1.43 & 15.46 FPS &  & 2.55 \\
+ & & & \cite{pitonakCloudSatNet1FPGABasedHardwareAccelerated2022} & CloudSatNet-1 Q4 &  & Z7020 & 87.42 (OA) & 3.06 & 15.47 FPS &  & 2.55 \\ 
+              \cmidrule{3-12}
+ & & \multirow[c]{2}{*}{MASATI (2)} & \cite{nerisFPGABasedImplementationCNN2022a} & AlexNetLite & AlexNet & KU040 & 89 (F1) &  &  &  &  \\
+ & & & \cite{nerisFPGABasedImplementationCNN2022a} & MobileNetv1Lite & MobileNetv1 & KU040 & 94 (F1) &  &  &  &  \\
+              \cmidrule{3-12}
+ & & Kaggle SSI (2) & \cite{ieracitanoExplainableEmbeddedNeural2024} & CNN &  & Z7045 & 93.44 (OA) &  & 1.01 ms &  & 1.90 \\
+              \cmidrule{3-12}
+ & & UC-Merced Land Use (21) & \cite{zhangExtremelyPipelinedFPGAbased2023a} & A2NN & VGG11 & Virtex-7 & 94.76 (OA) &  & 203 FPS & 3047 & 8.27 \\
+              \cmidrule{3-12}
+ & & Sentinel-2 (cust.) (2) & \cite{rapuanoFPGAbasedHardwareAccelerator2021a} & CloudScout &  & ZU7EV & 92.0 (OA) & 13.30 & 141.7 ms &  & 3.40 \\
+              \cmidrule{3-12}
+ & & UAV RGB (cust.) (4) & \cite{matos-carvalhoStaticDynamicAlgorithms2019} & MLP &  & Spartan-3A & 95.14 (OA) &  &  &  &  \\
+       \cmidrule{2-12}
+ & \multirow[c]{6}{*}{SAR} & \multirow[c]{4}{*}{MSTAR (10)} & \cite{weiFPGABasedHybridTypeImplementation2019} & Modified LeNet-5 & LeNet-5 & Kintex-7 & 97.77 (OA) & 1.66 & 2.29 ms &  &  \\
+ & & & \cite{zhangAccurateLowlatencyEfficient2022a} & GNN &  & ZU7EV & 99.09 (OA) & 0.96 & 0.105 ms &  & 6.30 \\
+ & & & \cite{chenHardwareImplementationConvolutional2020} & LeNet-5 & LeNet-5 & Kintex-7 & 98.18 (OA) &  & 2.29 ms &  &  \\
+ & & & \cite{zhangAcceleratingGNNbasedSAR2023} & GNN &  & Alveo U280 &  &  & 759 FPS & 400 & 38.00 \\
+              \cmidrule{3-12}
+ & & ALOS-2 (cust.) (5) & \cite{myojinDetectingUncertainBNN2020} & BNN &  & Z7045 &  &  & 21.14 ms &  &  \\
+              \cmidrule{3-12}
+ & & ALOS-2 (cust.) (2) & \cite{hashimotoShipClassificationSAR2019a} & CNN &  & Z7020 & 100 (OA) &  & 330 ms &  &  \\
+       \cmidrule{2-12}
+ & HSI & UAV RGB (cust.) (6) & \cite{huangEdgeTrustworthyAI2024} & ETAUS & ResNet-50 & ZU19EG & 86.38 (F1) &  & 39.49 FPS & 329.90 & 1.65 \\
+       \cmidrule{2-12}
+ & 1D & 1D Signal (sim.) (800) & \cite{pitsisEfficientConvolutionalNeural2019a} & CNN &  & ZU9EG &  & 11.00 & 4334 FPS & 265 &  \\
+ \midrule
+ 
+ \parbox[t]{2mm}{\multirow{12}{*}{\rotatebox[origin=c]{90}{Pixel classification}}} & \multirow[c]{9}{*}{HSI} & \multirow[c]{6}{*}{University of Pavia (9)} & \cite{heConfigurable2D3D2023a} & 2D CNN &  & ZU15EG & 98.24 (OA) & 1.20 & 0.097 ms & 7.07 & 8.40 \\
+ & & & \cite{heConfigurable2D3D2023a} & 3D CNN &  & ZU15EG & 94.09 (OA) & 0.12 & 1.11 ms & 3.81 & 8.40 \\
+ & & & \cite{heConfigurable2D3D2023a} & HybridSN &  & ZU15EG & 100 (OA) & 20.50 & 7.71 ms & 13.18 & 8.40 \\
+ & & & \cite{martinsRealtimeSVMbasedHardware2024} & SVM &  & Z7020 & 82.48 (AA) & & & & \\
+ & & & \cite{chellaswamyFPGAbasedRemoteTarget2024} & SAM-GNN &  & Virtex-7 & 95.05 (OA) & & & & \\
+ & & & \cite{shibiOnboardTargetDetection2021a} & LPDBL &  & Virtex-7 & & & & &  \\
+              \cmidrule{3-12}
+ & & \multirow[c]{2}{*}{AVIRIS-NG (6)} & \cite{gyaneshwarRealtimeSCSUP2022} & CAL-SC2S &  & Artix-7 & 29.69 (OA) &  & 2410 ms &  & 0.36 \\
+ & & & \cite{gyaneshwarRealtimeSCSUP2022} & SVM &  & Artix-7 & 20.71 (OA) &  & 2160 ms &  & 0.22 \\
+              \cmidrule{3-12}
+ &  & Airport-Beach-Urban (???) & \cite{boyleHighlevelFPGADesign2023a} & Deep Belief Network &  & ZU7EV &  &  & 5.4 ms &  &  \\
+       \cmidrule{2-12}
+ & \multirow[c]{2}{*}{RGB} & UAV RGB (cust.) (7) & \cite{fraczekEmbeddedVisionSystem2018} & Decision Tree &  & Z7020 & 92.1 (OA) &  & 300 ms &  & 3.50 \\
+              \cmidrule{3-12}
+ &  & UAV RGB (cust.) (2) & \cite{torresCombinedWeightlessNeural2020} & Weightless Neural Systems &  & Z7020 & 90.0 (OA) &  &  &  &  \\
+       \cmidrule{2-12}
+ & RGB + infrared & ALSAT-2A (cust.) (4) & \cite{yahiaouiParallelizationFuzzyARTMAP2017a} & Fuzzy ARTMAP &  & Virtex-6 & 94.8 (OA) &  & 96 FPS &  & 0.15 \\
+ \midrule
+
+ \parbox[t]{2mm}{\multirow{6}{*}{\rotatebox[origin=c]{90}{Segmentation}}} & \multirow[c]{6}{*}{RGB} & \multirow[c]{4}{*}{Potsdam (6)} & \cite{sabogalMethodologyEvaluatingAnalyzing2021a} & ENet &  & ZU3EG & 63.3 (mIoU) & 0.36 & 25.2 FPS &  & 3.36 \\
+ &  &  & \cite{sabogalMethodologyEvaluatingAnalyzing2021a} & ESPNet &  & ZU3EG & 55.5 (mIoU) & 0.33 & 11.7 FPS &  & 3.08 \\
+ &  &  & \cite{sabogalMethodologyEvaluatingAnalyzing2021a} & FPN &  & ZU3EG & 65.3 (mIoU) & 5.84 & 14.1 FPS &  & 4.03 \\
+ &  &  & \cite{sabogalMethodologyEvaluatingAnalyzing2021a} & U-Net &  & ZU3EG & 61.4 (mIoU) & 7.40 & 2.7 FPS &  & 3.38 \\
+              \cmidrule{3-12}
+ & & 38-Cloud (2) & \cite{bahlLowpowerNeuralNetworks2019a} & C-FCN++ &  & Cyclone V & 79.30 (mIoU) & 0.047 & 150 ms &  &  \\
+              \cmidrule{3-12}
+ & & Landsat-8-OLI (cust.) (???) & \cite{ratnakumarHighSpeedRoller2021} & Roller Dung Bettle Clustering &  & Virtex-6 & 37.45 (SSIM) &  & 109670 ms &  & 0.12 \\
+ \midrule
+
+ \parbox[t]{2mm}{\multirow{19}{*}{\rotatebox[origin=c]{90}{Object detection}}} & \multirow[c]{15}{*}{RGB} & \multirow[c]{4}{*}{DOTAv1.0 (15)} & \cite{yanAutomaticDeploymentConvolutional2022a} & Improved YOLOv2 & Darknet19 & Artix-7 & 67.30 (mAP) & 49.40 & 17120 ms & 379.55 & 3.41 \\
+ & & & \cite{zhangFPGAImplementationCNNbased2021a} & Improved YOLOv2 & Darknet19 & Z7035 & 67.32 (mAP) &  & 3400 ms & 111.50 & 5.96 \\
+ & & & \cite{yangLightweightDetectionMethod2023} & Ghost-YOLOS & GhostNet & Z7020 & 62.58 (mAP) & 12.60 & 3 FPS & 29.53 & 2.98 \\
+              \cmidrule{3-12}
+ & & \multirow[c]{2}{*}{PennSyn2Real (21)} & \cite{suhAlgorithmHardwareCoOptimizationEnergyEfficient2021} & SSD 0.25x & VGG16 & ZU3EG & 76.2 (mAP) &  & 34.18 FPS & 138 & 2.40 \\
+ & & & \cite{suhAlgorithmHardwareCoOptimizationEnergyEfficient2021} & SSD 0.5x & VGG16 & ZU3EG & 83.9 (mAP) &  & 9.6 FPS & 150 & 2.60 \\
+ & & & \cite{suhAlgorithmHardwareCoOptimizationEnergyEfficient2021} & SSD 1.0x & VGG16 & ZU3EG & 88.4 (mAP) &  & 2.56 FPS & 158 & 2.00 \\
+              \cmidrule{3-12}
+ & & \multirow[c]{2}{*}{DIOR} & \cite{liEdgeRealtimeObject2023a} & RFA-YOLO & MobileNeXt & ZU7EV & 64.85 (mAP) & 24.75 & 27.97 FPS &  & 15.82 \\
+ & & & \cite{zhaoHardwareAccelerationSatellite2023a} & YOLOv4-MobileNetv3 & MobileNetv3 & ZU9EG & 82.61 (mAP) & 5.69 & 48.14 FPS &  & 7.20 \\
+              \cmidrule{3-12}
+ & & UAV RGB (cust.) (12) & \cite{liNovelCNNBasedAP2DNet2020} & AP2D-Net &  & ZU3EG & 55.0 (mIoU) &  & 30.53 FPS & 130.20 & 5.59 \\
+ & & UAV RGB (cust.) (5) & \cite{nguyenFPGASoCImplementationYOLOv42024} & YOLOv4-tiny 3L & Darknet53-tiny & ZU7EV & 72.24 (mAP) & 24.10 & 125 FPS & 15.30 & 26.40 \\
+              \cmidrule{3-12}
+ & & FastenerDataset (4) & \cite{yuImprovedLightweightDeep2024} & Improved YOLOv4-tiny & CSPDarknet53 & ZU7EV & 95.1 (mAP) &  & 295.9 FPS &  & 20.00 \\
+              \cmidrule{3-12}
+ & & NWPU VHR-10 (10) & \cite{liEfficientObjectDetection2019a} & CBFF-SSD & MobileNetv1 & Z7100 & 91.42 mAP &  & 42.59 ms & 452.80 & 19.52 \\
+              \cmidrule{3-12}
+ & & DAC 2018 (12) & \cite{wangAccelerationImplementationConvolutional2019} & CNN &  & Z7020 & 21 (mIoU) &  & 7 FPS & 69.8 & 2.38 \\
+              \cmidrule{3-12}
+% \pagebreak
+ & & Google Earth Studio RGB (sim.) (1) & \cite{wuDesignImplementationRemote2021} & Improved YOLOv3 & DarkNet53 & ZU9EG & 92 (OA) & 8.50 & 7 ms &  &  \\
+       \cmidrule{2-12}
+ & RGB + MMW & UAV RGB+MMW (cust.) (4) & \cite{wangFastDetectionObstacle2024} & Lightweight CNN & ResNet-18 & Z7020 & 70.1 (mAP) &  & 60.0 FPS &  & 3.30 \\
+       \cmidrule{2-12}
+ & \multirow[c]{3}{*}{SAR} & \multirow[c]{3}{*}{SSDD (1)} & \cite{yangAlgorithmHardwareCodesign2022} & CNN1@1.6 & MobileNetv1 & Virtex-7 & 94 (AP) & 0.51 & 385 FPS & 221 & 4.80 \\
+ & & & \cite{yangAlgorithmHardwareCodesign2022} & CNN3@1.6 & MobileNetv2 & Virtex-7 & 93.3 (AP) & 0.13 & 380 FPS & 214 & 4.50 \\
+ & & & \cite{yangAlgorithmHardwareCodesign2022} & CNN6@1.6 & SqueezeNet & Virtex-7 & 92.8 (AP) & 0.27 & 384 FPS & 235 & 5.10 \\
+ \midrule
+ 
+ Regression & SAR & SAR (sim.) & \cite{hammoudArtificialNeuralNetworksBased2022a} & MLP &  & Z7020 &  &  &  &  & 0.08 \\
+ \bottomrule
+\end{longtable}
+
+\end{landscape}
+\restoregeometry

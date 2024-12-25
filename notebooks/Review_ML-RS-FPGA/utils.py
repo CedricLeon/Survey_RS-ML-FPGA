@@ -6,12 +6,12 @@ get_total_in_dict_of_lists = lambda dict: sum([len(dict[tag]) for tag in dict])
 def print_pretty_df(df, max_rows=-1):
     if max_rows == -1: max_rows = len(df)
     print(
-    tabulate.tabulate(
-        df.head(max_rows),
-        headers="keys",
-        tablefmt="pretty",
+        tabulate.tabulate(
+            df.head(max_rows),
+            headers="keys",
+            tablefmt="pretty",
+        )
     )
-)
     
 def parse_string_to_dict(inputString):
     """_summary_

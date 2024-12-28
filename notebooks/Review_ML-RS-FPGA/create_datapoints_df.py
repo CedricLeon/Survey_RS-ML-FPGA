@@ -261,13 +261,13 @@ def get_hardcoded_articles(citationKey, nameUsedInArticle):
             return {
                 "Dataset": "DOTAv1.0 {Object Detection}",
                 "Task": "Object detection",
-                "Application": "diverse",
+                "Application": "Diverse",
             }
         else:
             return {
                 "Dataset": "NWPU-RESISC45 {Classification}",
                 "Task": "Classification",
-                "Application": "Terrain type",
+                "Application": "Terrain identification",
             }
     else:
         return None

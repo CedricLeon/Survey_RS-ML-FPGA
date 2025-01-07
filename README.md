@@ -8,3 +8,16 @@ I'll try to keep in `CHANGELOGS.md` the different project I used this repo with 
 ### Project structure
 The very idea of keeping the synthesis of the results of different projects at the same place is to easily be able to reuse some code or data formats, get inspiration from old plots, etc. Therefore, code and data in folders like `logs` or `notebooks` are stored in a happy mix, everyone next to each other, no favoritism.
 For the sake of staying sane, I will keep `data` and `results` organized in sub-folders for each projects.
+
+### How to generate the preprocessed data for the Review
+#### Get your Zotero information
+Keys
+#### Run the scripts
+```bash
+python ./notebooks/Review_ML-RS-FPGA/create_articles_df.py
+python ./notebooks/Review_ML-RS-FPGA/create_datapoints_df.py -i all_articles_<currentTime>.pkl -o all_datapoints_<currentTime>.pkl
+```
+You can also force the naming of the first scripts with `-i  all_articles.pkl` for example.
+#### Use the notebooks
+The you should be able to just run all the notebooks as you like.
+If you updated the file names, make sure to update the `pickleName` variable at the beginning.

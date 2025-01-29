@@ -3,18 +3,25 @@ import tabulate
 
 get_total_in_dict_of_lists = lambda dict: sum([len(dict[tag]) for tag in dict])
 
-# Helper function to wrap long labels
 def wrap_label(label, maxWidth=15):
     words = label.split(' ')
     wrapped = ""
     line = ""
     for word in words:
-        if len(line) + len(word) + 1 <= maxWidth:
-            line += (word + " ")
+        # Calculate the length if we add this word (plus space if line is not empty)
+        space_needed = 0 if not line else 1
+        if len(line) + len(word) + space_needed <= maxWidth:
+            if line:
+                line += " " + word
+            else:
+                line = word
         else:
-            wrapped += line.strip() + "\n"
-            line = word + " "
-    wrapped += line.strip()
+            if line:
+                wrapped += line + "\n"
+            # If line was empty, we just place the word without forcing a newline
+            line = word
+    if line:
+        wrapped += line
     return wrapped
 
 def print_pretty_df(df, max_rows=-1):

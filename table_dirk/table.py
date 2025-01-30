@@ -320,7 +320,6 @@ for f in sorted(data["Board"].unique()):
 print(board_tags)
 
 
-
 fixed_tags = {
         "i4":       ['(CloudSatNet-1 Q4) Fixed (4)','Fixed (4)'],
         "i8":       ['Fixed (8)'],

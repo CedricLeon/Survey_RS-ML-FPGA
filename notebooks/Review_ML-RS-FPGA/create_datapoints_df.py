@@ -392,7 +392,7 @@ if __name__ == "__main__":
         allDatapointsPath.parent.mkdir(parents=True, exist_ok=True)
     else:
         allDfPaths = Path(__file__).parent.parent.parent / "data" / "Review_ML-RS-FPGA" / "Dataframes"
-        allDatapointsPath = allDfPaths / f"all_articles_{datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.pkl"
+        allDatapointsPath = allDfPaths / f"all_datapoints_{datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.pkl"
 
     log_debug(f"Dataframe read from path: {args.input}")
     articlesDf = pd.read_pickle(args.input)

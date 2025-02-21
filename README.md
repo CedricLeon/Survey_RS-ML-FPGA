@@ -15,7 +15,7 @@ Keys
 #### Run the scripts
 ```bash
 python ./notebooks/Review_ML-RS-FPGA/create_articles_df.py
-python ./notebooks/Review_ML-RS-FPGA/create_datapoints_df.py -i all_articles_<currentTime>.pkl -o all_datapoints_<currentTime>.pkl
+python ./notebooks/Review_ML-RS-FPGA/create_datapoints_df.py -i data/Review_ML-RS-FPGA/Dataframes/all_articles_<currentTime>.pkl -o data/Review_ML-RS-FPGA/Dataframes/all_datapoints.pkl
 ```
 You can also force the naming of the first scripts with `-i  all_articles.pkl` for example.
 #### Use the notebooks

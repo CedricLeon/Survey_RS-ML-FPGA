@@ -118,9 +118,6 @@ class TexTable:
         self.text += "\\bottomrule \n"
         self.text += "\\end{tabular}\n\\end{adjustbox}\n\\end{table}"
         # self.text += "\\end{tabular}\n\n"
-        self.text += """
-\\small
-"""
         return self.text
 
     def header(self):
@@ -155,7 +152,7 @@ class TexColumn:
 
 
 
-with open('../data/Review_Ml-RS-FPGA/Dataframes/all_articles_2025-01-03_13-21-13.pkl','rb') as f:
+with open('../data/Review_Ml-RS-FPGA/Dataframes/all_articles_2025-02-21_09-31-14.pkl','rb') as f:
     raw_data = pickle.load(f)
 
 with open('../data/Review_Ml-RS-FPGA/Dataframes/all_datapoints.pkl','rb') as f:
@@ -178,8 +175,9 @@ mem_tags = {
 
 impl_tags = {
         "RTL":      ['RTL design (Verilog)', 'RTL design (XSG)','RTL design (VHDL)' , 'RTL design (N/A)'],
-        "HLS":      ['HLS (N/A)','HLS (Vitis)', 'HLS (Vivado)','HLS (VGT)'],
-        "N/A":      ['N/A'],
+        "HLS":      ['HLS (N/A)','HLS (Vitis)', 'HLS (Vivado)'],
+        "VGT":      ['HLS (VGT)'],
+        "-":        ['N/A'],
         "FINN" :    ['FINN'],
         "MATLAB":   ['HLS (MATLAB)'],
         "Vitis AI": ['Vitis AI (v1.4)','Vitis AI (v1.4)','Vitis AI (DNNDK)','Vitis AI (v2.5)','Vitis AI (N/A)'],
@@ -194,10 +192,9 @@ task_tags = {
         }
 
 design_tags = {
-        'MS':   ['Model Specific (All layers on FPGA)','Algorithm Specific','Model Specific'],
-        'VK':   ['Various Kernels'],
-        'N/A':  ['???','','N/A'],
-        'LIB':  ['Library']
+        'S':   ['Model Specific (All layers on FPGA)','Algorithm Specific','Model Specific'],
+        'F':   ['Various Kernels','Library'],
+        '-':  ['???','','N/A'],
         }
 
 
@@ -239,8 +236,12 @@ util_tags = {
         "TS"  : ["41% (total slices)"]
         }
 
-def findN(str_in):
-    res = re.search(r'\d+.*DSP',str_in)
+bram_tags = {
+        "-" : ["???","N/A",""]
+        }
+
+def findN(str_in,key):
+    res = re.search(r'\d+.*' + key,str_in)
     if(res == None):
         return "-"
     else:
@@ -249,36 +250,29 @@ def findN(str_in):
 
 
 for t in sorted(data["FPGA Util"].unique()):
-    s = findN(t)
+    s = findN(t,"DSP")
+    l = findN(t,"BRAM")
     if(s in util_tags.keys()):
         util_tags[s].append(t)
     else:
         util_tags[s] = [t]
 
-    # if(t.endswith("LUT)")):
-    #     s = findN(t) 
-    #     util_tags["{\color{red}L:" + s + "}"] = [t]
-    # elif(t.endswith("rest)")):
-    #     s = findN(t) 
-    #     util_tags["{\color{cyan}R:" + s + "}"] = [t]
-    # elif(t.startswith("Low")):
-    #     s = findN(t) 
-    #     # util_tags["{\color{red}" + s + "}"] = [t]
-    #     util_tags[s] = [t]
-    # elif(t.startswith("Average")):
-    #     s = findN(t)
-    #     # util_tags["{\color{orange}" + s + "}"] = [t]
-    #     util_tags[s] = [t]
-    # elif(t.startswith("High")):
-    #     s = findN(t) 
-    #     # util_tags["{\color{green}" + s + "}"] = [t]
-    #     util_tags[s] = [t]
+    if(l in bram_tags.keys()):
+        bram_tags[l].append(t)
+    else:
+        bram_tags[l] = [t]
 
-print(util_tags)
+print(bram_tags)
+
 
 
 freq_tags = {f.split(" ")[0]: [f]  for f in data["Frequency"].unique()}
 compl_task = {f.split(" ")[0]: [f]  for f in data["Complexity"].unique()}
+print(compl_task)
+kk = (compl_task["O(n)"])
+del compl_task["O(n)"]
+compl_task["-"]= (kk)
+
 power_tags = {f.split(" ")[0]: [f]  for f in data["Power consumption"].unique()}
 cit_tags  = {f"\\cite{{{f}}}": [f]  for f in sorted(data["BBT Citation Key"].unique())}
 through_tags  = {f.split(" ")[0]: [f]  for f in sorted(data["Throughput"].unique())}
@@ -306,10 +300,11 @@ for f in sorted(data["Board"].unique()):
     board = f.split("{")[1].split("}")[0]
     part = f.split("(")[1].split(")")[0]
 
-    if(len(board) > 0):
-        k = k + "(" + board +")"
-    else:
-        k = k + "(" + part +")"
+    k = part
+    # if(len(board) > 0):
+    #     k = k + "(" + board +")"
+    # else:
+    #     k = k + "(" + part +")"
 
     if(k in board_tags.keys()):
         board_tags[k].append(f)
@@ -323,7 +318,7 @@ print(board_tags)
 fixed_tags = {
         "i4":       ['(CloudSatNet-1 Q4) Fixed (4)','Fixed (4)'],
         "i8":       ['Fixed (8)'],
-        "i8,f32":   ['Mixed (Fixed 8 and Float 32)'],
+        "i8,f32":   ['Mixed (Fixed 8 and Float 32)','Mixed (Fixed 4 and Float 32)'],
         "i16":      ['Fixed (16)'],
         "i32":      ['Fixed (32)'],
         "i8,i32":   ['Mixed width (Fixed 32 and 8)'],
@@ -353,25 +348,33 @@ model_tags = {
         "GNN" : []
         }
 
-df = raw_data["Tags"]
-for j in range(len(df)):
-    tags = df.iloc[[j]][0]
-    for tag in tags:
-        if(tag.startswith("Model:")):
-            key =   tag.split("Model: ")[1].split("(")[0].strip()
-            t   =   tag.split("Model: ")[1].split("(")[1].split(")")[0]
-            if(t == "LeNet-5"):
-                t = "CNN"
-            if(t == "AlexNet"):
-                t = "CNN"
-            if(t.startswith("YOLO")):
-                t = "YOLO"
-            if(t == "Diverse"):
-                t = "ML"
-            if(t in model_tags.keys()):
-                model_tags[t].append(key)
-            else:
-                model_tags[t] = [key]
+model_tags = {f: [f] for f in sorted(data["Equivalent model"].unique())}
+
+
+#print(data.columns)
+#print(data["Equivalent model"].unique())
+#print(data["Model"].unique())
+
+
+# df = raw_data["Tags"]
+# for j in range(len(df)):
+#     tags = df.iloc[[j]][0]
+#     for tag in tags:
+#         if(tag.startswith("Model:")):
+#             key =   tag.split("Model: ")[1].split("(")[0].strip()
+#             t   =   tag.split("Model: ")[1].split("(")[1].split(")")[0]
+#             if(t == "LeNet-5"):
+#                 t = "CNN"
+#             if(t == "AlexNet"):
+#                 t = "CNN"
+#             if(t.startswith("YOLO")):
+#                 t = "YOLO"
+#             if(t == "Diverse"):
+#                 t = "ML"
+#             if(t in model_tags.keys()):
+#                 model_tags[t].append(key)
+#             else:
+#                 model_tags[t] = [key]
 
 # Add various kernels to all Vitis AI stuff
 df = data.loc[data["Implementation"].isin(impl_tags["Vitis AI"])]
@@ -386,11 +389,11 @@ data.loc[data["Implementation"].isin(impl_tags["FINN"])] = df
 
 columns = [
         TexColumn("Implementation",     impl_tags,                      "Impl.","2.5em"),
-        TexColumn("Model",              model_tags,                    "Model","2.5em"),
+        TexColumn("Equivalent model",   model_tags,                    "Model","2.5em"),
         TexColumn("Design",             design_tags,                    "Design","1.5em"),
         TexColumn("BBT Citation Key",   cit_tags,                       "Ref.","1em"),
         # TexColumn("Task",               task_tags,                      "Task","3em"),
-        TexColumn("Board",              board_tags,                     "Board","2.5em"),
+        TexColumn("Board",              board_tags,                     "FPGA","2.5em"),
         TexColumn("Footprint",          fp_tags,                        "Mem [MB]","2em"),
         TexColumn("Memory",             mem_tags,                       "Mem.","2em"),
         TexColumn("Complexity",         compl_task,                     "Model Compl. [GOPS]","2em"),
@@ -400,6 +403,8 @@ columns = [
         TexColumn("Latency",            lat_tags,                       "BW/Lat[FPS/ms]","2.5em"),
         TexColumn("Power consumption",  power_tags,                     "Power[W]","2em"),
         TexColumn("FPGA Util",          util_tags,                      "DSP Util[\%]","1em"),
+        TexColumn("FPGA Util",          bram_tags,                      "BRAM Util[\%]","1em"),
+
         # TexColumn("Optimizations",      optimTag(data,"Multiple PEs"),  "MP","1em",True),
         # TexColumn("DPU Config",         dpu_config,                     "DC","1em"),
         # TexColumn("DPU Util",         dpu_util,                     "DU","1em"),

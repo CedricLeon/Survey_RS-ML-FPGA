@@ -96,7 +96,8 @@ def extract_metrics(
 
     # Define a mapping of clean metric names to their tag prefixes (with ': ')
     metricKeys = {
-        "Latency": "Model latency: ",               # in ms or FPS
+        "Latency": "Model latency: ",               # in ms, us or  (an '*' symbol means it's per pixel instead of per patch)
+        "FPS": "Model FPS: ",                       # in FPS
         "Task score": "Model performance: ",        # in % OA, % F1, % mIoU, etc.
         "Footprint": "Model size: ",                # in MB
         "Throughput": "Model throughput: ",         # in GOP/s
@@ -153,11 +154,27 @@ def extract_metrics(
                 log_debug(f"    {r}Acc metric warning{e}: Model performance was reported as Acc in {b}{citationKey}{e}: {g}{metricsFoundDict[metric]}{e}, replacing it with OA")
                 metricsFoundDict[metric] = metricsFoundDict[metric].replace("Acc", "OA")
             # Specific handling for 'Frequency' metric (ensure unit is MHz)
-            elif metric == "Frequency" and not metricsFoundDict[metric].endswith("MHz"):
+            elif metric == "Frequency" and metricsFoundDict[metric] and not metricsFoundDict[metric].endswith("MHz"):
                 log_debug(f"    {r}Frequency unit warning{e}: Frequency in {b}{citationKey}{e} is not in MHz: {g}{metricsFoundDict[metric]}{e}")
             # Specific handling for 'Model complexity' metric (ensure unit is OP)
             elif metric == "Model complexity" and not metricsFoundDict[metric].endswith("OP"):
                 log_debug(f"    {r}Model complexity unit warning{e}: Model complexity in {b}{citationKey}{e} does not have 'OP' unit: {g}{metricsFoundDict[metric]}{e}")
+            # Specific handling for 'Latency' metric (ensure unit is ms, s, or us)
+            elif metric == "Latency":
+                valid_units = ["ms", "s", "us", "ms*", "s*", "us*"]
+                if metricsFoundDict[metric] and not any(metricsFoundDict[metric].endswith(u) for u in valid_units):
+                    log_debug(
+                        f"    {r}Latency unit warning{e}: Latency in "
+                        f"{b}{citationKey}{e} is not in one of {valid_units}: "
+                        f"{g}{metricsFoundDict[metric]}{e}"
+                    )
+            elif metric == "FPS":
+                if metricsFoundDict[metric] and not metricsFoundDict[metric].endswith("FPS"):
+                    log_debug(
+                        f"    {r}FPS unit warning{e}: FPS in "
+                        f"{b}{citationKey}{e} does not end in 'FPS': "
+                        f"{g}{metricsFoundDict[metric]}{e}"
+                    )
 
     if missingMetricsList:
         modelIdentifier = modelName if reportsSeveralModels else 'its unique model'
@@ -291,7 +308,7 @@ def process_article(citationKey, article):
 
     articleMainInfo = get_article_main_info_from_tags(article["Tags"])
     check_article_validity(articleMainInfo, citationKey)
-    log_debug(""); log_debug(articleMainInfo)
+    log_debug(""); log_debug(f"Main information: {articleMainInfo}")
 
     modelsFromArticle = []
     nbModels = len(articleMainInfo["Models"])

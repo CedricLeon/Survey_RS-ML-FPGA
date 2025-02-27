@@ -116,7 +116,7 @@ class TexTable:
         for n in self.start.nodes:
             self.text = n.render(self.text,(n == self.start.nodes[0]),(n == self.start.nodes[-1]),max_depth)
         self.text += "\\bottomrule \n"
-        self.text += "\\end{tabular}\n\\end{table}"
+        self.text += "\\end{tabular}\n\\end{adjustbox}\n\\end{table}"
         # self.text += "\\end{tabular}\n\n"
         return self.text
 
@@ -125,6 +125,7 @@ class TexTable:
         text+="""
 \\caption{FPGA Optimization Table}
 """
+        text+="\\begin{adjustbox}{totalheight=\textheight-2\baselineskip,}\n"
         text+="\\begin{tabular}{"
         text += "".join([f"c" for c in self.columns])
         text += "}\n"
@@ -253,13 +254,13 @@ for t in sorted(data["FPGA Util"].unique()):
     else:
         bram_tags[l] = [t]
 
-print(bram_tags)
+# print(bram_tags)
 
 
 
 freq_tags = {f.split(" ")[0]: [f]  for f in data["Frequency"].unique()}
 compl_task = {f.split(" ")[0]: [f]  for f in data["Complexity"].unique()}
-print(compl_task)
+# print(compl_task)
 kk = (compl_task["O(n)"])
 del compl_task["O(n)"]
 compl_task["-"]= (kk)
@@ -269,6 +270,7 @@ cit_tags  = {f"\\cite{{{f}}}": [f]  for f in sorted(data["BBT Citation Key"].uni
 through_tags  = {f.split(" ")[0]: [f]  for f in sorted(data["Throughput"].unique())}
 fp_tags  = {f.split(" ")[0]: [f]  for f in sorted(data["Footprint"].unique())}
 lat_tags = {f: [f]  for f in data["Latency"].unique()}
+fps_tags = {f.split(" ")[0]: [f]  for f in data["FPS"].unique()}
 
 
 board_tags  = {} 
@@ -303,7 +305,7 @@ for f in sorted(data["Board"].unique()):
         board_tags[k] = [f]
 
 
-print(board_tags)
+# print(board_tags)
 
 
 fixed_tags = {
@@ -342,7 +344,7 @@ model_tags = {
 model_tags = {f: [f] for f in sorted(data["Equivalent model"].unique())}
 
 
-#print(data.columns)
+print(data.columns)
 #print(data["Equivalent model"].unique())
 #print(data["Model"].unique())
 
@@ -395,6 +397,7 @@ columns = [
         TexColumn("Frequency",          freq_tags,                      "freq. [MHz]","2em"),
         TexColumn("Throughput",         through_tags,                   "Peak Throughput [GOP/s]","2.5em"),
         TexColumn("Latency",            lat_tags,                       "BW/Lat[FPS/ms]","2.5em"),
+        TexColumn("FPS",                fps_tags,                       "FPS","2.5em"),
         TexColumn("Power consumption",  power_tags,                     "Power[W]","2em"),
         TexColumn("FPGA Util",          util_tags,                      "DSP Util[\%]","1em"),
         TexColumn("FPGA Util",          bram_tags,                      "BRAM Util[\%]","1em"),

@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pickle
 import re
+import math
 from pathlib import Path
 
 import sys
@@ -79,11 +80,13 @@ fcolors = {
         "Cyclone":  "olive"
         }
 
+pts = {}
+
 for k,v in parts_info.items():
     x = v["year"]
     y = np.log2(v["DSP"] )
     r = v["quantity"]*3000
-    ax.scatter(x,y,r,ec="gray",lw=4,c=fcolors[v["family"]])
+    pts[k] = (ax.scatter(x,y,r,ec="gray",lw=4,c=fcolors[v["family"]]))
 
 
 for k,v in parts_info.items():
@@ -130,5 +133,4 @@ ax.set_ylabel("#DSP")
 ax.set_xlabel("Release [Year]")
 
 
-plt.rcParams['figure.figsize'] = [30, 30]
 plt.show()

@@ -116,7 +116,7 @@ class TexTable:
         for n in self.start.nodes:
             self.text = n.render(self.text,(n == self.start.nodes[0]),(n == self.start.nodes[-1]),max_depth)
         self.text += "\\bottomrule \n"
-        self.text += "\\end{tabular}\n\\end{adjustbox}\n\\end{table}"
+        self.text += "\\end{tabular}\n\\end{table}"
         # self.text += "\\end{tabular}\n\n"
         return self.text
 
@@ -124,11 +124,8 @@ class TexTable:
         text ="\\begin{table}\n\\centering\n"
         text+="""
 \\caption{FPGA Optimization Table}
-\\begin{adjustbox}{totalheight=\\textheight-2\\baselineskip}
 """
         text+="\\begin{tabular}{"
-        # text ="\\centering\n\\begin{tabular}{"
-        # # text += "".join([f"p{{{c.cwidth}}}" for c in self.columns])
         text += "".join([f"c" for c in self.columns])
         text += "}\n"
         for c in self.columns:
@@ -152,7 +149,7 @@ class TexColumn:
 
 
 
-with open('../data/Review_Ml-RS-FPGA/Dataframes/all_articles_2025-02-21_09-31-14.pkl','rb') as f:
+with open('../data/Review_Ml-RS-FPGA/Dataframes/all_articles_2025-02-25_10-00-15.pkl','rb') as f:
     raw_data = pickle.load(f)
 
 with open('../data/Review_Ml-RS-FPGA/Dataframes/all_datapoints.pkl','rb') as f:
@@ -169,18 +166,18 @@ with open('../data/Review_Ml-RS-FPGA/Dataframes/all_datapoints.pkl','rb') as f:
 mem_tags = {
         "On":          ['On-chip'],
         "Off":         ['Off-chip','Off-chip (HBM)'],
-        "tbd.":             ['???','','N/A']
+        "-":         ['N/A'],
         }
 
 
 impl_tags = {
-        "RTL":      ['RTL design (Verilog)', 'RTL design (XSG)','RTL design (VHDL)' , 'RTL design (N/A)'],
+        "RTL":      ['RTL design (Verilog)', 'RTL design (VHDL)' , 'RTL design (N/A)'],
         "HLS":      ['HLS (N/A)','HLS (Vitis)', 'HLS (Vivado)'],
+        "FINN" :    ['FINN'],
+        "Vitis AI": ['Vitis AI (v1.4)','Vitis AI (v1.4)','Vitis AI (DNNDK)','Vitis AI (v2.5)','Vitis AI (N/A)'],
+        "MATLAB":   ['HLS (MATLAB)','RTL design (XSG)'],
         "VGT":      ['HLS (VGT)'],
         "-":        ['N/A'],
-        "FINN" :    ['FINN'],
-        "MATLAB":   ['HLS (MATLAB)'],
-        "Vitis AI": ['Vitis AI (v1.4)','Vitis AI (v1.4)','Vitis AI (DNNDK)','Vitis AI (v2.5)','Vitis AI (N/A)'],
         }
 
 task_tags = {
@@ -221,13 +218,7 @@ def optimTag(df,name):
         }
     return rd
 
-special_ops = {
-        "HWP": ["HW aware pruning"],
-        "DD": ["DSP double rate (like DPU)"],
-        "AD": ["Advanced Dataflow"],
-        "MP": ["Multiple PEs"],
-        "-": []
-        }
+
 
 
 
@@ -241,7 +232,7 @@ bram_tags = {
         }
 
 def findN(str_in,key):
-    res = re.search(r'\d+.*' + key,str_in)
+    res = re.search(r'\d+%\s*' + key,str_in)
     if(res == None):
         return "-"
     else:
@@ -385,6 +376,9 @@ df = data.loc[data["Implementation"].isin(impl_tags["FINN"])]
 df["Design"] = df["Design"].replace('N/A',"Model Specific")
 data.loc[data["Implementation"].isin(impl_tags["FINN"])] = df
 
+df = data.loc[data["Implementation"].isin(impl_tags["Vitis AI"])]
+df["Memory"] = df["Memory"].replace('',"On-chip")
+data.loc[data["Implementation"].isin(impl_tags["Vitis AI"])] = df
 
 
 columns = [
@@ -424,6 +418,8 @@ header = """
 \\usepackage[dvipsnames,table]{xcolor}
 \\begin{document}
 """
+
+
 
 tab = TexTable(data,columns)
 text = tab.render("",3)

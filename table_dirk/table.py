@@ -124,11 +124,9 @@ class TexTable:
         text ="\\begin{table}\n\\centering\n"
         text+="""
 \\caption{FPGA Optimization Table}
-\\begin{adjustbox}{totalheight=\\textheight-2\\baselineskip}
 """
+        text+="\\begin{adjustbox}{totalheight=\textheight-2\baselineskip,}\n"
         text+="\\begin{tabular}{"
-        # text ="\\centering\n\\begin{tabular}{"
-        # # text += "".join([f"p{{{c.cwidth}}}" for c in self.columns])
         text += "".join([f"c" for c in self.columns])
         text += "}\n"
         for c in self.columns:
@@ -152,7 +150,7 @@ class TexColumn:
 
 
 
-with open('../data/Review_Ml-RS-FPGA/Dataframes/all_articles_2025-02-21_09-31-14.pkl','rb') as f:
+with open('../data/Review_Ml-RS-FPGA/Dataframes/all_articles_2025-02-25_10-00-15.pkl','rb') as f:
     raw_data = pickle.load(f)
 
 with open('../data/Review_Ml-RS-FPGA/Dataframes/all_datapoints.pkl','rb') as f:
@@ -169,18 +167,18 @@ with open('../data/Review_Ml-RS-FPGA/Dataframes/all_datapoints.pkl','rb') as f:
 mem_tags = {
         "On":          ['On-chip'],
         "Off":         ['Off-chip','Off-chip (HBM)'],
-        "tbd.":             ['???','','N/A']
+        "-":         ['N/A'],
         }
 
 
 impl_tags = {
-        "RTL":      ['RTL design (Verilog)', 'RTL design (XSG)','RTL design (VHDL)' , 'RTL design (N/A)'],
+        "RTL":      ['RTL design (Verilog)', 'RTL design (VHDL)' , 'RTL design (N/A)'],
         "HLS":      ['HLS (N/A)','HLS (Vitis)', 'HLS (Vivado)'],
+        "FINN" :    ['FINN'],
+        "Vitis AI": ['Vitis AI (v1.4)','Vitis AI (v1.4)','Vitis AI (DNNDK)','Vitis AI (v2.5)','Vitis AI (N/A)'],
+        "MATLAB":   ['HLS (MATLAB)','RTL design (XSG)'],
         "VGT":      ['HLS (VGT)'],
         "-":        ['N/A'],
-        "FINN" :    ['FINN'],
-        "MATLAB":   ['HLS (MATLAB)'],
-        "Vitis AI": ['Vitis AI (v1.4)','Vitis AI (v1.4)','Vitis AI (DNNDK)','Vitis AI (v2.5)','Vitis AI (N/A)'],
         }
 
 task_tags = {
@@ -221,13 +219,7 @@ def optimTag(df,name):
         }
     return rd
 
-special_ops = {
-        "HWP": ["HW aware pruning"],
-        "DD": ["DSP double rate (like DPU)"],
-        "AD": ["Advanced Dataflow"],
-        "MP": ["Multiple PEs"],
-        "-": []
-        }
+
 
 
 
@@ -241,7 +233,7 @@ bram_tags = {
         }
 
 def findN(str_in,key):
-    res = re.search(r'\d+.*' + key,str_in)
+    res = re.search(r'\d+%\s*' + key,str_in)
     if(res == None):
         return "-"
     else:
@@ -262,13 +254,13 @@ for t in sorted(data["FPGA Util"].unique()):
     else:
         bram_tags[l] = [t]
 
-print(bram_tags)
+# print(bram_tags)
 
 
 
 freq_tags = {f.split(" ")[0]: [f]  for f in data["Frequency"].unique()}
 compl_task = {f.split(" ")[0]: [f]  for f in data["Complexity"].unique()}
-print(compl_task)
+# print(compl_task)
 kk = (compl_task["O(n)"])
 del compl_task["O(n)"]
 compl_task["-"]= (kk)
@@ -278,6 +270,7 @@ cit_tags  = {f"\\cite{{{f}}}": [f]  for f in sorted(data["BBT Citation Key"].uni
 through_tags  = {f.split(" ")[0]: [f]  for f in sorted(data["Throughput"].unique())}
 fp_tags  = {f.split(" ")[0]: [f]  for f in sorted(data["Footprint"].unique())}
 lat_tags = {f: [f]  for f in data["Latency"].unique()}
+fps_tags = {f.split(" ")[0]: [f]  for f in data["FPS"].unique()}
 
 
 board_tags  = {} 
@@ -312,7 +305,7 @@ for f in sorted(data["Board"].unique()):
         board_tags[k] = [f]
 
 
-print(board_tags)
+# print(board_tags)
 
 
 fixed_tags = {
@@ -351,7 +344,7 @@ model_tags = {
 model_tags = {f: [f] for f in sorted(data["Equivalent model"].unique())}
 
 
-#print(data.columns)
+print(data.columns)
 #print(data["Equivalent model"].unique())
 #print(data["Model"].unique())
 
@@ -385,6 +378,9 @@ df = data.loc[data["Implementation"].isin(impl_tags["FINN"])]
 df["Design"] = df["Design"].replace('N/A',"Model Specific")
 data.loc[data["Implementation"].isin(impl_tags["FINN"])] = df
 
+df = data.loc[data["Implementation"].isin(impl_tags["Vitis AI"])]
+df["Memory"] = df["Memory"].replace('',"On-chip")
+data.loc[data["Implementation"].isin(impl_tags["Vitis AI"])] = df
 
 
 columns = [
@@ -401,6 +397,7 @@ columns = [
         TexColumn("Frequency",          freq_tags,                      "freq. [MHz]","2em"),
         TexColumn("Throughput",         through_tags,                   "Peak Throughput [GOP/s]","2.5em"),
         TexColumn("Latency",            lat_tags,                       "BW/Lat[FPS/ms]","2.5em"),
+        TexColumn("FPS",                fps_tags,                       "FPS","2.5em"),
         TexColumn("Power consumption",  power_tags,                     "Power[W]","2em"),
         TexColumn("FPGA Util",          util_tags,                      "DSP Util[\%]","1em"),
         TexColumn("FPGA Util",          bram_tags,                      "BRAM Util[\%]","1em"),
@@ -424,6 +421,8 @@ header = """
 \\usepackage[dvipsnames,table]{xcolor}
 \\begin{document}
 """
+
+
 
 tab = TexTable(data,columns)
 text = tab.render("",3)

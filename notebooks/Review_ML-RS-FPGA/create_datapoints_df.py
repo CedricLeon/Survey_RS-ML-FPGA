@@ -284,7 +284,7 @@ def get_hardcoded_articles(citationKey, nameUsedInArticle):
             return {
                 "Dataset": "NWPU-RESISC45 {Classification}",
                 "Task": "Classification",
-                "Application": "Terrain identification",
+                "Application": "Landcover/Land use",
             }
     else:
         return None

@@ -4,7 +4,11 @@ Context
 
 ### How to generate the preprocessed data for the Review
 #### Get your Zotero information
-Keys
+If you want to use similar logic and use `explore_zotero_API.ipynb`, you will need to store your Zotero API Key in this file `src/.keys`. It should have a similar format:
+```json
+Zotero API Key: <your_api_key>
+```
+Collection keys
 #### Run the scripts
 ```bash
 python ./notebooks/Review_ML-RS-FPGA/create_articles_df.py

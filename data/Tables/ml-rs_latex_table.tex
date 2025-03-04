@@ -11,11 +11,11 @@
 
 \multicolumn{4}{c}{\textbf{RS Downstream task}} & \multicolumn{3}{c}{\textbf{Article}} & \multicolumn{3}{c}{\textbf{ML Model}}  & \multicolumn{3}{c}{\textbf{Performance}}\\
 \cmidrule(lr){1-4}  \cmidrule(lr){5-7} \cmidrule(lr){8-10} \cmidrule(lr){11-13}
-\textbf{Task} &\textbf{Mod.} &\textbf{Application} &\textbf{Dataset} &\textbf{Ref.} &\textbf{Year} &\textbf{Board} &\textbf{Model} &\textbf{NN arch.} &\textbf{Eq. Model} &\textbf{Score} &\textbf{Footprint [MB]} &\textbf{Complexity [GOP]}\\
+\textbf{Task} &\textbf{Mod.} &\textbf{Application} &\textbf{Dataset} &\textbf{Ref.} &\textbf{Year} &\textbf{FPGA} &\textbf{Name} &\textbf{DNN arch.} &\textbf{Eq. Model} &\textbf{Score [\%]} &\textbf{Footprint [MB]} &\textbf{Complexity [GOP]}\\
  \toprule 
 \multirow{23}{*}{\rotatebox[origin=c]{90}{Classification}}
    &\multirow{13}{*}{RGB}
-       &\multirow{3}{*}{Landcover/Land use}
+       &\multirow{6}{*}{Landcover/Land use}
            &\multirow{1}{*}{UCM Land Use \cite{yangBagvisualwordsSpatialExtensions2010}}
                &\multirow{1}{*}{\cite{zhangExtremelyPipelinedFPGAbased2023a}}
                    &\multirow{1}{*}{2023}
@@ -27,8 +27,17 @@
                                            &\multirow{1}{*}{-}
                                                &\multirow{1}{*}{14.99G}\\
 \cmidrule{4-13}
-   &   &   &\multirow{1}{*}{NWPU-RESISC45 \cite{chengRemoteSensingImage2017}}
-               &\multirow{1}{*}{\cite{zhangEfficientFPGABasedImplementation2020}}
+   &   &   &\multirow{4}{*}{NWPU-RESISC45 \cite{chengRemoteSensingImage2017}}
+               &\multirow{1}{*}{\cite{yanAutomaticDeploymentConvolutional2022a}}
+                   &\multirow{1}{*}{2022}
+                       &\multirow{1}{*}{Artix-7}
+                           &\multirow{1}{*}{Improved VGG16}
+                               &\multirow{1}{*}{VGG16}
+                                   &\multirow{1}{*}{CNN}
+                                       &\multirow{1}{*}{88.08 (OA)}
+                                           &\multirow{1}{*}{14.80}
+                                               &\multirow{1}{*}{40.96G}\\
+   &   &   &   &\multirow{1}{*}{\cite{zhangEfficientFPGABasedImplementation2020}}
                    &\multirow{1}{*}{2020}
                        &\multirow{1}{*}{Virtex-7}
                            &\multirow{1}{*}{Q-IORN}
@@ -37,6 +46,24 @@
                                        &\multirow{1}{*}{88.31 (OA)}
                                            &\multirow{1}{*}{121.51}
                                                &\multirow{1}{*}{-}\\
+   &   &   &   &\multirow{1}{*}{\cite{niAlgorithmHardwareCoOptimization2023}}
+                   &\multirow{1}{*}{2023}
+                       &\multirow{1}{*}{Virtex-7}
+                           &\multirow{1}{*}{ResNet-34}
+                               &\multirow{1}{*}{ResNet-34}
+                                   &\multirow{1}{*}{CNN}
+                                       &\multirow{1}{*}{92.81 (OA)}
+                                           &\multirow{1}{*}{21.29}
+                                               &\multirow{1}{*}{7.33G}\\
+   &   &   &   &\multirow{1}{*}{\cite{niAlgorithmHardwareCoOptimization2023}}
+                   &\multirow{1}{*}{2023}
+                       &\multirow{1}{*}{Virtex-7}
+                           &\multirow{1}{*}{VGG16}
+                               &\multirow{1}{*}{VGG16}
+                                   &\multirow{1}{*}{CNN}
+                                       &\multirow{1}{*}{91.90 (OA)}
+                                           &\multirow{1}{*}{14.70}
+                                               &\multirow{1}{*}{30.69G}\\
 \cmidrule{4-13}
    &   &   &\multirow{1}{*}{\textit{UAV RGB (cust.)}}
                &\multirow{1}{*}{\cite{matos-carvalhoStaticDynamicAlgorithms2019}}
@@ -80,36 +107,6 @@
                                        &\multirow{1}{*}{93.44 (F1)}
                                            &\multirow{1}{*}{-}
                                                &\multirow{1}{*}{-}\\
-\cmidrule{3-13}
-   &   &\multirow{3}{*}{Terrain id.}
-           &\multirow{3}{*}{NWPU-RESISC45 \cite{chengRemoteSensingImage2017}}
-               &\multirow{1}{*}{\cite{yanAutomaticDeploymentConvolutional2022a}}
-                   &\multirow{1}{*}{2022}
-                       &\multirow{1}{*}{Artix-7}
-                           &\multirow{1}{*}{Improved VGG16}
-                               &\multirow{1}{*}{VGG16}
-                                   &\multirow{1}{*}{CNN}
-                                       &\multirow{1}{*}{88.08 (OA)}
-                                           &\multirow{1}{*}{14.80}
-                                               &\multirow{1}{*}{40.96G}\\
-   &   &   &   &\multirow{1}{*}{\cite{niAlgorithmHardwareCoOptimization2023}}
-                   &\multirow{1}{*}{2023}
-                       &\multirow{1}{*}{Virtex-7}
-                           &\multirow{1}{*}{ResNet-34}
-                               &\multirow{1}{*}{ResNet-34}
-                                   &\multirow{1}{*}{CNN}
-                                       &\multirow{1}{*}{92.81 (OA)}
-                                           &\multirow{1}{*}{21.29}
-                                               &\multirow{1}{*}{7.33G}\\
-   &   &   &   &\multirow{1}{*}{\cite{niAlgorithmHardwareCoOptimization2023}}
-                   &\multirow{1}{*}{2023}
-                       &\multirow{1}{*}{Virtex-7}
-                           &\multirow{1}{*}{VGG16}
-                               &\multirow{1}{*}{VGG16}
-                                   &\multirow{1}{*}{CNN}
-                                       &\multirow{1}{*}{91.90 (OA)}
-                                           &\multirow{1}{*}{14.70}
-                                               &\multirow{1}{*}{30.69G}\\
 \cmidrule{3-13}
    &   &\multirow{4}{*}{Cloud coverage}
            &\multirow{2}{*}{L8 Biome \cite{fogaCloudDetectionAlgorithm2017}}
@@ -309,7 +306,7 @@
 \cmidrule{2-13}
    &\multirow{10}{*}{HSI}
        &\multirow{9}{*}{Landcover/Land use}
-           &\multirow{6}{*}{University \n of Pavia \cite{HyperspectralRemoteSensing}}
+           &\multirow{6}{*}{University of Pavia \cite{HyperspectralRemoteSensing}}
                &\multirow{1}{*}{\cite{heConfigurable2D3D2023a}}
                    &\multirow{1}{*}{2023}
                        &\multirow{1}{*}{Zynq US+}

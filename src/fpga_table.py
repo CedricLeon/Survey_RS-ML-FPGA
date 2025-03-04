@@ -150,10 +150,10 @@ class TexColumn:
 
 
 
-with open('../data/Review_Ml-RS-FPGA/Dataframes/all_articles_2025-02-25_10-00-15.pkl','rb') as f:
+with open('../data/Dataframes/all_articles_2025-02-27_16-27-41.pkl','rb') as f:
     raw_data = pickle.load(f)
 
-with open('../data/Review_Ml-RS-FPGA/Dataframes/all_datapoints.pkl','rb') as f:
+with open('../data/Dataframes/all_datapoints.pkl','rb') as f:
     data = pickle.load(f)
 
 

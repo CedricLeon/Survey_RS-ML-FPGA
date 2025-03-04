@@ -8,14 +8,14 @@ import math
 from pathlib import Path
 
 import sys
-sys.path.insert(0,'../notebooks/Review_ML-RS-FPGA')
+sys.path.insert(0,'../notebooks/')
 
 from fpga_part_info import *
 import pandas as pd
 
 
 pickleName = "all_datapoints.pkl"
-datapointsDfPath = "../data/Review_Ml-RS-FPGA/Dataframes/" + pickleName
+datapointsDfPath = "../data/Dataframes/" + pickleName
 datapointsDf = pd.read_pickle(datapointsDfPath)
 
 

@@ -19,6 +19,13 @@ plot_colors: dict[str, str] = {
     "gray":     "#aaaaaa",  # Gray
     "dark_gray": "#7A7A7A", 
 }
+general_task_colors = {
+    'Classification': plot_colors["blue_1"],
+    'Pixel classification': plot_colors["teal_2"],
+    'Object detection': plot_colors["red_1"],
+    'Segmentation': plot_colors["green_1"],
+    'Regression': plot_colors["gray"],
+}
 
 
 # About the DSPs, the 7-series use DSP48E1 and the US+ DSP48E2

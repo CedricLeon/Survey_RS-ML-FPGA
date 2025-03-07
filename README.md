@@ -11,10 +11,11 @@ Zotero API Key: <your_api_key>
 Collection keys
 #### Run the scripts
 ```bash
-python ./notebooks/Review_ML-RS-FPGA/create_articles_df.py
-python ./notebooks/Review_ML-RS-FPGA/create_datapoints_df.py -i data/Review_ML-RS-FPGA/Dataframes/all_articles_<currentTime>.pkl -o data/Review_ML-RS-FPGA/Dataframes/all_datapoints.pkl
+python ./src/Zotero_data_processing/create_articles_df.py
+python ./src/Zotero_data_processing/create_datapoints_df.py -i data/Dataframes/all_articles_<currentTime>.pkl -o data/Dataframes/all_datapoints.pkl
 ```
 You can also force the naming of the first scripts with `-i  all_articles.pkl` for example.
+`create_datapoints_df.py` can also be run with different verbose levels (`-v`, `-vv`, or `-vvv`) to see more details.
 #### Use the notebooks
 Then you should be able to just run all the notebooks as you like.
 If you updated the file names, make sure to update the `pickleName` variable at the beginning.

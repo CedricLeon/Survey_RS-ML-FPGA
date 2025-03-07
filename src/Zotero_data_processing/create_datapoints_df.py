@@ -4,8 +4,12 @@ import argparse
 from pathlib import Path
 from tqdm import tqdm
 import datetime
+import sys
+import os
 
-from utils import parse_string_parentheses_braces, extract_year_from_string, print_pretty_df
+# Append the parent directory (which contains utils/) to the Python path.
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from utils.utils import parse_string_parentheses_braces, extract_year_from_string, print_pretty_df
 
 # Quick ANSI color code shortcuts
 r = "\033[31m"

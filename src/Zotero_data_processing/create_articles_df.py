@@ -5,13 +5,17 @@ import argparse
 from pathlib import Path
 from tqdm import tqdm
 import datetime
+import sys
+import os
 
-from utils import get_total_in_dict_of_lists, parse_string_to_dict
+# Append the parent directory (which contains utils/) to the Python path.
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from utils.utils import get_total_in_dict_of_lists, parse_string_to_dict
 
 
 def initialize_zotero_API(libraryID: str, libraryType: str) -> zotero.Zotero:
     currentDir = Path(__file__).parent
-    api_key = open(currentDir / ".keys").read().split(":")[1].strip()
+    api_key = open(currentDir.parent / ".keys").read().split(":")[1].strip()
     return zotero.Zotero(libraryID, libraryType, api_key)
 
 def get_all_articles_in_collection(zoteroAPI: zotero.Zotero, collectionKey: str) -> list:
@@ -124,7 +128,7 @@ if __name__ == '__main__':
         allArticlesPath = Path(args.output)
         allArticlesPath.parent.mkdir(parents=True, exist_ok=True)
     else:
-        allDfPaths = Path(__file__).parent.parent.parent / "data" / "Review_ML-RS-FPGA" / "Dataframes"
+        allDfPaths = Path(__file__).parent.parent.parent / "data" / "Dataframes"
         allArticlesPath = allDfPaths / f"all_articles_{datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.pkl"
     
     articlesInCollection = get_all_articles_in_collection(zoteroAPI, zoteroCollectionKey)

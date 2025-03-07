@@ -4,7 +4,7 @@ Context
 
 ### How to generate the preprocessed data for the Review
 #### Get your Zotero information
-If you want to use similar logic and use `explore_zotero_API.ipynb`, you will need to store your Zotero API Key in this file `src/.keys`. It should have a similar format:
+If you want to use similar logic (See `explore_zotero_API.ipynb`), you will need to store your Zotero API Key in this file `src/Zotero_data_processing/.keys`. It should have a similar format:
 ```json
 Zotero API Key: <your_api_key>
 ```

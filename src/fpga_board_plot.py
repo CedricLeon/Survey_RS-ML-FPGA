@@ -10,7 +10,7 @@ from pathlib import Path
 import sys
 sys.path.insert(0,'../notebooks/')
 
-from fpga_part_info import *
+from utils.metadata import fpga_part_info
 import pandas as pd
 
 

@@ -15,7 +15,7 @@ from utils.utils import get_total_in_dict_of_lists, parse_string_to_dict
 
 def initialize_zotero_API(libraryID: str, libraryType: str) -> zotero.Zotero:
     currentDir = Path(__file__).parent
-    api_key = open(currentDir.parent / ".keys").read().split(":")[1].strip()
+    api_key = open(currentDir / ".keys").read().split(":")[1].strip()
     return zotero.Zotero(libraryID, libraryType, api_key)
 
 def get_all_articles_in_collection(zoteroAPI: zotero.Zotero, collectionKey: str) -> list:

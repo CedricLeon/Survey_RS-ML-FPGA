@@ -130,7 +130,7 @@ def extract_metrics(
                         modelNameInTag = tagContent[1:].split(')')[0].strip()
                         if modelNameInTag == modelName or modelNameInTag == backbone:
                             metricValue = tagContent.split(')', 1)[1].strip()
-                            metricsFoundDict[metric] = metricValue
+                            metricsFoundDict[metric] = "" if metricValue.startswith("N/A") else metricValue
                             found = True
                             break
                     else:

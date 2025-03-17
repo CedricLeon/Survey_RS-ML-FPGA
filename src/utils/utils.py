@@ -131,3 +131,28 @@ def parse_string_parentheses_braces(
         if str3 == "": str3 = str1
 
     return str1, str2, str3
+
+def support_labels(ax, start_pos, mid_pos, end_pos, label, circle_pos, color='gray', linewidth=3, fontsize=18):
+    """
+    Draw two line segments (like a 'powerpoint' arrow) and place a text label.
+
+    Parameters:
+    ax         : Matplotlib axes
+    start_pos  : tuple (dx, dy) relative to circle_pos for the label's location
+    mid_pos    : tuple (dx, dy) where the first line turns
+    end_pos    : tuple (dx, dy) where the second line ends (on circle edge, etc.)
+    label      : text to draw
+    circle_pos : tuple (x_center, y_center) absolute position of the circle center
+    """
+    # Compute absolute positions
+    sx, sy = circle_pos[0] + start_pos[0], circle_pos[1] + start_pos[1]
+    mx, my = circle_pos[0] + mid_pos[0],  circle_pos[1] + mid_pos[1]
+    ex, ey = circle_pos[0] + end_pos[0],  circle_pos[1] + end_pos[1]
+
+    # Draw lines
+    ax.plot([sx, mx], [sy, my], color=color, lw=linewidth)
+    ax.plot([mx, ex], [my, ey], color=color, lw=linewidth)
+
+    # Place label near the start point
+    text_anchor = 'left' if start_pos[0] < 0 else 'right'
+    ax.text(sx, sy + 0.01, label, ha=text_anchor, va='bottom', fontsize=fontsize)

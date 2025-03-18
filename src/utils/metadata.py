@@ -16,6 +16,9 @@ plot_colors: dict[str, str] = {
     "teal_1":   "#1f6f6f",  # Teals
     "teal_2":   "#54a1a1",
     "teal_3":   "#9fc8c8",
+    "orange_1": "#F49515",  # Oranges
+    "orange_2": "#F2AB4C",
+    "orange_3": "#F6BD71",
     "gray":     "#aaaaaa",  # Gray
     "dark_gray": "#7A7A7A", 
 }

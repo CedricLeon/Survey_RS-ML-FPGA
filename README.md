@@ -19,3 +19,6 @@ You can also force the naming of the first scripts with `-i  all_articles.pkl` f
 #### Use the notebooks
 Then you should be able to just run all the notebooks as you like.
 If you updated the file names, make sure to update the `pickleName` variable at the beginning.
+
+###  Acknowledgement
+This repository benefited from the use of GitHub Copilot (o1-preview), which assited by proposing code snippets, especially for `matplotlib` figure rendering.

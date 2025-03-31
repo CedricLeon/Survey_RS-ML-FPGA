@@ -1,0 +1,985 @@
+\begin{table}
+\centering
+
+\caption{FPGA Optimization Table}
+\label{table:fpga_optim}
+\begin{adjustbox}{totalheight=\textheight-2\baselineskip,}
+
+\begin{tabular}{ccccclp{2em}cp{3em}cp{2em}p{4em}p{3em}p{3.5em}p{3.5em}p{2.5em}p{3em}}
+ \multicolumn{6}{c}{\textbf{General}} & \multicolumn{6}{c}{\textbf{Design}} & \multicolumn{5}{c}{\textbf{Peformance}}  \\
+ \cmidrule(lr){1-6}  \cmidrule(lr){7-12} \cmidrule (lr){13-17}
+
+\textbf{Impl.}&\textbf{Model Family} &\textbf{Pattern} &\textbf{Ref.} &\textbf{Model} &\textbf{FPGA} &\textbf{Mem [MB]} &\textbf{Mem.} &\textbf{Compl. [GOPS]} &\textbf{Prec.} &\textbf{DSP [\%]} &\textbf{BRAM [\%]} &\textbf{Freq. [MHz]} &\textbf{Comp. [GOP/s]} &\textbf{Latency} &\textbf{FPS}&\textbf{Power [W]} \\
+ \toprule
+ \multirow{27}{*}{RTL}
+   &\multirow{19}{*}{CNN}
+       &\multirow{6}{*}{S}
+           &\multirow{1}{*}{\cite{ieracitanoExplainableEmbeddedNeural2024}}
+               &\multirow{1}{*}{XC7Z045}
+                   &\multirow{1}{*}{HO-ShipNet}
+                       &\multirow{1}{*}{-}
+                           &\multirow{1}{*}{Off}
+                               &\multirow{1}{*}{-}
+                                   &\multirow{1}{*}{i16}
+                                       &\multirow{1}{*}{44}
+                                           &\multirow{1}{*}{44}
+                                               &\multirow{1}{*}{-}
+                                                   &\multirow{1}{*}{-}
+                                                       &\multirow{1}{*}{1.01 ms}
+                                                           &\multirow{1}{*}{-}
+                                                               &\multirow{1}{*}{1.90}\\
+\cmidrule{4-17}
+   &   &   &\multirow{1}{*}{\cite{rapuanoFPGAbasedHardwareAccelerator2021a}}
+               &\multirow{1}{*}{XCZU7EV}
+                   &\multirow{1}{*}{CloudScout}
+                       &\multirow{1}{*}{13.30}
+                           &\multirow{1}{*}{Off}
+                               &\multirow{1}{*}{-}
+                                   &\multirow{1}{*}{i?}
+                                       &\multirow{1}{*}{67}
+                                           &\multirow{1}{*}{46}
+                                               &\multirow{1}{*}{115.4}
+                                                   &\multirow{1}{*}{-}
+                                                       &\multirow{1}{*}{141.7 ms}
+                                                           &\multirow{1}{*}{-}
+                                                               &\multirow{1}{*}{3.40}\\
+\cmidrule{4-17}
+   &   &   &\multirow{1}{*}{\cite{vitoloRealTimeOnboardSatellite2024}}
+               &\multirow{1}{*}{XC7A35T}
+                   &\multirow{1}{*}{CNN}
+                       &\multirow{1}{*}{-}
+                           &\multirow{1}{*}{On}
+                               &\multirow{1}{*}{-}
+                                   &\multirow{1}{*}{Orig}
+                                       &\multirow{1}{*}{-}
+                                           &\multirow{1}{*}{-}
+                                               &\multirow{1}{*}{36}
+                                                   &\multirow{1}{*}{1.14}
+                                                       &\multirow{1}{*}{-}
+                                                           &\multirow{1}{*}{-}
+                                                               &\multirow{1}{*}{0.116}\\
+\cmidrule{4-17}
+   &   &   &\multirow{1}{*}{\cite{yangLightweightDetectionMethod2023}}
+               &\multirow{1}{*}{XC7Z020}
+                   &\multirow{1}{*}{Ghost-YOLOS}
+                       &\multirow{1}{*}{12.60}
+                           &\multirow{1}{*}{Off}
+                               &\multirow{1}{*}{8.41G}
+                                   &\multirow{1}{*}{i16}
+                                       &\multirow{1}{*}{58}
+                                           &\multirow{1}{*}{60}
+                                               &\multirow{1}{*}{150}
+                                                   &\multirow{1}{*}{29.53}
+                                                       &\multirow{1}{*}{320 ms}
+                                                           &\multirow{1}{*}{-}
+                                                               &\multirow{1}{*}{2.98}\\
+\cmidrule{4-17}
+   &   &   &\multirow{1}{*}{\cite{zhangEfficientFPGABasedImplementation2020}}
+               &\multirow{1}{*}{XC7VX690T}
+                   &\multirow{1}{*}{Q-IORN}
+                       &\multirow{1}{*}{121.51}
+                           &\multirow{1}{*}{Off}
+                               &\multirow{1}{*}{-}
+                                   &\multirow{1}{*}{i8}
+                                       &\multirow{1}{*}{21}
+                                           &\multirow{1}{*}{27}
+                                               &\multirow{1}{*}{200}
+                                                   &\multirow{1}{*}{209.60}
+                                                       &\multirow{1}{*}{147.62 ms}
+                                                           &\multirow{1}{*}{6.77}
+                                                               &\multirow{1}{*}{6.32}\\
+\cmidrule{4-17}
+   &   &   &\multirow{1}{*}{\cite{zhangExtremelyPipelinedFPGAbased2023a}}
+               &\multirow{1}{*}{XC7VX690T}
+                   &\multirow{1}{*}{A2NN}
+                       &\multirow{1}{*}{-}
+                           &\multirow{1}{*}{On}
+                               &\multirow{1}{*}{14.99G}
+                                   &\multirow{1}{*}{i8,f32}
+                                       &\multirow{1}{*}{9}
+                                           &\multirow{1}{*}{86}
+                                               &\multirow{1}{*}{200}
+                                                   &\multirow{1}{*}{3047}
+                                                       &\multirow{1}{*}{4.92 ms}
+                                                           &\multirow{1}{*}{203.25}
+                                                               &\multirow{1}{*}{8.27}\\
+\cmidrule{3-17}
+   &   &\multirow{13}{*}{F}
+           &\multirow{3}{*}{\cite{heConfigurable2D3D2023a}}
+               &\multirow{3}{*}{XCZU15EG}
+                   &\multirow{1}{*}{2D CNN}
+                       &\multirow{1}{*}{1.20}
+                           &\multirow{1}{*}{Off}
+                               &\multirow{1}{*}{0.684M}
+                                   &\multirow{1}{*}{i8}
+                                       &\multirow{1}{*}{5}
+                                           &\multirow{1}{*}{71}
+                                               &\multirow{1}{*}{100}
+                                                   &\multirow{1}{*}{7.07}
+                                                       &\multirow{1}{*}{0.097 ms*}
+                                                           &\multirow{1}{*}{-}
+                                                               &\multirow{1}{*}{8.40}\\
+   &   &   &   &   &\multirow{1}{*}{3D CNN}
+                       &\multirow{1}{*}{0.12}
+                           &\multirow{1}{*}{Off}
+                               &\multirow{1}{*}{4.231M}
+                                   &\multirow{1}{*}{i8}
+                                       &\multirow{1}{*}{9}
+                                           &\multirow{1}{*}{76}
+                                               &\multirow{1}{*}{100}
+                                                   &\multirow{1}{*}{3.81}
+                                                       &\multirow{1}{*}{1.11 ms*}
+                                                           &\multirow{1}{*}{-}
+                                                               &\multirow{1}{*}{8.40}\\
+   &   &   &   &   &\multirow{1}{*}{HybridSN}
+                       &\multirow{1}{*}{20.50}
+                           &\multirow{1}{*}{Off}
+                               &\multirow{1}{*}{101.642M}
+                                   &\multirow{1}{*}{i8}
+                                       &\multirow{1}{*}{37}
+                                           &\multirow{1}{*}{80}
+                                               &\multirow{1}{*}{100}
+                                                   &\multirow{1}{*}{13.18}
+                                                       &\multirow{1}{*}{7.71 ms*}
+                                                           &\multirow{1}{*}{-}
+                                                               &\multirow{1}{*}{8.40}\\
+\cmidrule{4-17}
+   &   &   &\multirow{1}{*}{\cite{liEfficientObjectDetection2019a}}
+               &\multirow{1}{*}{XC7Z100}
+                   &\multirow{1}{*}{CBFF-SSD}
+                       &\multirow{1}{*}{-}
+                           &\multirow{1}{*}{Off}
+                               &\multirow{1}{*}{-}
+                                   &\multirow{1}{*}{i16}
+                                       &\multirow{1}{*}{57}
+                                           &\multirow{1}{*}{60}
+                                               &\multirow{1}{*}{200}
+                                                   &\multirow{1}{*}{452.80}
+                                                       &\multirow{1}{*}{42.59 ms}
+                                                           &\multirow{1}{*}{-}
+                                                               &\multirow{1}{*}{19.52}\\
+\cmidrule{4-17}
+   &   &   &\multirow{1}{*}{\cite{liNovelCNNBasedAP2DNet2020}}
+               &\multirow{1}{*}{XCZU3EG}
+                   &\multirow{1}{*}{AP2D-Net}
+                       &\multirow{1}{*}{-}
+                           &\multirow{1}{*}{Off}
+                               &\multirow{1}{*}{-}
+                                   &\multirow{1}{*}{i(mix)}
+                                       &\multirow{1}{*}{80}
+                                           &\multirow{1}{*}{75}
+                                               &\multirow{1}{*}{300}
+                                                   &\multirow{1}{*}{130.20}
+                                                       &\multirow{1}{*}{32.8 ms}
+                                                           &\multirow{1}{*}{30.53}
+                                                               &\multirow{1}{*}{5.59}\\
+\cmidrule{4-17}
+   &   &   &\multirow{3}{*}{\cite{niAlgorithmHardwareCoOptimization2023}}
+               &\multirow{3}{*}{XC7VX690T}
+                   &\multirow{1}{*}{Improved YOLOv2}
+                       &\multirow{1}{*}{49.40}
+                           &\multirow{1}{*}{Off}
+                               &\multirow{1}{*}{379.55G}
+                                   &\multirow{1}{*}{i8,i32}
+                                       &\multirow{1}{*}{23}
+                                           &\multirow{1}{*}{54}
+                                               &\multirow{1}{*}{200}
+                                                   &\multirow{1}{*}{387}
+                                                       &\multirow{1}{*}{981.4 ms}
+                                                           &\multirow{1}{*}{-}
+                                                               &\multirow{1}{*}{14.97}\\
+   &   &   &   &   &\multirow{1}{*}{ResNet-34}
+                       &\multirow{1}{*}{21.29}
+                           &\multirow{1}{*}{Off}
+                               &\multirow{1}{*}{7.33G}
+                                   &\multirow{1}{*}{i8,i32}
+                                       &\multirow{1}{*}{23}
+                                           &\multirow{1}{*}{54}
+                                               &\multirow{1}{*}{200}
+                                                   &\multirow{1}{*}{182}
+                                                       &\multirow{1}{*}{40.2 ms}
+                                                           &\multirow{1}{*}{-}
+                                                               &\multirow{1}{*}{14.97}\\
+   &   &   &   &   &\multirow{1}{*}{VGG16}
+                       &\multirow{1}{*}{14.70}
+                           &\multirow{1}{*}{Off}
+                               &\multirow{1}{*}{30.69G}
+                                   &\multirow{1}{*}{i8,i32}
+                                       &\multirow{1}{*}{23}
+                                           &\multirow{1}{*}{54}
+                                               &\multirow{1}{*}{200}
+                                                   &\multirow{1}{*}{344}
+                                                       &\multirow{1}{*}{89.1 ms}
+                                                           &\multirow{1}{*}{-}
+                                                               &\multirow{1}{*}{14.97}\\
+\cmidrule{4-17}
+   &   &   &\multirow{2}{*}{\cite{weiFPGABasedHybridTypeImplementation2019}}
+               &\multirow{2}{*}{XC7K325T}
+                   &\multirow{1}{*}{LeNet-5 f32}
+                       &\multirow{1}{*}{6.64}
+                           &\multirow{1}{*}{Off}
+                               &\multirow{1}{*}{-}
+                                   &\multirow{1}{*}{f32}
+                                       &\multirow{1}{*}{34}
+                                           &\multirow{1}{*}{33}
+                                               &\multirow{1}{*}{100}
+                                                   &\multirow{1}{*}{-}
+                                                       &\multirow{1}{*}{2.29 ms}
+                                                           &\multirow{1}{*}{-}
+                                                               &\multirow{1}{*}{-}\\
+   &   &   &   &   &\multirow{1}{*}{LeNet-5 i8}
+                       &\multirow{1}{*}{1.66}
+                           &\multirow{1}{*}{Off}
+                               &\multirow{1}{*}{-}
+                                   &\multirow{1}{*}{i8}
+                                       &\multirow{1}{*}{14}
+                                           &\multirow{1}{*}{16}
+                                               &\multirow{1}{*}{100}
+                                                   &\multirow{1}{*}{-}
+                                                       &\multirow{1}{*}{2.29 ms}
+                                                           &\multirow{1}{*}{-}
+                                                               &\multirow{1}{*}{-}\\
+\cmidrule{4-17}
+   &   &   &\multirow{2}{*}{\cite{yanAutomaticDeploymentConvolutional2022a}}
+               &\multirow{2}{*}{XC7A200T}
+                   &\multirow{1}{*}{Improved VGG16}
+                       &\multirow{1}{*}{14.80}
+                           &\multirow{1}{*}{Off}
+                               &\multirow{1}{*}{40.96G}
+                                   &\multirow{1}{*}{i8}
+                                       &\multirow{1}{*}{12}
+                                           &\multirow{1}{*}{29}
+                                               &\multirow{1}{*}{200}
+                                                   &\multirow{1}{*}{23.06}
+                                                       &\multirow{1}{*}{1780 ms}
+                                                           &\multirow{1}{*}{-}
+                                                               &\multirow{1}{*}{3.41}\\
+   &   &   &   &   &\multirow{1}{*}{Improved YOLOv2}
+                       &\multirow{1}{*}{49.40}
+                           &\multirow{1}{*}{Off}
+                               &\multirow{1}{*}{379.55G}
+                                   &\multirow{1}{*}{i8}
+                                       &\multirow{1}{*}{12}
+                                           &\multirow{1}{*}{29}
+                                               &\multirow{1}{*}{200}
+                                                   &\multirow{1}{*}{22.17}
+                                                       &\multirow{1}{*}{17120 ms}
+                                                           &\multirow{1}{*}{-}
+                                                               &\multirow{1}{*}{3.41}\\
+\cmidrule{4-17}
+   &   &   &\multirow{1}{*}{\cite{zhangFPGAImplementationCNNbased2021a}}
+               &\multirow{1}{*}{XC7Z035}
+                   &\multirow{1}{*}{Improved YOLOv2}
+                       &\multirow{1}{*}{-}
+                           &\multirow{1}{*}{Off}
+                               &\multirow{1}{*}{379G}
+                                   &\multirow{1}{*}{i8,f32}
+                                       &\multirow{1}{*}{21}
+                                           &\multirow{1}{*}{74}
+                                               &\multirow{1}{*}{200}
+                                                   &\multirow{1}{*}{111.50}
+                                                       &\multirow{1}{*}{3400 ms}
+                                                           &\multirow{1}{*}{-}
+                                                               &\multirow{1}{*}{5.96}\\
+\cmidrule{2-17}
+   &\multirow{7}{*}{Trad. ML}
+       &\multirow{7}{*}{S}
+           &\multirow{1}{*}{\cite{fraczekEmbeddedVisionSystem2018}}
+               &\multirow{1}{*}{XC7Z020}
+                   &\multirow{1}{*}{Decision Tree}
+                       &\multirow{1}{*}{-}
+                           &\multirow{1}{*}{On}
+                               &\multirow{1}{*}{-}
+                                   &\multirow{1}{*}{i8}
+                                       &\multirow{1}{*}{10}
+                                           &\multirow{1}{*}{86}
+                                               &\multirow{1}{*}{-}
+                                                   &\multirow{1}{*}{-}
+                                                       &\multirow{1}{*}{300 ms*}
+                                                           &\multirow{1}{*}{-}
+                                                               &\multirow{1}{*}{3.50}\\
+\cmidrule{4-17}
+   &   &   &\multirow{1}{*}{\cite{martinsRealtimeSVMbasedHardware2024}}
+               &\multirow{1}{*}{XC7Z020}
+                   &\multirow{1}{*}{SVM}
+                       &\multirow{1}{*}{-}
+                           &\multirow{1}{*}{On}
+                               &\multirow{1}{*}{-}
+                                   &\multirow{1}{*}{Orig}
+                                       &\multirow{1}{*}{38}
+                                           &\multirow{1}{*}{-}
+                                               &\multirow{1}{*}{200}
+                                                   &\multirow{1}{*}{-}
+                                                       &\multirow{1}{*}{0.11 ms*}
+                                                           &\multirow{1}{*}{-}
+                                                               &\multirow{1}{*}{-}\\
+\cmidrule{4-17}
+   &   &   &\multirow{1}{*}{\cite{matos-carvalhoStaticDynamicAlgorithms2019}}
+               &\multirow{1}{*}{XC3SD1800A}
+                   &\multirow{1}{*}{MLP}
+                       &\multirow{1}{*}{-}
+                           &\multirow{1}{*}{On}
+                               &\multirow{1}{*}{-}
+                                   &\multirow{1}{*}{i8,i32}
+                                       &\multirow{1}{*}{26}
+                                           &\multirow{1}{*}{-}
+                                               &\multirow{1}{*}{-}
+                                                   &\multirow{1}{*}{-}
+                                                       &\multirow{1}{*}{-}
+                                                           &\multirow{1}{*}{-}
+                                                               &\multirow{1}{*}{-}\\
+\cmidrule{4-17}
+   &   &   &\multirow{1}{*}{\cite{ratnakumarHighSpeedRoller2021}}
+               &\multirow{1}{*}{XC6VLX240T}
+                   &\multirow{1}{*}{Roller Dung Bettle Clustering}
+                       &\multirow{1}{*}{-}
+                           &\multirow{1}{*}{On}
+                               &\multirow{1}{*}{-}
+                                   &\multirow{1}{*}{-}
+                                       &\multirow{1}{*}{-}
+                                           &\multirow{1}{*}{-}
+                                               &\multirow{1}{*}{230.52}
+                                                   &\multirow{1}{*}{-}
+                                                       &\multirow{1}{*}{28.9 ms}
+                                                           &\multirow{1}{*}{-}
+                                                               &\multirow{1}{*}{0.12}\\
+\cmidrule{4-17}
+   &   &   &\multirow{1}{*}{\cite{shibiOnboardTargetDetection2021a}}
+               &\multirow{1}{*}{XC7VX690T}
+                   &\multirow{1}{*}{LPDBL}
+                       &\multirow{1}{*}{-}
+                           &\multirow{1}{*}{On}
+                               &\multirow{1}{*}{-}
+                                   &\multirow{1}{*}{Orig}
+                                       &\multirow{1}{*}{14}
+                                           &\multirow{1}{*}{15}
+                                               &\multirow{1}{*}{200}
+                                                   &\multirow{1}{*}{-}
+                                                       &\multirow{1}{*}{-}
+                                                           &\multirow{1}{*}{-}
+                                                               &\multirow{1}{*}{-}\\
+\cmidrule{4-17}
+   &   &   &\multirow{2}{*}{\cite{yahiaouiParallelizationFuzzyARTMAP2017a}}
+               &\multirow{2}{*}{XC6VLX240T}
+                   &\multirow{1}{*}{BRAM\_DSP}
+                       &\multirow{1}{*}{-}
+                           &\multirow{1}{*}{On}
+                               &\multirow{1}{*}{-}
+                                   &\multirow{1}{*}{i8}
+                                       &\multirow{1}{*}{91}
+                                           &\multirow{1}{*}{52}
+                                               &\multirow{1}{*}{192}
+                                                   &\multirow{1}{*}{-}
+                                                       &\multirow{1}{*}{21.28 us}
+                                                           &\multirow{1}{*}{-}
+                                                               &\multirow{1}{*}{4.8W}\\
+   &   &   &   &   &\multirow{1}{*}{LUT\_MUL}
+                       &\multirow{1}{*}{-}
+                           &\multirow{1}{*}{On}
+                               &\multirow{1}{*}{-}
+                                   &\multirow{1}{*}{i8}
+                                       &\multirow{1}{*}{0}
+                                           &\multirow{1}{*}{0}
+                                               &\multirow{1}{*}{189}
+                                                   &\multirow{1}{*}{-}
+                                                       &\multirow{1}{*}{21.28 us}
+                                                           &\multirow{1}{*}{-}
+                                                               &\multirow{1}{*}{4.5W}\\
+\cmidrule{2-17}
+   &\multirow{1}{*}{GNN}
+       &\multirow{1}{*}{S}
+           &\multirow{1}{*}{\cite{chellaswamyFPGAbasedRemoteTarget2024}}
+               &\multirow{1}{*}{XC7VX690T}
+                   &\multirow{1}{*}{SAM-GNN}
+                       &\multirow{1}{*}{-}
+                           &\multirow{1}{*}{Off}
+                               &\multirow{1}{*}{-}
+                                   &\multirow{1}{*}{Orig}
+                                       &\multirow{1}{*}{13}
+                                           &\multirow{1}{*}{14}
+                                               &\multirow{1}{*}{200}
+                                                   &\multirow{1}{*}{-}
+                                                       &\multirow{1}{*}{-}
+                                                           &\multirow{1}{*}{-}
+                                                               &\multirow{1}{*}{-}\\
+\cmidrule{1-17}
+\multirow{11}{*}{HLS}
+   &\multirow{8}{*}{CNN}
+       &\multirow{5}{*}{S}
+           &\multirow{1}{*}{\cite{kimOnOrbitAICloud2024}}
+               &\multirow{1}{*}{XC7Z020}
+                   &\multirow{1}{*}{TriCloudNet + U-Net}
+                       &\multirow{1}{*}{3.61}
+                           &\multirow{1}{*}{Off}
+                               &\multirow{1}{*}{-}
+                                   &\multirow{1}{*}{-}
+                                       &\multirow{1}{*}{49}
+                                           &\multirow{1}{*}{60}
+                                               &\multirow{1}{*}{-}
+                                                   &\multirow{1}{*}{-}
+                                                       &\multirow{1}{*}{1028 ms}
+                                                           &\multirow{1}{*}{0.97}
+                                                               &\multirow{1}{*}{0.196}\\
+\cmidrule{4-17}
+   &   &   &\multirow{1}{*}{\cite{wangAccelerationImplementationConvolutional2019}}
+               &\multirow{1}{*}{XC7Z020}
+                   &\multirow{1}{*}{CNN}
+                       &\multirow{1}{*}{-}
+                           &\multirow{1}{*}{On}
+                               &\multirow{1}{*}{-}
+                                   &\multirow{1}{*}{bin}
+                                       &\multirow{1}{*}{11}
+                                           &\multirow{1}{*}{100}
+                                               &\multirow{1}{*}{-}
+                                                   &\multirow{1}{*}{69.80}
+                                                       &\multirow{1}{*}{-}
+                                                           &\multirow{1}{*}{7}
+                                                               &\multirow{1}{*}{2.38}\\
+\cmidrule{4-17}
+   &   &   &\multirow{3}{*}{\cite{yangAlgorithmHardwareCodesign2022}}
+               &\multirow{3}{*}{XC7VX690T}
+                   &\multirow{1}{*}{CNN2@0.7}
+                       &\multirow{1}{*}{0.09}
+                           &\multirow{1}{*}{On}
+                               &\multirow{1}{*}{0.45G}
+                                   &\multirow{1}{*}{i?}
+                                       &\multirow{1}{*}{64}
+                                           &\multirow{1}{*}{21}
+                                               &\multirow{1}{*}{250}
+                                                   &\multirow{1}{*}{298}
+                                                       &\multirow{1}{*}{0.7 ms}
+                                                           &\multirow{1}{*}{652}
+                                                               &\multirow{1}{*}{5.80}\\
+   &   &   &   &   &\multirow{1}{*}{CNN4@0.7}
+                       &\multirow{1}{*}{0.11}
+                           &\multirow{1}{*}{On}
+                               &\multirow{1}{*}{0.56G}
+                                   &\multirow{1}{*}{i?}
+                                       &\multirow{1}{*}{69}
+                                           &\multirow{1}{*}{21}
+                                               &\multirow{1}{*}{250}
+                                                   &\multirow{1}{*}{366}
+                                                       &\multirow{1}{*}{0.7 ms}
+                                                           &\multirow{1}{*}{636}
+                                                               &\multirow{1}{*}{6.60}\\
+   &   &   &   &   &\multirow{1}{*}{CNN6@1.6}
+                       &\multirow{1}{*}{0.09}
+                           &\multirow{1}{*}{On}
+                               &\multirow{1}{*}{0.6G}
+                                   &\multirow{1}{*}{i?}
+                                       &\multirow{1}{*}{76}
+                                           &\multirow{1}{*}{18}
+                                               &\multirow{1}{*}{250}
+                                                   &\multirow{1}{*}{235}
+                                                       &\multirow{1}{*}{1.6 ms}
+                                                           &\multirow{1}{*}{384}
+                                                               &\multirow{1}{*}{5.10}\\
+\cmidrule{3-17}
+   &   &\multirow{1}{*}{F}
+           &\multirow{1}{*}{\cite{wuDesignImplementationRemote2021}}
+               &\multirow{1}{*}{XCZU9EG}
+                   &\multirow{1}{*}{Improved YOLOv3}
+                       &\multirow{1}{*}{8.50}
+                           &\multirow{1}{*}{Off}
+                               &\multirow{1}{*}{-}
+                                   &\multirow{1}{*}{i8}
+                                       &\multirow{1}{*}{-}
+                                           &\multirow{1}{*}{-}
+                                               &\multirow{1}{*}{-}
+                                                   &\multirow{1}{*}{-}
+                                                       &\multirow{1}{*}{7 ms}
+                                                           &\multirow{1}{*}{-}
+                                                               &\multirow{1}{*}{-}\\
+\cmidrule{3-17}
+   &   &\multirow{2}{*}{-}
+           &\multirow{2}{*}{\cite{nerisFPGABasedImplementationCNN2022a}}
+               &\multirow{2}{*}{XCKU040}
+                   &\multirow{1}{*}{AlexNetLite}
+                       &\multirow{1}{*}{-}
+                           &\multirow{1}{*}{-}
+                               &\multirow{1}{*}{5.71G}
+                                   &\multirow{1}{*}{i16}
+                                       &\multirow{1}{*}{31}
+                                           &\multirow{1}{*}{39}
+                                               &\multirow{1}{*}{200}
+                                                   &\multirow{1}{*}{-}
+                                                       &\multirow{1}{*}{-}
+                                                           &\multirow{1}{*}{-}
+                                                               &\multirow{1}{*}{-}\\
+   &   &   &   &   &\multirow{1}{*}{MobileNetv1Lite}
+                       &\multirow{1}{*}{-}
+                           &\multirow{1}{*}{-}
+                               &\multirow{1}{*}{0.05G}
+                                   &\multirow{1}{*}{i16}
+                                       &\multirow{1}{*}{31}
+                                           &\multirow{1}{*}{39}
+                                               &\multirow{1}{*}{200}
+                                                   &\multirow{1}{*}{-}
+                                                       &\multirow{1}{*}{-}
+                                                           &\multirow{1}{*}{-}
+                                                               &\multirow{1}{*}{-}\\
+\cmidrule{2-17}
+   &\multirow{1}{*}{Trad. ML}
+       &\multirow{1}{*}{S}
+           &\multirow{1}{*}{\cite{boyleHighlevelFPGADesign2023a}}
+               &\multirow{1}{*}{XCZU7EV}
+                   &\multirow{1}{*}{Deep Belief Network}
+                       &\multirow{1}{*}{-}
+                           &\multirow{1}{*}{On}
+                               &\multirow{1}{*}{-}
+                                   &\multirow{1}{*}{f32}
+                                       &\multirow{1}{*}{10}
+                                           &\multirow{1}{*}{0}
+                                               &\multirow{1}{*}{250}
+                                                   &\multirow{1}{*}{-}
+                                                       &\multirow{1}{*}{5.4 ms}
+                                                           &\multirow{1}{*}{-}
+                                                               &\multirow{1}{*}{-}\\
+\cmidrule{2-17}
+   &\multirow{2}{*}{GNN}
+       &\multirow{2}{*}{F}
+           &\multirow{1}{*}{\cite{zhangAcceleratingGNNbasedSAR2023}}
+               &\multirow{1}{*}{U280}
+                   &\multirow{1}{*}{GNN}
+                       &\multirow{1}{*}{-}
+                           &\multirow{1}{*}{Off}
+                               &\multirow{1}{*}{-}
+                                   &\multirow{1}{*}{Orig}
+                                       &\multirow{1}{*}{43}
+                                           &\multirow{1}{*}{37}
+                                               &\multirow{1}{*}{260}
+                                                   &\multirow{1}{*}{400}
+                                                       &\multirow{1}{*}{27 ms}
+                                                           &\multirow{1}{*}{759}
+                                                               &\multirow{1}{*}{38.00}\\
+\cmidrule{4-17}
+   &   &   &\multirow{1}{*}{\cite{zhangAccurateLowlatencyEfficient2022a}}
+               &\multirow{1}{*}{XCZU7EV}
+                   &\multirow{1}{*}{GNN}
+                       &\multirow{1}{*}{0.96}
+                           &\multirow{1}{*}{On}
+                               &\multirow{1}{*}{2.13M}
+                                   &\multirow{1}{*}{f32}
+                                       &\multirow{1}{*}{74}
+                                           &\multirow{1}{*}{91}
+                                               &\multirow{1}{*}{125}
+                                                   &\multirow{1}{*}{-}
+                                                       &\multirow{1}{*}{0.105 ms}
+                                                           &\multirow{1}{*}{9500}
+                                                               &\multirow{1}{*}{6.30}\\
+\cmidrule{1-17}
+\multirow{4}{*}{FINN}
+   &\multirow{4}{*}{CNN}
+       &\multirow{4}{*}{S}
+           &\multirow{1}{*}{\cite{hashimotoShipClassificationSAR2019a}}
+               &\multirow{1}{*}{XC7Z020}
+                   &\multirow{1}{*}{CNN}
+                       &\multirow{1}{*}{-}
+                           &\multirow{1}{*}{On}
+                               &\multirow{1}{*}{-}
+                                   &\multirow{1}{*}{bin}
+                                       &\multirow{1}{*}{-}
+                                           &\multirow{1}{*}{-}
+                                               &\multirow{1}{*}{-}
+                                                   &\multirow{1}{*}{-}
+                                                       &\multirow{1}{*}{330 ms}
+                                                           &\multirow{1}{*}{-}
+                                                               &\multirow{1}{*}{-}\\
+\cmidrule{4-17}
+   &   &   &\multirow{1}{*}{\cite{myojinDetectingUncertainBNN2020}}
+               &\multirow{1}{*}{XC7Z045}
+                   &\multirow{1}{*}{BNN}
+                       &\multirow{1}{*}{-}
+                           &\multirow{1}{*}{On}
+                               &\multirow{1}{*}{-}
+                                   &\multirow{1}{*}{bin}
+                                       &\multirow{1}{*}{-}
+                                           &\multirow{1}{*}{-}
+                                               &\multirow{1}{*}{-}
+                                                   &\multirow{1}{*}{-}
+                                                       &\multirow{1}{*}{21.14 ms}
+                                                           &\multirow{1}{*}{-}
+                                                               &\multirow{1}{*}{-}\\
+\cmidrule{4-17}
+   &   &   &\multirow{2}{*}{\cite{pitonakCloudSatNet1FPGABasedHardwareAccelerated2022}}
+               &\multirow{2}{*}{XC7Z020}
+                   &\multirow{1}{*}{CloudSatNet-1 Q2}
+                       &\multirow{1}{*}{1.43}
+                           &\multirow{1}{*}{On}
+                               &\multirow{1}{*}{-}
+                                   &\multirow{1}{*}{bin}
+                                       &\multirow{1}{*}{14}
+                                           &\multirow{1}{*}{-}
+                                               &\multirow{1}{*}{100}
+                                                   &\multirow{1}{*}{-}
+                                                       &\multirow{1}{*}{-}
+                                                           &\multirow{1}{*}{15.46}
+                                                               &\multirow{1}{*}{2.52}\\
+   &   &   &   &   &\multirow{1}{*}{CloudSatNet-1 Q4}
+                       &\multirow{1}{*}{3.06}
+                           &\multirow{1}{*}{On}
+                               &\multirow{1}{*}{-}
+                                   &\multirow{1}{*}{i4}
+                                       &\multirow{1}{*}{14}
+                                           &\multirow{1}{*}{-}
+                                               &\multirow{1}{*}{100}
+                                                   &\multirow{1}{*}{-}
+                                                       &\multirow{1}{*}{-}
+                                                           &\multirow{1}{*}{15.47}
+                                                               &\multirow{1}{*}{2.59}\\
+\cmidrule{1-17}
+\multirow{12}{*}{Vitis AI}
+   &\multirow{12}{*}{CNN}
+       &\multirow{12}{*}{F}
+           &\multirow{1}{*}{\cite{huangEdgeTrustworthyAI2024}}
+               &\multirow{1}{*}{XCZU19EG}
+                   &\multirow{1}{*}{ETAUS}
+                       &\multirow{1}{*}{-}
+                           &\multirow{1}{*}{On}
+                               &\multirow{1}{*}{329.9G}
+                                   &\multirow{1}{*}{i8}
+                                       &\multirow{1}{*}{-}
+                                           &\multirow{1}{*}{-}
+                                               &\multirow{1}{*}{106.25}
+                                                   &\multirow{1}{*}{329.90}
+                                                       &\multirow{1}{*}{107.8 ms}
+                                                           &\multirow{1}{*}{9.3}
+                                                               &\multirow{1}{*}{1.65}\\
+\cmidrule{4-17}
+   &   &   &\multirow{1}{*}{\cite{liEdgeRealtimeObject2023a}}
+               &\multirow{1}{*}{XCZU7EV}
+                   &\multirow{1}{*}{RFA-YOLO}
+                       &\multirow{1}{*}{24.75}
+                           &\multirow{1}{*}{On}
+                               &\multirow{1}{*}{-}
+                                   &\multirow{1}{*}{i8}
+                                       &\multirow{1}{*}{-}
+                                           &\multirow{1}{*}{-}
+                                               &\multirow{1}{*}{200}
+                                                   &\multirow{1}{*}{-}
+                                                       &\multirow{1}{*}{-}
+                                                           &\multirow{1}{*}{27.97}
+                                                               &\multirow{1}{*}{15.82}\\
+\cmidrule{4-17}
+   &   &   &\multirow{2}{*}{\cite{nguyenFPGASoCImplementationYOLOv42024}}
+               &\multirow{2}{*}{XCZU7EV}
+                   &\multirow{1}{*}{YOLOv4}
+                       &\multirow{1}{*}{245}
+                           &\multirow{1}{*}{On}
+                               &\multirow{1}{*}{105.9G}
+                                   &\multirow{1}{*}{i8}
+                                       &\multirow{1}{*}{-}
+                                           &\multirow{1}{*}{-}
+                                               &\multirow{1}{*}{100}
+                                                   &\multirow{1}{*}{-}
+                                                       &\multirow{1}{*}{107.94 ms}
+                                                           &\multirow{1}{*}{17.9}
+                                                               &\multirow{1}{*}{30.1}\\
+   &   &   &   &   &\multirow{1}{*}{YOLOv4-tiny 3L}
+                       &\multirow{1}{*}{24.10}
+                           &\multirow{1}{*}{On}
+                               &\multirow{1}{*}{15.32G}
+                                   &\multirow{1}{*}{i8}
+                                       &\multirow{1}{*}{-}
+                                           &\multirow{1}{*}{-}
+                                               &\multirow{1}{*}{100}
+                                                   &\multirow{1}{*}{-}
+                                                       &\multirow{1}{*}{19.18 ms}
+                                                           &\multirow{1}{*}{125}
+                                                               &\multirow{1}{*}{26.40}\\
+\cmidrule{4-17}
+   &   &   &\multirow{4}{*}{\cite{sabogalMethodologyEvaluatingAnalyzing2021a}}
+               &\multirow{4}{*}{XCZU3EG}
+                   &\multirow{1}{*}{ENet}
+                       &\multirow{1}{*}{0.36}
+                           &\multirow{1}{*}{On}
+                               &\multirow{1}{*}{4.06G}
+                                   &\multirow{1}{*}{i8}
+                                       &\multirow{1}{*}{70}
+                                           &\multirow{1}{*}{75}
+                                               &\multirow{1}{*}{300}
+                                                   &\multirow{1}{*}{-}
+                                                       &\multirow{1}{*}{-}
+                                                           &\multirow{1}{*}{25.2}
+                                                               &\multirow{1}{*}{3.36}\\
+   &   &   &   &   &\multirow{1}{*}{ESPNet}
+                       &\multirow{1}{*}{0.33}
+                           &\multirow{1}{*}{On}
+                               &\multirow{1}{*}{3.71G}
+                                   &\multirow{1}{*}{i8}
+                                       &\multirow{1}{*}{70}
+                                           &\multirow{1}{*}{75}
+                                               &\multirow{1}{*}{300}
+                                                   &\multirow{1}{*}{-}
+                                                       &\multirow{1}{*}{-}
+                                                           &\multirow{1}{*}{11.7}
+                                                               &\multirow{1}{*}{3.08}\\
+   &   &   &   &   &\multirow{1}{*}{FPN}
+                       &\multirow{1}{*}{5.84}
+                           &\multirow{1}{*}{On}
+                               &\multirow{1}{*}{17.30G}
+                                   &\multirow{1}{*}{i8}
+                                       &\multirow{1}{*}{70}
+                                           &\multirow{1}{*}{75}
+                                               &\multirow{1}{*}{300}
+                                                   &\multirow{1}{*}{-}
+                                                       &\multirow{1}{*}{-}
+                                                           &\multirow{1}{*}{14.1}
+                                                               &\multirow{1}{*}{4.03}\\
+   &   &   &   &   &\multirow{1}{*}{U-Net}
+                       &\multirow{1}{*}{7.40}
+                           &\multirow{1}{*}{On}
+                               &\multirow{1}{*}{96.68G}
+                                   &\multirow{1}{*}{i8}
+                                       &\multirow{1}{*}{70}
+                                           &\multirow{1}{*}{75}
+                                               &\multirow{1}{*}{300}
+                                                   &\multirow{1}{*}{-}
+                                                       &\multirow{1}{*}{-}
+                                                           &\multirow{1}{*}{2.7}
+                                                               &\multirow{1}{*}{3.38}\\
+\cmidrule{4-17}
+   &   &   &\multirow{2}{*}{\cite{upadhyayDesignImplementationCNNbased2024}}
+               &\multirow{2}{*}{XCZU9EG}
+                   &\multirow{1}{*}{ResNet-50}
+                       &\multirow{1}{*}{-}
+                           &\multirow{1}{*}{On}
+                               &\multirow{1}{*}{-}
+                                   &\multirow{1}{*}{i8}
+                                       &\multirow{1}{*}{-}
+                                           &\multirow{1}{*}{-}
+                                               &\multirow{1}{*}{-}
+                                                   &\multirow{1}{*}{-}
+                                                       &\multirow{1}{*}{10.7 ms}
+                                                           &\multirow{1}{*}{93.02}
+                                                               &\multirow{1}{*}{-}\\
+   &   &   &   &   &\multirow{1}{*}{SICNet}
+                       &\multirow{1}{*}{-}
+                           &\multirow{1}{*}{On}
+                               &\multirow{1}{*}{-}
+                                   &\multirow{1}{*}{i8}
+                                       &\multirow{1}{*}{-}
+                                           &\multirow{1}{*}{-}
+                                               &\multirow{1}{*}{-}
+                                                   &\multirow{1}{*}{-}
+                                                       &\multirow{1}{*}{1.8 ms}
+                                                           &\multirow{1}{*}{530.66}
+                                                               &\multirow{1}{*}{-}\\
+\cmidrule{4-17}
+   &   &   &\multirow{1}{*}{\cite{yuImprovedLightweightDeep2024}}
+               &\multirow{1}{*}{XCZU7EV}
+                   &\multirow{1}{*}{Improved YOLOv4-tiny}
+                       &\multirow{1}{*}{-}
+                           &\multirow{1}{*}{On}
+                               &\multirow{1}{*}{-}
+                                   &\multirow{1}{*}{i8}
+                                       &\multirow{1}{*}{-}
+                                           &\multirow{1}{*}{-}
+                                               &\multirow{1}{*}{300}
+                                                   &\multirow{1}{*}{-}
+                                                       &\multirow{1}{*}{-}
+                                                           &\multirow{1}{*}{295.9}
+                                                               &\multirow{1}{*}{20.00}\\
+\cmidrule{4-17}
+   &   &   &\multirow{1}{*}{\cite{zhaoHardwareAccelerationSatellite2023a}}
+               &\multirow{1}{*}{XCK26}
+                   &\multirow{1}{*}{YOLOv4-MobileNetv3}
+                       &\multirow{1}{*}{5.69}
+                           &\multirow{1}{*}{On}
+                               &\multirow{1}{*}{-}
+                                   &\multirow{1}{*}{i8}
+                                       &\multirow{1}{*}{59}
+                                           &\multirow{1}{*}{-}
+                                               &\multirow{1}{*}{200}
+                                                   &\multirow{1}{*}{-}
+                                                       &\multirow{1}{*}{-}
+                                                           &\multirow{1}{*}{48.14}
+                                                               &\multirow{1}{*}{7.20}\\
+\cmidrule{1-17}
+\multirow{4}{*}{MATLAB}
+   &\multirow{1}{*}{CNN}
+       &\multirow{1}{*}{S}
+           &\multirow{1}{*}{\cite{gargAircraftDetectionSatellite2024}}
+               &\multirow{1}{*}{XCZU9EG}
+                   &\multirow{1}{*}{ResNet-18+YOLOv2}
+                       &\multirow{1}{*}{-}
+                           &\multirow{1}{*}{Off}
+                               &\multirow{1}{*}{-}
+                                   &\multirow{1}{*}{i8}
+                                       &\multirow{1}{*}{-}
+                                           &\multirow{1}{*}{-}
+                                               &\multirow{1}{*}{250}
+                                                   &\multirow{1}{*}{-}
+                                                       &\multirow{1}{*}{-}
+                                                           &\multirow{1}{*}{46}
+                                                               &\multirow{1}{*}{-}\\
+\cmidrule{2-17}
+   &\multirow{3}{*}{Trad. ML}
+       &\multirow{3}{*}{S}
+           &\multirow{3}{*}{\cite{gyaneshwarRealtimeSCSUP2022}}
+               &\multirow{3}{*}{XC7A35T}
+                   &\multirow{1}{*}{CAG-SC2S}
+                       &\multirow{1}{*}{-}
+                           &\multirow{1}{*}{-}
+                               &\multirow{1}{*}{-}
+                                   &\multirow{1}{*}{i32}
+                                       &\multirow{1}{*}{93}
+                                           &\multirow{1}{*}{21}
+                                               &\multirow{1}{*}{70.40}
+                                                   &\multirow{1}{*}{-}
+                                                       &\multirow{1}{*}{5.27 us*}
+                                                           &\multirow{1}{*}{-}
+                                                               &\multirow{1}{*}{0.31}\\
+   &   &   &   &   &\multirow{1}{*}{CAL-SC2S}
+                       &\multirow{1}{*}{-}
+                           &\multirow{1}{*}{-}
+                               &\multirow{1}{*}{-}
+                                   &\multirow{1}{*}{i32}
+                                       &\multirow{1}{*}{96}
+                                           &\multirow{1}{*}{25}
+                                               &\multirow{1}{*}{65.20}
+                                                   &\multirow{1}{*}{-}
+                                                       &\multirow{1}{*}{5.70 us*}
+                                                           &\multirow{1}{*}{-}
+                                                               &\multirow{1}{*}{0.36}\\
+   &   &   &   &   &\multirow{1}{*}{SVM}
+                       &\multirow{1}{*}{-}
+                           &\multirow{1}{*}{-}
+                               &\multirow{1}{*}{-}
+                                   &\multirow{1}{*}{i32}
+                                       &\multirow{1}{*}{49}
+                                           &\multirow{1}{*}{6}
+                                               &\multirow{1}{*}{72.40}
+                                                   &\multirow{1}{*}{-}
+                                                       &\multirow{1}{*}{5.12 us*}
+                                                           &\multirow{1}{*}{-}
+                                                               &\multirow{1}{*}{0.22}\\
+\cmidrule{1-17}
+\multirow{1}{*}{VGT}
+   &\multirow{1}{*}{CNN}
+       &\multirow{1}{*}{S}
+           &\multirow{1}{*}{\cite{bahlLowpowerNeuralNetworks2019a}}
+               &\multirow{1}{*}{5CSXC6}
+                   &\multirow{1}{*}{C-FCN++}
+                       &\multirow{1}{*}{0.047}
+                           &\multirow{1}{*}{On}
+                               &\multirow{1}{*}{4.7K}
+                                   &\multirow{1}{*}{i16}
+                                       &\multirow{1}{*}{-}
+                                           &\multirow{1}{*}{-}
+                                               &\multirow{1}{*}{100}
+                                                   &\multirow{1}{*}{-}
+                                                       &\multirow{1}{*}{150 ms}
+                                                           &\multirow{1}{*}{7}
+                                                               &\multirow{1}{*}{-}\\
+\cmidrule{1-17}
+\multirow{7}{*}{-}
+   &\multirow{5}{*}{CNN}
+       &\multirow{1}{*}{S}
+           &\multirow{1}{*}{\cite{chenHardwareImplementationConvolutional2020}}
+               &\multirow{1}{*}{XC7K325T}
+                   &\multirow{1}{*}{LeNet-5}
+                       &\multirow{1}{*}{-}
+                           &\multirow{1}{*}{Off}
+                               &\multirow{1}{*}{-}
+                                   &\multirow{1}{*}{f32}
+                                       &\multirow{1}{*}{-}
+                                           &\multirow{1}{*}{33}
+                                               &\multirow{1}{*}{100}
+                                                   &\multirow{1}{*}{-}
+                                                       &\multirow{1}{*}{2.29 ms}
+                                                           &\multirow{1}{*}{-}
+                                                               &\multirow{1}{*}{-}\\
+\cmidrule{3-17}
+   &   &\multirow{3}{*}{F}
+           &\multirow{3}{*}{\cite{suhAlgorithmHardwareCoOptimizationEnergyEfficient2021}}
+               &\multirow{3}{*}{XCZU3EG}
+                   &\multirow{1}{*}{SSD 0.25x}
+                       &\multirow{1}{*}{-}
+                           &\multirow{1}{*}{Off}
+                               &\multirow{1}{*}{4.04G}
+                                   &\multirow{1}{*}{i8}
+                                       &\multirow{1}{*}{73}
+                                           &\multirow{1}{*}{47}
+                                               &\multirow{1}{*}{200}
+                                                   &\multirow{1}{*}{138}
+                                                       &\multirow{1}{*}{-}
+                                                           &\multirow{1}{*}{34.18}
+                                                               &\multirow{1}{*}{2.40}\\
+   &   &   &   &   &\multirow{1}{*}{SSD 0.5x}
+                       &\multirow{1}{*}{-}
+                           &\multirow{1}{*}{Off}
+                               &\multirow{1}{*}{15.65G}
+                                   &\multirow{1}{*}{i8}
+                                       &\multirow{1}{*}{73}
+                                           &\multirow{1}{*}{55}
+                                               &\multirow{1}{*}{200}
+                                                   &\multirow{1}{*}{150}
+                                                       &\multirow{1}{*}{-}
+                                                           &\multirow{1}{*}{9.6}
+                                                               &\multirow{1}{*}{2.60}\\
+   &   &   &   &   &\multirow{1}{*}{SSD 1.0x}
+                       &\multirow{1}{*}{-}
+                           &\multirow{1}{*}{Off}
+                               &\multirow{1}{*}{61.60G}
+                                   &\multirow{1}{*}{i8}
+                                       &\multirow{1}{*}{-}
+                                           &\multirow{1}{*}{-}
+                                               &\multirow{1}{*}{200}
+                                                   &\multirow{1}{*}{158}
+                                                       &\multirow{1}{*}{-}
+                                                           &\multirow{1}{*}{2.56}
+                                                               &\multirow{1}{*}{2.00}\\
+\cmidrule{3-17}
+   &   &\multirow{1}{*}{-}
+           &\multirow{1}{*}{\cite{wangFastDetectionObstacle2024}}
+               &\multirow{1}{*}{XC7Z020}
+                   &\multirow{1}{*}{Lightweight CNN}
+                       &\multirow{1}{*}{-}
+                           &\multirow{1}{*}{Off}
+                               &\multirow{1}{*}{4.6G}
+                                   &\multirow{1}{*}{i8}
+                                       &\multirow{1}{*}{70}
+                                           &\multirow{1}{*}{25}
+                                               &\multirow{1}{*}{100}
+                                                   &\multirow{1}{*}{-}
+                                                       &\multirow{1}{*}{-}
+                                                           &\multirow{1}{*}{60.0}
+                                                               &\multirow{1}{*}{3.30}\\
+\cmidrule{2-17}
+   &\multirow{2}{*}{Trad. ML}
+       &\multirow{1}{*}{S}
+           &\multirow{1}{*}{\cite{hammoudArtificialNeuralNetworksBased2022a}}
+               &\multirow{1}{*}{XC7Z020}
+                   &\multirow{1}{*}{MLP}
+                       &\multirow{1}{*}{-}
+                           &\multirow{1}{*}{On}
+                               &\multirow{1}{*}{-}
+                                   &\multirow{1}{*}{Orig}
+                                       &\multirow{1}{*}{26}
+                                           &\multirow{1}{*}{1}
+                                               &\multirow{1}{*}{-}
+                                                   &\multirow{1}{*}{-}
+                                                       &\multirow{1}{*}{-}
+                                                           &\multirow{1}{*}{-}
+                                                               &\multirow{1}{*}{0.13}\\
+\cmidrule{3-17}
+   &   &\multirow{1}{*}{-}
+           &\multirow{1}{*}{\cite{torresCombinedWeightlessNeural2020}}
+               &\multirow{1}{*}{XC7Z020}
+                   &\multirow{1}{*}{Weightless Neural Systems}
+                       &\multirow{1}{*}{-}
+                           &\multirow{1}{*}{On}
+                               &\multirow{1}{*}{-}
+                                   &\multirow{1}{*}{Orig}
+                                       &\multirow{1}{*}{-}
+                                           &\multirow{1}{*}{-}
+                                               &\multirow{1}{*}{-}
+                                                   &\multirow{1}{*}{-}
+                                                       &\multirow{1}{*}{-}
+                                                           &\multirow{1}{*}{-}
+                                                               &\multirow{1}{*}{-}\\
+\bottomrule 
+\end{tabular}
+\end{adjustbox}
+\end{table}

@@ -168,15 +168,9 @@ with open('../data/Dataframes/all_datapoints.pkl','rb') as f:
 
 ### Table
 # Memory, Implementation, Task, Footprint, Utilization
-mem_tags = {
-        "On":          ['On-chip'],
-        "Off":         ['Off-chip','Off-chip (HBM)'],
-        "-":         ['N/A'],
-        }
-
 
 impl_tags = {
-        "RTL":      ['RTL design (Verilog)', 'RTL design (VHDL)' , 'RTL design (N/A)'],
+        "HDL":      ['RTL design (Verilog)', 'RTL design (VHDL)' , 'RTL design (N/A)'],
         "HLS":      ['HLS (N/A)','HLS (Vitis)', 'HLS (Vivado)'],
         "FINN" :    ['FINN'],
         "Vitis AI": ['Vitis AI (v1.4)','Vitis AI (v1.4)','Vitis AI (DNNDK)','Vitis AI (v2.5)','Vitis AI (N/A)'],
@@ -249,10 +243,34 @@ compl_task["-"]= (kk)
 power_tags = {f.split(" ")[0]: [f]  for f in data["Power consumption"].unique()}
 cit_tags  = {f"\\cite{{{f}}}": [f]  for f in sorted(data["BBT Citation Key"].unique())}
 through_tags  = {f.split(" ")[0]: [f]  for f in sorted(data["Throughput"].unique())}
-fp_tags  = {f.split(" ")[0]: [f]  for f in sorted(data["Footprint"].unique())}
 lat_tags = {f: [f]  for f in data["Latency"].unique()}
 fps_tags = {f.split(" ")[0]: [f]  for f in data["FPS"].unique()}
 
+
+
+# Merge footprint and location
+mem_tags = {
+        "On":          ['On-chip'],
+        "Off":         ['Off-chip','Off-chip (HBM)'],
+        "-":         ['N/A'],
+        }
+
+
+## This can be used to merge Mem and Loc columns
+# for index, row in data.iterrows():
+#     nw = row["Footprint"].split(" ")[0]
+#     if(row["Memory"] in mem_tags["On"]):
+#         nw += " (On)"
+#     elif(row["Memory"] in mem_tags["Off"]):
+#         nw += " (Off)"
+#     else:
+#         nw += " (-)"
+#     data.loc[index,"Footprint"] = nw
+
+# fp_tags  = {f.split(" ")[0]: [f]  for f in sorted(data["Footprint"].unique())}
+fp_tags  = {f: [f]  for f in sorted(data["Footprint"].unique())}
+
+print(data["Footprint"].unique())
 
 board_tags  = {} 
 for f in sorted(data["Board"].unique()):
@@ -376,21 +394,21 @@ data.loc[data["Implementation"].isin(impl_tags["Vitis AI"])] = df
 
 columns = [
         TexColumn("Implementation",     impl_tags,                      "Impl.","2.5em"),
-        TexColumn("Equivalent model",   em_tags,                    "Model Family","2.5em"),
-        TexColumn("Design",             design_tags,                    "Design","1.5em"),
+        TexColumn("Equivalent model",   em_tags,                        "Model Family","2.5em"),
+        TexColumn("Design",             design_tags,                    "Pat.","1.5em"),
         TexColumn("BBT Citation Key",   cit_tags,                       "Ref.","1em"),
         TexColumn("Board",              board_tags,                     "FPGA","2.5em"),
-        TexColumn("Model",              model_tags,                    "Model","2.5em"),
+        TexColumn("Model",              model_tags,                     "Model Name","2.5em"),
         # TexColumn("Task",               task_tags,                      "Task","3em"),
         TexColumn("Footprint",          fp_tags,                        "Mem [MB]","2em"),
-        TexColumn("Memory",             mem_tags,                       "Mem.","2em"),
+        TexColumn("Memory",             mem_tags,                       "Loc.","2em"),
         TexColumn("Complexity",         compl_task,                     "Model Compl. [GOPS]","2em"),
-        TexColumn("Precision",          fixed_tags,                     "Precision","2em"),
-        TexColumn("FPGA Util",          util_tags,                      "DSP Util[\%]","1em"),
-        TexColumn("FPGA Util",          bram_tags,                      "BRAM Util[\%]","1em"),
+        TexColumn("Precision",          fixed_tags,                     "Prec. ","2em"),
+        TexColumn("FPGA Util",          util_tags,                      "DSP[\%]","1em"),
+        TexColumn("FPGA Util",          bram_tags,                      "BRAM[\%]","1em"),
 
-        TexColumn("Frequency",          freq_tags,                      "freq. [MHz]","2em"),
-        TexColumn("Throughput",         through_tags,                   "Peak Throughput [GOP/s]","2.5em"),
+        TexColumn("Frequency",          freq_tags,                      "f[MHz]","2em"),
+        TexColumn("Throughput",         through_tags,                   "Throughput [GOP/s]","2.5em"),
         TexColumn("Latency",            lat_tags,                       "BW/Lat[FPS/ms]","2.5em"),
         TexColumn("FPS",                fps_tags,                       "FPS","2.5em"),
         TexColumn("Power consumption",  power_tags,                     "Power[W]","2em"),
@@ -417,11 +435,11 @@ header = """
 """
 
 table_head= """
-\\begin{tabular}{ccccclp{2em}cp{3em}cp{2em}p{4em}p{3em}p{3.5em}p{3.5em}p{2.5em}p{3em}}
+\\begin{tabular}{ccccccclccccccccc}
  \\multicolumn{6}{c}{\\textbf{General}} & \\multicolumn{6}{c}{\\textbf{Design}} & \\multicolumn{5}{c}{\\textbf{Peformance}}  \\\\
  \\cmidrule(lr){1-6}  \\cmidrule(lr){7-12} \\cmidrule (lr){13-17}
 
-\\textbf{Impl.}&\\textbf{Model Family} &\\textbf{Pattern} &\\textbf{Ref.} &\\textbf{Model} &\\textbf{FPGA} &\\textbf{Mem [MB]} &\\textbf{Mem.} &\\textbf{Compl. [GOPS]} &\\textbf{Prec.} &\\textbf{DSP [\\%]} &\\textbf{BRAM [\\%]} &\\textbf{Freq. [MHz]} &\\textbf{Comp. [GOP/s]} &\\textbf{Latency} &\\textbf{FPS}&\\textbf{Power [W]} \\\\
+\\textbf{Impl.}&\\textbf{Fam.} &\\textbf{Pat.} &\\textbf{Ref.} &\\textbf{FPGA} &\\textbf{Model Name} &\\textbf{Mem[MB]} & \\textbf{Loc.} &\\textbf{Compl.[OP]} &\\textbf{Prec.} &\\textbf{DSP[\\%]} &\\textbf{BRAM[\\%]} &\\textbf{f[MHz]} &\\textbf{Comp.[GOP/s]} &\\textbf{Latency} &\\textbf{FPS}&\\textbf{P[W]} \\\\
  \\toprule
  """
 

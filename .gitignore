@@ -4,3 +4,4 @@
 table_dirk/gen
 **/.ipynb_checkpoints/
 *.swp
+**/gen/*

@@ -3,15 +3,15 @@
 
 \newcolumntype{H}{>{\setbox0=\hbox\bgroup}c<{\egroup}@{}}
 
-\caption{ML/RS Taxonomy of the survey's records}
+\caption{RS/ML Taxonomy of the survey's records}
 \label{table:rs-ml_taxonomy}
 
 \begin{adjustbox}{totalheight=\textheight-2\baselineskip}
-\begin{tabular}{cccccccccHccc}
+\begin{tabular}{ccccccccHcccc}
 
-\multicolumn{4}{c}{\textbf{RS Downstream task}} & \multicolumn{3}{c}{\textbf{Article}} & \multicolumn{3}{c}{\textbf{ML Model}}  & \multicolumn{3}{c}{\textbf{Performance}}\\
-\cmidrule(lr){1-4}  \cmidrule(lr){5-7} \cmidrule(lr){8-10} \cmidrule(lr){11-13}
-\textbf{Task} &\textbf{Mod.} &\textbf{Application} &\textbf{Dataset} &\textbf{Ref.} &\textbf{Year} &\textbf{FPGA} &\textbf{Name} &\textbf{DNN arch.} &\textbf{Eq. Model} &\textbf{Score [\%]} &\textbf{Footprint [MB]} &\textbf{Complexity [GOP]}\\
+\multicolumn{4}{c}{\textbf{RS Problem}} & \multicolumn{2}{c}{\textbf{Article}} & \multicolumn{3}{c}{\textbf{ML Model}} & \multicolumn{1}{c}{\textbf{FPGA}} &\multicolumn{3}{c}{\textbf{Performance}}\\
+\cmidrule(lr){1-4}  \cmidrule(lr){5-6} \cmidrule(lr){7-9} \cmidrule(lr){10-10} \cmidrule(lr){11-13}
+\textbf{Task} &\textbf{Mod.} &\textbf{Application} &\textbf{Dataset} &\textbf{Ref.} &\textbf{Year} &\textbf{Name} &\textbf{DNN arch.} &\textbf{Eq. Model} &\textbf{Family} &\textbf{Score [\%]} &\textbf{Footprint [MB]} &\textbf{Complexity [GOP]}\\
  \toprule 
 \multirow{24}{*}{\rotatebox[origin=c]{90}{Classification}}
    &\multirow{15}{*}{RGB}
@@ -19,10 +19,10 @@
            &\multirow{1}{*}{UCM Land Use \cite{yangBagvisualwordsSpatialExtensions2010}}
                &\multirow{1}{*}{\cite{zhangExtremelyPipelinedFPGAbased2023a}}
                    &\multirow{1}{*}{2023}
-                       &\multirow{1}{*}{Virtex-7}
-                           &\multirow{1}{*}{A2NN}
-                               &\multirow{1}{*}{VGG11}
-                                   &\multirow{1}{*}{CNN}
+                       &\multirow{1}{*}{A2NN}
+                           &\multirow{1}{*}{VGG11}
+                               &\multirow{1}{*}{CNN}
+                                   &\multirow{1}{*}{Virtex-7}
                                        &\multirow{1}{*}{94.76 (OA)}
                                            &\multirow{1}{*}{-}
                                                &\multirow{1}{*}{14.99G}\\
@@ -30,37 +30,37 @@
    &   &   &\multirow{4}{*}{NWPU-RESISC45 \cite{chengRemoteSensingImage2017}}
                &\multirow{1}{*}{\cite{yanAutomaticDeploymentConvolutional2022a}}
                    &\multirow{1}{*}{2022}
-                       &\multirow{1}{*}{Artix-7}
-                           &\multirow{1}{*}{Improved VGG16}
-                               &\multirow{1}{*}{VGG16}
-                                   &\multirow{1}{*}{CNN}
+                       &\multirow{1}{*}{Improved VGG16}
+                           &\multirow{1}{*}{VGG16}
+                               &\multirow{1}{*}{CNN}
+                                   &\multirow{1}{*}{Artix-7}
                                        &\multirow{1}{*}{88.08 (OA)}
                                            &\multirow{1}{*}{14.80}
                                                &\multirow{1}{*}{40.96G}\\
    &   &   &   &\multirow{1}{*}{\cite{zhangEfficientFPGABasedImplementation2020}}
                    &\multirow{1}{*}{2020}
-                       &\multirow{1}{*}{Virtex-7}
-                           &\multirow{1}{*}{Q-IORN}
-                               &\multirow{1}{*}{VGG16}
-                                   &\multirow{1}{*}{CNN}
+                       &\multirow{1}{*}{Q-IORN}
+                           &\multirow{1}{*}{VGG16}
+                               &\multirow{1}{*}{CNN}
+                                   &\multirow{1}{*}{Virtex-7}
                                        &\multirow{1}{*}{88.31 (OA)}
                                            &\multirow{1}{*}{121.51}
                                                &\multirow{1}{*}{-}\\
    &   &   &   &\multirow{1}{*}{\cite{niAlgorithmHardwareCoOptimization2023}}
                    &\multirow{1}{*}{2023}
-                       &\multirow{1}{*}{Virtex-7}
+                       &\multirow{1}{*}{ResNet-34}
                            &\multirow{1}{*}{ResNet-34}
-                               &\multirow{1}{*}{ResNet-34}
-                                   &\multirow{1}{*}{CNN}
+                               &\multirow{1}{*}{CNN}
+                                   &\multirow{1}{*}{Virtex-7}
                                        &\multirow{1}{*}{92.81 (OA)}
                                            &\multirow{1}{*}{21.29}
                                                &\multirow{1}{*}{7.33G}\\
    &   &   &   &\multirow{1}{*}{\cite{niAlgorithmHardwareCoOptimization2023}}
                    &\multirow{1}{*}{2023}
-                       &\multirow{1}{*}{Virtex-7}
+                       &\multirow{1}{*}{VGG16}
                            &\multirow{1}{*}{VGG16}
-                               &\multirow{1}{*}{VGG16}
-                                   &\multirow{1}{*}{CNN}
+                               &\multirow{1}{*}{CNN}
+                                   &\multirow{1}{*}{Virtex-7}
                                        &\multirow{1}{*}{91.90 (OA)}
                                            &\multirow{1}{*}{14.70}
                                                &\multirow{1}{*}{30.69G}\\
@@ -68,10 +68,10 @@
    &   &   &\multirow{1}{*}{\textit{UAV RGB (cust.)}}
                &\multirow{1}{*}{\cite{matos-carvalhoStaticDynamicAlgorithms2019}}
                    &\multirow{1}{*}{2019}
-                       &\multirow{1}{*}{Spartan-3A}
-                           &\multirow{1}{*}{MLP}
-                               &\multirow{1}{*}{-}
-                                   &\multirow{1}{*}{MLP}
+                       &\multirow{1}{*}{MLP}
+                           &\multirow{1}{*}{-}
+                               &\multirow{1}{*}{MLP}
+                                   &\multirow{1}{*}{Spartan-3A}
                                        &\multirow{1}{*}{95.14 (OA)}
                                            &\multirow{1}{*}{-}
                                                &\multirow{1}{*}{-}\\
@@ -80,19 +80,19 @@
            &\multirow{2}{*}{MASATI \cite{gallegoAutomaticShipClassification2018}}
                &\multirow{1}{*}{\cite{nerisFPGABasedImplementationCNN2022a}}
                    &\multirow{1}{*}{2022}
-                       &\multirow{1}{*}{Kintex US}
-                           &\multirow{1}{*}{AlexNetLite}
+                       &\multirow{1}{*}{AlexNetLite}
+                           &\multirow{1}{*}{AlexNet}
                                &\multirow{1}{*}{AlexNet}
-                                   &\multirow{1}{*}{AlexNet}
+                                   &\multirow{1}{*}{Kintex US}
                                        &\multirow{1}{*}{89 (F1)}
                                            &\multirow{1}{*}{-}
                                                &\multirow{1}{*}{5.71G}\\
    &   &   &   &\multirow{1}{*}{\cite{nerisFPGABasedImplementationCNN2022a}}
                    &\multirow{1}{*}{2022}
-                       &\multirow{1}{*}{Kintex US}
-                           &\multirow{1}{*}{MobileNetv1Lite}
-                               &\multirow{1}{*}{MobileNetv1}
-                                   &\multirow{1}{*}{CNN}
+                       &\multirow{1}{*}{MobileNetv1Lite}
+                           &\multirow{1}{*}{MobileNetv1}
+                               &\multirow{1}{*}{CNN}
+                                   &\multirow{1}{*}{Kintex US}
                                        &\multirow{1}{*}{94 (F1)}
                                            &\multirow{1}{*}{-}
                                                &\multirow{1}{*}{0.05G}\\
@@ -100,10 +100,10 @@
    &   &   &\multirow{1}{*}{Kaggle SSI}
                &\multirow{1}{*}{\cite{ieracitanoExplainableEmbeddedNeural2024}}
                    &\multirow{1}{*}{2024}
-                       &\multirow{1}{*}{Zynq 7000}
-                           &\multirow{1}{*}{HO-ShipNet}
-                               &\multirow{1}{*}{\textit{cCNN}}
-                                   &\multirow{1}{*}{CNN}
+                       &\multirow{1}{*}{HO-ShipNet}
+                           &\multirow{1}{*}{\textit{cCNN}}
+                               &\multirow{1}{*}{CNN}
+                                   &\multirow{1}{*}{Zynq 7000}
                                        &\multirow{1}{*}{93.44 (F1)}
                                            &\multirow{1}{*}{-}
                                                &\multirow{1}{*}{-}\\
@@ -112,19 +112,19 @@
            &\multirow{2}{*}{L8 Biome \cite{fogaCloudDetectionAlgorithm2017}}
                &\multirow{1}{*}{\cite{pitonakCloudSatNet1FPGABasedHardwareAccelerated2022}}
                    &\multirow{1}{*}{2022}
-                       &\multirow{1}{*}{Zynq 7000}
-                           &\multirow{1}{*}{CloudSatNet-1 Q2}
-                               &\multirow{1}{*}{\textit{cCNN}}
-                                   &\multirow{1}{*}{CNN}
+                       &\multirow{1}{*}{CloudSatNet-1 Q2}
+                           &\multirow{1}{*}{\textit{cCNN}}
+                               &\multirow{1}{*}{CNN}
+                                   &\multirow{1}{*}{Zynq 7000}
                                        &\multirow{1}{*}{83.41 (OA)}
                                            &\multirow{1}{*}{1.43}
                                                &\multirow{1}{*}{-}\\
    &   &   &   &\multirow{1}{*}{\cite{pitonakCloudSatNet1FPGABasedHardwareAccelerated2022}}
                    &\multirow{1}{*}{2022}
-                       &\multirow{1}{*}{Zynq 7000}
-                           &\multirow{1}{*}{CloudSatNet-1 Q4}
-                               &\multirow{1}{*}{\textit{cCNN}}
-                                   &\multirow{1}{*}{CNN}
+                       &\multirow{1}{*}{CloudSatNet-1 Q4}
+                           &\multirow{1}{*}{\textit{cCNN}}
+                               &\multirow{1}{*}{CNN}
+                                   &\multirow{1}{*}{Zynq 7000}
                                        &\multirow{1}{*}{87.42 (OA)}
                                            &\multirow{1}{*}{3.06}
                                                &\multirow{1}{*}{-}\\
@@ -132,19 +132,19 @@
    &   &   &\multirow{2}{*}{\textit{RGB (cust.)}}
                &\multirow{1}{*}{\cite{upadhyayDesignImplementationCNNbased2024}}
                    &\multirow{1}{*}{2024}
-                       &\multirow{1}{*}{Zynq US+}
+                       &\multirow{1}{*}{ResNet-50}
                            &\multirow{1}{*}{ResNet-50}
-                               &\multirow{1}{*}{ResNet-50}
-                                   &\multirow{1}{*}{CNN}
+                               &\multirow{1}{*}{CNN}
+                                   &\multirow{1}{*}{Zynq US+}
                                        &\multirow{1}{*}{-}
                                            &\multirow{1}{*}{-}
                                                &\multirow{1}{*}{-}\\
    &   &   &   &\multirow{1}{*}{\cite{upadhyayDesignImplementationCNNbased2024}}
                    &\multirow{1}{*}{2024}
-                       &\multirow{1}{*}{Zynq US+}
-                           &\multirow{1}{*}{SICNet}
-                               &\multirow{1}{*}{\textit{cCNN}}
-                                   &\multirow{1}{*}{CNN}
+                       &\multirow{1}{*}{SICNet}
+                           &\multirow{1}{*}{\textit{cCNN}}
+                               &\multirow{1}{*}{CNN}
+                                   &\multirow{1}{*}{Zynq US+}
                                        &\multirow{1}{*}{85.76 (OA)}
                                            &\multirow{1}{*}{-}
                                                &\multirow{1}{*}{-}\\
@@ -152,19 +152,19 @@
    &   &   &\multirow{2}{*}{Landsat-8 (cust.)}
                &\multirow{1}{*}{\cite{kimOnOrbitAICloud2024}}
                    &\multirow{1}{*}{2024}
-                       &\multirow{1}{*}{Zynq 7000}
-                           &\multirow{1}{*}{TriCloudNet + U-Net}
-                               &\multirow{1}{*}{SqueezeNet}
-                                   &\multirow{1}{*}{CNN}
+                       &\multirow{1}{*}{TriCloudNet + U-Net}
+                           &\multirow{1}{*}{SqueezeNet}
+                               &\multirow{1}{*}{CNN}
+                                   &\multirow{1}{*}{Zynq 7000}
                                        &\multirow{1}{*}{6.84 (CRE)}
                                            &\multirow{1}{*}{3.61}
                                                &\multirow{1}{*}{-}\\
    &   &   &   &\multirow{1}{*}{\cite{vitoloRealTimeOnboardSatellite2024}}
                    &\multirow{1}{*}{2024}
-                       &\multirow{1}{*}{Artix-7}
-                           &\multirow{1}{*}{CNN}
-                               &\multirow{1}{*}{-}
-                                   &\multirow{1}{*}{CNN}
+                       &\multirow{1}{*}{CNN}
+                           &\multirow{1}{*}{-}
+                               &\multirow{1}{*}{CNN}
+                                   &\multirow{1}{*}{Artix-7}
                                        &\multirow{1}{*}{89.64 (F1)}
                                            &\multirow{1}{*}{-}
                                                &\multirow{1}{*}{-}\\
@@ -174,22 +174,22 @@
            &\multirow{1}{*}{\textit{UAV RGB (cust.)}}
                &\multirow{1}{*}{\cite{huangEdgeTrustworthyAI2024}}
                    &\multirow{1}{*}{2024}
-                       &\multirow{1}{*}{Zynq US+}
-                           &\multirow{1}{*}{ETAUS}
-                               &\multirow{1}{*}{ResNet-50}
-                                   &\multirow{1}{*}{CNN}
+                       &\multirow{1}{*}{ETAUS}
+                           &\multirow{1}{*}{ResNet-50}
+                               &\multirow{1}{*}{CNN}
+                                   &\multirow{1}{*}{Zynq US+}
                                        &\multirow{1}{*}{86.38 (F1)}
                                            &\multirow{1}{*}{-}
-                                               &\multirow{1}{*}{329.9G}\\
+                                               &\multirow{1}{*}{-}\\
 \cmidrule{3-13}
    &   &\multirow{1}{*}{Cloud coverage}
            &\multirow{1}{*}{\textit{Sentinel-2 (cust.)}}
                &\multirow{1}{*}{\cite{rapuanoFPGAbasedHardwareAccelerator2021a}}
                    &\multirow{1}{*}{2021}
-                       &\multirow{1}{*}{Zynq US+}
-                           &\multirow{1}{*}{CloudScout}
-                               &\multirow{1}{*}{\textit{cCNN}}
-                                   &\multirow{1}{*}{CNN}
+                       &\multirow{1}{*}{CloudScout}
+                           &\multirow{1}{*}{\textit{cCNN}}
+                               &\multirow{1}{*}{CNN}
+                                   &\multirow{1}{*}{Zynq US+}
                                        &\multirow{1}{*}{92.0 (OA)}
                                            &\multirow{1}{*}{13.30}
                                                &\multirow{1}{*}{-}\\
@@ -199,46 +199,46 @@
            &\multirow{5}{*}{MSTAR \cite{MSTAROverview}}
                &\multirow{1}{*}{\cite{weiFPGABasedHybridTypeImplementation2019}}
                    &\multirow{1}{*}{2019}
-                       &\multirow{1}{*}{Kintex-7}
-                           &\multirow{1}{*}{LeNet-5 f32}
+                       &\multirow{1}{*}{LeNet-5 f32}
+                           &\multirow{1}{*}{LeNet-5}
                                &\multirow{1}{*}{LeNet-5}
-                                   &\multirow{1}{*}{LeNet-5}
+                                   &\multirow{1}{*}{Kintex-7}
                                        &\multirow{1}{*}{98.76 (OA)}
                                            &\multirow{1}{*}{6.64}
                                                &\multirow{1}{*}{-}\\
    &   &   &   &\multirow{1}{*}{\cite{weiFPGABasedHybridTypeImplementation2019}}
                    &\multirow{1}{*}{2019}
-                       &\multirow{1}{*}{Kintex-7}
-                           &\multirow{1}{*}{LeNet-5 i8}
+                       &\multirow{1}{*}{LeNet-5 i8}
+                           &\multirow{1}{*}{LeNet-5}
                                &\multirow{1}{*}{LeNet-5}
-                                   &\multirow{1}{*}{LeNet-5}
+                                   &\multirow{1}{*}{Kintex-7}
                                        &\multirow{1}{*}{97.77 (OA)}
                                            &\multirow{1}{*}{1.66}
                                                &\multirow{1}{*}{-}\\
    &   &   &   &\multirow{1}{*}{\cite{chenHardwareImplementationConvolutional2020}}
                    &\multirow{1}{*}{2020}
-                       &\multirow{1}{*}{Kintex-7}
+                       &\multirow{1}{*}{LeNet-5}
                            &\multirow{1}{*}{LeNet-5}
                                &\multirow{1}{*}{LeNet-5}
-                                   &\multirow{1}{*}{LeNet-5}
+                                   &\multirow{1}{*}{Kintex-7}
                                        &\multirow{1}{*}{98.18 (OA)}
                                            &\multirow{1}{*}{-}
                                                &\multirow{1}{*}{-}\\
    &   &   &   &\multirow{1}{*}{\cite{zhangAccurateLowlatencyEfficient2022a}}
                    &\multirow{1}{*}{2022}
-                       &\multirow{1}{*}{Zynq US+}
+                       &\multirow{1}{*}{GNN}
                            &\multirow{1}{*}{GNN}
-                               &\multirow{1}{*}{-}
-                                   &\multirow{1}{*}{GNN}
+                               &\multirow{1}{*}{GNN}
+                                   &\multirow{1}{*}{Zynq US+}
                                        &\multirow{1}{*}{99.09 (OA)}
                                            &\multirow{1}{*}{0.96}
                                                &\multirow{1}{*}{2.13M}\\
    &   &   &   &\multirow{1}{*}{\cite{zhangAcceleratingGNNbasedSAR2023}}
                    &\multirow{1}{*}{2023}
-                       &\multirow{1}{*}{Alveo}
+                       &\multirow{1}{*}{GNN}
                            &\multirow{1}{*}{GNN}
-                               &\multirow{1}{*}{-}
-                                   &\multirow{1}{*}{GNN}
+                               &\multirow{1}{*}{GNN}
+                                   &\multirow{1}{*}{Alveo}
                                        &\multirow{1}{*}{-}
                                            &\multirow{1}{*}{-}
                                                &\multirow{1}{*}{-}\\
@@ -247,19 +247,19 @@
            &\multirow{2}{*}{\textit{ALOS-2 (cust.)}}
                &\multirow{1}{*}{\cite{hashimotoShipClassificationSAR2019a}}
                    &\multirow{1}{*}{2019}
-                       &\multirow{1}{*}{Zynq 7000}
-                           &\multirow{1}{*}{CNN}
-                               &\multirow{1}{*}{-}
-                                   &\multirow{1}{*}{CNN}
+                       &\multirow{1}{*}{CNN}
+                           &\multirow{1}{*}{-}
+                               &\multirow{1}{*}{CNN}
+                                   &\multirow{1}{*}{Zynq 7000}
                                        &\multirow{1}{*}{100 (OA)}
                                            &\multirow{1}{*}{-}
                                                &\multirow{1}{*}{-}\\
    &   &   &   &\multirow{1}{*}{\cite{myojinDetectingUncertainBNN2020}}
                    &\multirow{1}{*}{2020}
-                       &\multirow{1}{*}{Zynq 7000}
-                           &\multirow{1}{*}{BNN}
-                               &\multirow{1}{*}{\textit{cCNN}}
-                                   &\multirow{1}{*}{CNN}
+                       &\multirow{1}{*}{BNN}
+                           &\multirow{1}{*}{\textit{cCNN}}
+                               &\multirow{1}{*}{CNN}
+                                   &\multirow{1}{*}{Zynq 7000}
                                        &\multirow{1}{*}{-}
                                            &\multirow{1}{*}{-}
                                                &\multirow{1}{*}{-}\\
@@ -270,10 +270,10 @@
            &\multirow{1}{*}{\textit{UAV RGB (cust.)}}
                &\multirow{1}{*}{\cite{torresCombinedWeightlessNeural2020}}
                    &\multirow{1}{*}{2020}
-                       &\multirow{1}{*}{Zynq 7000}
-                           &\multirow{1}{*}{Weightless Neural Systems}
-                               &\multirow{1}{*}{-}
-                                   &\multirow{1}{*}{WNS}
+                       &\multirow{1}{*}{Weightless Neural Systems}
+                           &\multirow{1}{*}{-}
+                               &\multirow{1}{*}{WNS}
+                                   &\multirow{1}{*}{Zynq 7000}
                                        &\multirow{1}{*}{90.0 (OA)}
                                            &\multirow{1}{*}{-}
                                                &\multirow{1}{*}{-}\\
@@ -282,10 +282,10 @@
            &\multirow{1}{*}{\textit{UAV RGB (cust.)}}
                &\multirow{1}{*}{\cite{fraczekEmbeddedVisionSystem2018}}
                    &\multirow{1}{*}{2018}
-                       &\multirow{1}{*}{Zynq 7000}
-                           &\multirow{1}{*}{Decision Tree}
-                               &\multirow{1}{*}{-}
-                                   &\multirow{1}{*}{ML}
+                       &\multirow{1}{*}{Decision Tree}
+                           &\multirow{1}{*}{-}
+                               &\multirow{1}{*}{ML}
+                                   &\multirow{1}{*}{Zynq 7000}
                                        &\multirow{1}{*}{92.1 (OA)}
                                            &\multirow{1}{*}{-}
                                                &\multirow{1}{*}{-}\\
@@ -294,19 +294,19 @@
            &\multirow{2}{*}{\textit{ALSAT-2A (cust.)}}
                &\multirow{1}{*}{\cite{yahiaouiParallelizationFuzzyARTMAP2017a}}
                    &\multirow{1}{*}{2017}
-                       &\multirow{1}{*}{Virtex-6}
-                           &\multirow{1}{*}{BRAM\_DSP}
-                               &\multirow{1}{*}{-}
-                                   &\multirow{1}{*}{Fuzzy ARTMAP}
+                       &\multirow{1}{*}{BRAM\_DSP}
+                           &\multirow{1}{*}{-}
+                               &\multirow{1}{*}{Fuzzy ARTMAP}
+                                   &\multirow{1}{*}{Virtex-6}
                                        &\multirow{1}{*}{94.8 (OA)}
                                            &\multirow{1}{*}{-}
                                                &\multirow{1}{*}{-}\\
    &   &   &   &\multirow{1}{*}{\cite{yahiaouiParallelizationFuzzyARTMAP2017a}}
                    &\multirow{1}{*}{2017}
-                       &\multirow{1}{*}{Virtex-6}
-                           &\multirow{1}{*}{LUT\_MUL}
-                               &\multirow{1}{*}{-}
-                                   &\multirow{1}{*}{Fuzzy ARTMAP}
+                       &\multirow{1}{*}{LUT\_MUL}
+                           &\multirow{1}{*}{-}
+                               &\multirow{1}{*}{Fuzzy ARTMAP}
+                                   &\multirow{1}{*}{Virtex-6}
                                        &\multirow{1}{*}{94.8 (OA)}
                                            &\multirow{1}{*}{-}
                                                &\multirow{1}{*}{-}\\
@@ -314,86 +314,86 @@
    &\multirow{10}{*}{HSI}
        &\multirow{9}{*}{Landcover/Land use}
            &\multirow{6}{*}{University of Pavia \cite{HyperspectralRemoteSensing}}
-               &\multirow{1}{*}{\cite{heConfigurable2D3D2023a}}
+               &\multirow{1}{*}{\cite{martinsRealtimeSVMbasedHardware2024}}
+                   &\multirow{1}{*}{2024}
+                       &\multirow{1}{*}{SVM}
+                           &\multirow{1}{*}{-}
+                               &\multirow{1}{*}{ML}
+                                   &\multirow{1}{*}{Zynq 7000}
+                                       &\multirow{1}{*}{82.48 (AA)}
+                                           &\multirow{1}{*}{-}
+                                               &\multirow{1}{*}{-}\\
+   &   &   &   &\multirow{1}{*}{\cite{heConfigurable2D3D2023a}}
                    &\multirow{1}{*}{2023}
-                       &\multirow{1}{*}{Zynq US+}
-                           &\multirow{1}{*}{2D CNN}
-                               &\multirow{1}{*}{-}
-                                   &\multirow{1}{*}{CNN}
+                       &\multirow{1}{*}{2D CNN}
+                           &\multirow{1}{*}{-}
+                               &\multirow{1}{*}{CNN}
+                                   &\multirow{1}{*}{Zynq US+}
                                        &\multirow{1}{*}{98.24 (OA)}
                                            &\multirow{1}{*}{1.20}
                                                &\multirow{1}{*}{0.684M}\\
    &   &   &   &\multirow{1}{*}{\cite{heConfigurable2D3D2023a}}
                    &\multirow{1}{*}{2023}
-                       &\multirow{1}{*}{Zynq US+}
-                           &\multirow{1}{*}{3D CNN}
-                               &\multirow{1}{*}{-}
-                                   &\multirow{1}{*}{CNN}
+                       &\multirow{1}{*}{3D CNN}
+                           &\multirow{1}{*}{-}
+                               &\multirow{1}{*}{CNN}
+                                   &\multirow{1}{*}{Zynq US+}
                                        &\multirow{1}{*}{94.09 (OA)}
                                            &\multirow{1}{*}{0.12}
                                                &\multirow{1}{*}{4.231M}\\
    &   &   &   &\multirow{1}{*}{\cite{heConfigurable2D3D2023a}}
                    &\multirow{1}{*}{2023}
-                       &\multirow{1}{*}{Zynq US+}
-                           &\multirow{1}{*}{HybridSN}
-                               &\multirow{1}{*}{\textit{cCNN}}
-                                   &\multirow{1}{*}{CNN}
+                       &\multirow{1}{*}{HybridSN}
+                           &\multirow{1}{*}{\textit{cCNN}}
+                               &\multirow{1}{*}{CNN}
+                                   &\multirow{1}{*}{Zynq US+}
                                        &\multirow{1}{*}{100 (OA)}
                                            &\multirow{1}{*}{20.50}
                                                &\multirow{1}{*}{101.642M}\\
    &   &   &   &\multirow{1}{*}{\cite{shibiOnboardTargetDetection2021a}}
                    &\multirow{1}{*}{2021}
-                       &\multirow{1}{*}{Virtex-7}
-                           &\multirow{1}{*}{LPDBL}
-                               &\multirow{1}{*}{-}
-                                   &\multirow{1}{*}{ML}
+                       &\multirow{1}{*}{LPDBL}
+                           &\multirow{1}{*}{-}
+                               &\multirow{1}{*}{ML}
+                                   &\multirow{1}{*}{Virtex-7}
                                        &\multirow{1}{*}{-}
                                            &\multirow{1}{*}{-}
                                                &\multirow{1}{*}{-}\\
    &   &   &   &\multirow{1}{*}{\cite{chellaswamyFPGAbasedRemoteTarget2024}}
                    &\multirow{1}{*}{2024}
-                       &\multirow{1}{*}{Virtex-7}
-                           &\multirow{1}{*}{SAM-GNN}
-                               &\multirow{1}{*}{-}
-                                   &\multirow{1}{*}{GNN}
+                       &\multirow{1}{*}{SAM-GNN}
+                           &\multirow{1}{*}{GNN}
+                               &\multirow{1}{*}{GNN}
+                                   &\multirow{1}{*}{Virtex-7}
                                        &\multirow{1}{*}{95.05 (OA)}
-                                           &\multirow{1}{*}{-}
-                                               &\multirow{1}{*}{-}\\
-   &   &   &   &\multirow{1}{*}{\cite{martinsRealtimeSVMbasedHardware2024}}
-                   &\multirow{1}{*}{2024}
-                       &\multirow{1}{*}{Zynq 7000}
-                           &\multirow{1}{*}{SVM}
-                               &\multirow{1}{*}{-}
-                                   &\multirow{1}{*}{ML}
-                                       &\multirow{1}{*}{82.48 (AA)}
                                            &\multirow{1}{*}{-}
                                                &\multirow{1}{*}{-}\\
 \cmidrule{4-13}
    &   &   &\multirow{3}{*}{AVIRIS-NG}
                &\multirow{1}{*}{\cite{gyaneshwarRealtimeSCSUP2022}}
                    &\multirow{1}{*}{2022}
-                       &\multirow{1}{*}{Artix-7}
-                           &\multirow{1}{*}{CAG-SC2S}
-                               &\multirow{1}{*}{-}
-                                   &\multirow{1}{*}{ML}
+                       &\multirow{1}{*}{CAG-SC2S}
+                           &\multirow{1}{*}{-}
+                               &\multirow{1}{*}{ML}
+                                   &\multirow{1}{*}{Artix-7}
                                        &\multirow{1}{*}{98.30 (OA)}
                                            &\multirow{1}{*}{-}
                                                &\multirow{1}{*}{-}\\
    &   &   &   &\multirow{1}{*}{\cite{gyaneshwarRealtimeSCSUP2022}}
                    &\multirow{1}{*}{2022}
-                       &\multirow{1}{*}{Artix-7}
-                           &\multirow{1}{*}{CAL-SC2S}
-                               &\multirow{1}{*}{-}
-                                   &\multirow{1}{*}{ML}
+                       &\multirow{1}{*}{CAL-SC2S}
+                           &\multirow{1}{*}{-}
+                               &\multirow{1}{*}{ML}
+                                   &\multirow{1}{*}{Artix-7}
                                        &\multirow{1}{*}{99.69 (OA)}
                                            &\multirow{1}{*}{-}
                                                &\multirow{1}{*}{-}\\
    &   &   &   &\multirow{1}{*}{\cite{gyaneshwarRealtimeSCSUP2022}}
                    &\multirow{1}{*}{2022}
-                       &\multirow{1}{*}{Artix-7}
-                           &\multirow{1}{*}{SVM}
-                               &\multirow{1}{*}{-}
-                                   &\multirow{1}{*}{ML}
+                       &\multirow{1}{*}{SVM}
+                           &\multirow{1}{*}{-}
+                               &\multirow{1}{*}{ML}
+                                   &\multirow{1}{*}{Artix-7}
                                        &\multirow{1}{*}{20.71 (OA)}
                                            &\multirow{1}{*}{-}
                                                &\multirow{1}{*}{-}\\
@@ -402,10 +402,10 @@
            &\multirow{1}{*}{ABU \cite{ABUDataset}}
                &\multirow{1}{*}{\cite{boyleHighlevelFPGADesign2023a}}
                    &\multirow{1}{*}{2023}
-                       &\multirow{1}{*}{Zynq US+}
-                           &\multirow{1}{*}{Deep Belief Network}
-                               &\multirow{1}{*}{-}
-                                   &\multirow{1}{*}{RBM}
+                       &\multirow{1}{*}{Deep Belief Network}
+                           &\multirow{1}{*}{-}
+                               &\multirow{1}{*}{RBM}
+                                   &\multirow{1}{*}{Zynq US+}
                                        &\multirow{1}{*}{-}
                                            &\multirow{1}{*}{-}
                                                &\multirow{1}{*}{-}\\
@@ -416,37 +416,37 @@
            &\multirow{4}{*}{Potsdam \cite{2DSemanticLabeling}}
                &\multirow{1}{*}{\cite{sabogalMethodologyEvaluatingAnalyzing2021a}}
                    &\multirow{1}{*}{2021}
-                       &\multirow{1}{*}{Zynq US+}
-                           &\multirow{1}{*}{ENet}
-                               &\multirow{1}{*}{ENet \cite{paszkeENetDeepNeural2016}}
-                                   &\multirow{1}{*}{CNN}
+                       &\multirow{1}{*}{ENet}
+                           &\multirow{1}{*}{ENet \cite{paszkeENetDeepNeural2016}}
+                               &\multirow{1}{*}{CNN}
+                                   &\multirow{1}{*}{Zynq US+}
                                        &\multirow{1}{*}{63.3 (mIoU)}
                                            &\multirow{1}{*}{0.36}
                                                &\multirow{1}{*}{4.06G}\\
    &   &   &   &\multirow{1}{*}{\cite{sabogalMethodologyEvaluatingAnalyzing2021a}}
                    &\multirow{1}{*}{2021}
-                       &\multirow{1}{*}{Zynq US+}
-                           &\multirow{1}{*}{ESPNet}
-                               &\multirow{1}{*}{ESPNet \cite{mehtaESPNetEfficientSpatial2018}}
-                                   &\multirow{1}{*}{CNN}
+                       &\multirow{1}{*}{ESPNet}
+                           &\multirow{1}{*}{ESPNet \cite{mehtaESPNetEfficientSpatial2018}}
+                               &\multirow{1}{*}{CNN}
+                                   &\multirow{1}{*}{Zynq US+}
                                        &\multirow{1}{*}{55.5 (mIoU)}
                                            &\multirow{1}{*}{0.33}
                                                &\multirow{1}{*}{3.71G}\\
    &   &   &   &\multirow{1}{*}{\cite{sabogalMethodologyEvaluatingAnalyzing2021a}}
                    &\multirow{1}{*}{2021}
-                       &\multirow{1}{*}{Zynq US+}
-                           &\multirow{1}{*}{FPN}
-                               &\multirow{1}{*}{FPN \cite{linFeaturePyramidNetworks2017}}
-                                   &\multirow{1}{*}{CNN}
+                       &\multirow{1}{*}{FPN}
+                           &\multirow{1}{*}{FPN \cite{linFeaturePyramidNetworks2017}}
+                               &\multirow{1}{*}{CNN}
+                                   &\multirow{1}{*}{Zynq US+}
                                        &\multirow{1}{*}{65.3 (mIoU)}
                                            &\multirow{1}{*}{5.84}
                                                &\multirow{1}{*}{17.30G}\\
    &   &   &   &\multirow{1}{*}{\cite{sabogalMethodologyEvaluatingAnalyzing2021a}}
                    &\multirow{1}{*}{2021}
-                       &\multirow{1}{*}{Zynq US+}
-                           &\multirow{1}{*}{U-Net}
-                               &\multirow{1}{*}{U-Net \cite{ronnebergerUNetConvolutionalNetworks2015}}
-                                   &\multirow{1}{*}{CNN}
+                       &\multirow{1}{*}{U-Net}
+                           &\multirow{1}{*}{U-Net \cite{ronnebergerUNetConvolutionalNetworks2015}}
+                               &\multirow{1}{*}{CNN}
+                                   &\multirow{1}{*}{Zynq US+}
                                        &\multirow{1}{*}{61.4 (mIoU)}
                                            &\multirow{1}{*}{7.40}
                                                &\multirow{1}{*}{96.68G}\\
@@ -455,10 +455,10 @@
            &\multirow{1}{*}{\textit{Landsat-8-OLI (cust.)}}
                &\multirow{1}{*}{\cite{ratnakumarHighSpeedRoller2021}}
                    &\multirow{1}{*}{2021}
-                       &\multirow{1}{*}{Virtex-6}
-                           &\multirow{1}{*}{Roller Dung Bettle Clustering}
-                               &\multirow{1}{*}{-}
-                                   &\multirow{1}{*}{ML}
+                       &\multirow{1}{*}{Roller Dung Bettle Clustering}
+                           &\multirow{1}{*}{-}
+                               &\multirow{1}{*}{ML}
+                                   &\multirow{1}{*}{Virtex-6}
                                        &\multirow{1}{*}{37.45 (SSIM)}
                                            &\multirow{1}{*}{-}
                                                &\multirow{1}{*}{O(n)}\\
@@ -467,10 +467,10 @@
            &\multirow{1}{*}{38-Cloud \cite{mohajeraniSorourMo38CloudCloudSegmentationDataset2024}}
                &\multirow{1}{*}{\cite{bahlLowpowerNeuralNetworks2019a}}
                    &\multirow{1}{*}{2019}
-                       &\multirow{1}{*}{Cyclone V}
-                           &\multirow{1}{*}{C-FCN++}
-                               &\multirow{1}{*}{\textit{cCNN}}
-                                   &\multirow{1}{*}{CNN}
+                       &\multirow{1}{*}{C-FCN++}
+                           &\multirow{1}{*}{\textit{cCNN}}
+                               &\multirow{1}{*}{CNN}
+                                   &\multirow{1}{*}{Cyclone V}
                                        &\multirow{1}{*}{79.30 (mIoU)}
                                            &\multirow{1}{*}{0.047}
                                                &\multirow{1}{*}{4.7K}\\
@@ -481,37 +481,37 @@
            &\multirow{4}{*}{DOTAv1.0 \cite{xiaDOTALargeScaleDataset2018}}
                &\multirow{1}{*}{\cite{zhangFPGAImplementationCNNbased2021a}}
                    &\multirow{1}{*}{2021}
-                       &\multirow{1}{*}{Zynq 7000}
-                           &\multirow{1}{*}{Improved YOLOv2}
-                               &\multirow{1}{*}{Darknet19}
-                                   &\multirow{1}{*}{YOLOv2}
+                       &\multirow{1}{*}{Improved YOLOv2}
+                           &\multirow{1}{*}{Darknet19}
+                               &\multirow{1}{*}{YOLOv2}
+                                   &\multirow{1}{*}{Zynq 7000}
                                        &\multirow{1}{*}{67.32 (mAP)}
                                            &\multirow{1}{*}{-}
                                                &\multirow{1}{*}{379G}\\
    &   &   &   &\multirow{1}{*}{\cite{yanAutomaticDeploymentConvolutional2022a}}
                    &\multirow{1}{*}{2022}
-                       &\multirow{1}{*}{Artix-7}
-                           &\multirow{1}{*}{Improved YOLOv2}
-                               &\multirow{1}{*}{Darknet19}
-                                   &\multirow{1}{*}{YOLOv2}
+                       &\multirow{1}{*}{Improved YOLOv2}
+                           &\multirow{1}{*}{Darknet19}
+                               &\multirow{1}{*}{YOLOv2}
+                                   &\multirow{1}{*}{Artix-7}
                                        &\multirow{1}{*}{67.30 (mAP)}
                                            &\multirow{1}{*}{49.40}
                                                &\multirow{1}{*}{379.55G}\\
    &   &   &   &\multirow{1}{*}{\cite{niAlgorithmHardwareCoOptimization2023}}
                    &\multirow{1}{*}{2023}
-                       &\multirow{1}{*}{Virtex-7}
-                           &\multirow{1}{*}{Improved YOLOv2}
-                               &\multirow{1}{*}{Darknet19}
-                                   &\multirow{1}{*}{YOLOv2}
+                       &\multirow{1}{*}{Improved YOLOv2}
+                           &\multirow{1}{*}{Darknet19}
+                               &\multirow{1}{*}{YOLOv2}
+                                   &\multirow{1}{*}{Virtex-7}
                                        &\multirow{1}{*}{67.30 (mAP)}
                                            &\multirow{1}{*}{49.40}
                                                &\multirow{1}{*}{379.55G}\\
    &   &   &   &\multirow{1}{*}{\cite{yangLightweightDetectionMethod2023}}
                    &\multirow{1}{*}{2023}
-                       &\multirow{1}{*}{Zynq 7000}
-                           &\multirow{1}{*}{Ghost-YOLOS}
-                               &\multirow{1}{*}{GhostNet}
-                                   &\multirow{1}{*}{YOLOv3}
+                       &\multirow{1}{*}{Ghost-YOLOS}
+                           &\multirow{1}{*}{GhostNet}
+                               &\multirow{1}{*}{YOLOv3}
+                                   &\multirow{1}{*}{Zynq 7000}
                                        &\multirow{1}{*}{62.58 (mAP)}
                                            &\multirow{1}{*}{12.60}
                                                &\multirow{1}{*}{8.41G}\\
@@ -519,19 +519,19 @@
    &   &   &\multirow{2}{*}{DIOR \cite{liObjectDetectionOptical2020}}
                &\multirow{1}{*}{\cite{zhaoHardwareAccelerationSatellite2023a}}
                    &\multirow{1}{*}{2023}
-                       &\multirow{1}{*}{Zynq US+}
-                           &\multirow{1}{*}{YOLOv4-MobileNetv3}
-                               &\multirow{1}{*}{MobileNetv3}
-                                   &\multirow{1}{*}{YOLOv4}
+                       &\multirow{1}{*}{YOLOv4-MobileNetv3}
+                           &\multirow{1}{*}{MobileNetv3}
+                               &\multirow{1}{*}{YOLOv4}
+                                   &\multirow{1}{*}{Zynq US+}
                                        &\multirow{1}{*}{82.61 (mAP)}
                                            &\multirow{1}{*}{5.69}
                                                &\multirow{1}{*}{-}\\
    &   &   &   &\multirow{1}{*}{\cite{liEdgeRealtimeObject2023a}}
                    &\multirow{1}{*}{2023}
-                       &\multirow{1}{*}{Zynq US+}
-                           &\multirow{1}{*}{RFA-YOLO}
-                               &\multirow{1}{*}{MobileNeXt}
-                                   &\multirow{1}{*}{YOLOv4}
+                       &\multirow{1}{*}{RFA-YOLO}
+                           &\multirow{1}{*}{MobileNeXt}
+                               &\multirow{1}{*}{YOLOv4}
+                                   &\multirow{1}{*}{Zynq US+}
                                        &\multirow{1}{*}{64.85 (mAP)}
                                            &\multirow{1}{*}{24.75}
                                                &\multirow{1}{*}{-}\\
@@ -539,10 +539,10 @@
    &   &   &\multirow{1}{*}{NWPU VHR-10 \cite{chengMulticlassGeospatialObject2014}}
                &\multirow{1}{*}{\cite{liEfficientObjectDetection2019a}}
                    &\multirow{1}{*}{2019}
-                       &\multirow{1}{*}{Zynq 7000}
-                           &\multirow{1}{*}{CBFF-SSD}
-                               &\multirow{1}{*}{MobileNetv1}
-                                   &\multirow{1}{*}{SSD}
+                       &\multirow{1}{*}{CBFF-SSD}
+                           &\multirow{1}{*}{MobileNetv1}
+                               &\multirow{1}{*}{SSD}
+                                   &\multirow{1}{*}{Zynq 7000}
                                        &\multirow{1}{*}{91.42 (mAP)}
                                            &\multirow{1}{*}{-}
                                                &\multirow{1}{*}{-}\\
@@ -550,10 +550,10 @@
    &   &   &\multirow{1}{*}{DAC 2018}
                &\multirow{1}{*}{\cite{wangAccelerationImplementationConvolutional2019}}
                    &\multirow{1}{*}{2019}
-                       &\multirow{1}{*}{Zynq 7000}
-                           &\multirow{1}{*}{CNN}
-                               &\multirow{1}{*}{-}
-                                   &\multirow{1}{*}{CNN}
+                       &\multirow{1}{*}{CNN}
+                           &\multirow{1}{*}{-}
+                               &\multirow{1}{*}{CNN}
+                                   &\multirow{1}{*}{Zynq 7000}
                                        &\multirow{1}{*}{21 (mIoU)}
                                            &\multirow{1}{*}{-}
                                                &\multirow{1}{*}{-}\\
@@ -561,10 +561,10 @@
    &   &   &\multirow{1}{*}{\textit{UAV RGB (cust.)}}
                &\multirow{1}{*}{\cite{liNovelCNNBasedAP2DNet2020}}
                    &\multirow{1}{*}{2020}
-                       &\multirow{1}{*}{Zynq US+}
-                           &\multirow{1}{*}{AP2D-Net}
-                               &\multirow{1}{*}{\textit{cCNN}}
-                                   &\multirow{1}{*}{CNN}
+                       &\multirow{1}{*}{AP2D-Net}
+                           &\multirow{1}{*}{\textit{cCNN}}
+                               &\multirow{1}{*}{CNN}
+                                   &\multirow{1}{*}{Zynq US+}
                                        &\multirow{1}{*}{55.0 (mIoU)}
                                            &\multirow{1}{*}{-}
                                                &\multirow{1}{*}{-}\\
@@ -573,28 +573,28 @@
            &\multirow{3}{*}{PennSyn2Real \cite{nguyenPennSyn2RealTrainingObject2021}}
                &\multirow{1}{*}{\cite{suhAlgorithmHardwareCoOptimizationEnergyEfficient2021}}
                    &\multirow{1}{*}{2021}
-                       &\multirow{1}{*}{Zynq US+}
-                           &\multirow{1}{*}{SSD 0.25x}
-                               &\multirow{1}{*}{VGG16}
-                                   &\multirow{1}{*}{SSD}
+                       &\multirow{1}{*}{SSD 0.25x}
+                           &\multirow{1}{*}{VGG16}
+                               &\multirow{1}{*}{SSD}
+                                   &\multirow{1}{*}{Zynq US+}
                                        &\multirow{1}{*}{76.2 (mAP)}
                                            &\multirow{1}{*}{-}
                                                &\multirow{1}{*}{4.04G}\\
    &   &   &   &\multirow{1}{*}{\cite{suhAlgorithmHardwareCoOptimizationEnergyEfficient2021}}
                    &\multirow{1}{*}{2021}
-                       &\multirow{1}{*}{Zynq US+}
-                           &\multirow{1}{*}{SSD 0.5x}
-                               &\multirow{1}{*}{VGG16}
-                                   &\multirow{1}{*}{SSD}
+                       &\multirow{1}{*}{SSD 0.5x}
+                           &\multirow{1}{*}{VGG16}
+                               &\multirow{1}{*}{SSD}
+                                   &\multirow{1}{*}{Zynq US+}
                                        &\multirow{1}{*}{83.9 (mAP)}
                                            &\multirow{1}{*}{-}
                                                &\multirow{1}{*}{15.65G}\\
    &   &   &   &\multirow{1}{*}{\cite{suhAlgorithmHardwareCoOptimizationEnergyEfficient2021}}
                    &\multirow{1}{*}{2021}
-                       &\multirow{1}{*}{Zynq US+}
-                           &\multirow{1}{*}{SSD 1.0x}
-                               &\multirow{1}{*}{VGG16}
-                                   &\multirow{1}{*}{SSD}
+                       &\multirow{1}{*}{SSD 1.0x}
+                           &\multirow{1}{*}{VGG16}
+                               &\multirow{1}{*}{SSD}
+                                   &\multirow{1}{*}{Zynq US+}
                                        &\multirow{1}{*}{88.4 (mAP)}
                                            &\multirow{1}{*}{-}
                                                &\multirow{1}{*}{61.60G}\\
@@ -602,19 +602,19 @@
    &   &   &\multirow{2}{*}{\textit{UAV RGB (cust.)}}
                &\multirow{1}{*}{\cite{nguyenFPGASoCImplementationYOLOv42024}}
                    &\multirow{1}{*}{2024}
-                       &\multirow{1}{*}{Zynq US+}
-                           &\multirow{1}{*}{YOLOv4}
-                               &\multirow{1}{*}{Darknet53}
-                                   &\multirow{1}{*}{YOLOv4}
+                       &\multirow{1}{*}{YOLOv4}
+                           &\multirow{1}{*}{Darknet53}
+                               &\multirow{1}{*}{YOLOv4}
+                                   &\multirow{1}{*}{Zynq US+}
                                        &\multirow{1}{*}{83.7 (mAP)}
                                            &\multirow{1}{*}{245}
                                                &\multirow{1}{*}{105.9G}\\
    &   &   &   &\multirow{1}{*}{\cite{nguyenFPGASoCImplementationYOLOv42024}}
                    &\multirow{1}{*}{2024}
-                       &\multirow{1}{*}{Zynq US+}
-                           &\multirow{1}{*}{YOLOv4-tiny 3L}
-                               &\multirow{1}{*}{Darknet53-tiny}
-                                   &\multirow{1}{*}{YOLOv4}
+                       &\multirow{1}{*}{YOLOv4-tiny 3L}
+                           &\multirow{1}{*}{Darknet53-tiny}
+                               &\multirow{1}{*}{YOLOv4}
+                                   &\multirow{1}{*}{Zynq US+}
                                        &\multirow{1}{*}{72.24 (mAP)}
                                            &\multirow{1}{*}{24.10}
                                                &\multirow{1}{*}{15.32G}\\
@@ -623,21 +623,21 @@
            &\multirow{1}{*}{Airbus}
                &\multirow{1}{*}{\cite{gargAircraftDetectionSatellite2024}}
                    &\multirow{1}{*}{2024}
-                       &\multirow{1}{*}{Zynq US+}
-                           &\multirow{1}{*}{ResNet-18+YOLOv2}
-                               &\multirow{1}{*}{ResNet-18}
-                                   &\multirow{1}{*}{YOLOv2}
+                       &\multirow{1}{*}{ResNet-18+YOLOv2}
+                           &\multirow{1}{*}{ResNet-18}
+                               &\multirow{1}{*}{YOLOv2}
+                                   &\multirow{1}{*}{Zynq US+}
                                        &\multirow{1}{*}{91 (AP)}
                                            &\multirow{1}{*}{-}
                                                &\multirow{1}{*}{-}\\
 \cmidrule{4-13}
-   &   &   &\multirow{1}{*}{\textit{GES$^a$ RGB (sim.)}}
+   &   &   &\multirow{1}{*}{\textit{GES RGB (sim.)}}
                &\multirow{1}{*}{\cite{wuDesignImplementationRemote2021}}
                    &\multirow{1}{*}{2021}
-                       &\multirow{1}{*}{Zynq US+}
-                           &\multirow{1}{*}{Improved YOLOv3}
-                               &\multirow{1}{*}{DarkNet53}
-                                   &\multirow{1}{*}{YOLOv3}
+                       &\multirow{1}{*}{Improved YOLOv3}
+                           &\multirow{1}{*}{DarkNet53}
+                               &\multirow{1}{*}{YOLOv3}
+                                   &\multirow{1}{*}{Zynq US+}
                                        &\multirow{1}{*}{92 (OA)}
                                            &\multirow{1}{*}{8.50}
                                                &\multirow{1}{*}{-}\\
@@ -646,10 +646,10 @@
            &\multirow{1}{*}{\textit{UAV RGB+MMW (cust.)}}
                &\multirow{1}{*}{\cite{wangFastDetectionObstacle2024}}
                    &\multirow{1}{*}{2024}
-                       &\multirow{1}{*}{Zynq 7000}
-                           &\multirow{1}{*}{Lightweight CNN}
-                               &\multirow{1}{*}{ResNet-18}
-                                   &\multirow{1}{*}{CNN}
+                       &\multirow{1}{*}{Lightweight CNN}
+                           &\multirow{1}{*}{ResNet-18}
+                               &\multirow{1}{*}{CNN}
+                                   &\multirow{1}{*}{Zynq 7000}
                                        &\multirow{1}{*}{70.1 (mAP)}
                                            &\multirow{1}{*}{-}
                                                &\multirow{1}{*}{4.6G}\\
@@ -658,10 +658,10 @@
            &\multirow{1}{*}{\textit{FastenerDataset (cust.)}}
                &\multirow{1}{*}{\cite{yuImprovedLightweightDeep2024}}
                    &\multirow{1}{*}{2024}
-                       &\multirow{1}{*}{Zynq US+}
-                           &\multirow{1}{*}{Improved YOLOv4-tiny}
-                               &\multirow{1}{*}{CSPDarknet53}
-                                   &\multirow{1}{*}{YOLOv4-tiny}
+                       &\multirow{1}{*}{Improved YOLOv4-tiny}
+                           &\multirow{1}{*}{Darknet53-tiny}
+                               &\multirow{1}{*}{YOLOv4-tiny}
+                                   &\multirow{1}{*}{Zynq US+}
                                        &\multirow{1}{*}{95.1 (mAP)}
                                            &\multirow{1}{*}{-}
                                                &\multirow{1}{*}{-}\\
@@ -671,49 +671,51 @@
            &\multirow{3}{*}{SSDD \cite{liShipDetectionSAR2017}}
                &\multirow{1}{*}{\cite{yangAlgorithmHardwareCodesign2022}}
                    &\multirow{1}{*}{2022}
-                       &\multirow{1}{*}{Virtex-7}
-                           &\multirow{1}{*}{CNN2@0.7}
-                               &\multirow{1}{*}{MobileNetv1}
-                                   &\multirow{1}{*}{YOLOv2}
+                       &\multirow{1}{*}{CNN2@0.7}
+                           &\multirow{1}{*}{MobileNetv1}
+                               &\multirow{1}{*}{YOLOv2}
+                                   &\multirow{1}{*}{Virtex-7}
                                        &\multirow{1}{*}{94 (AP)}
                                            &\multirow{1}{*}{0.09}
                                                &\multirow{1}{*}{0.45G}\\
    &   &   &   &\multirow{1}{*}{\cite{yangAlgorithmHardwareCodesign2022}}
                    &\multirow{1}{*}{2022}
-                       &\multirow{1}{*}{Virtex-7}
-                           &\multirow{1}{*}{CNN4@0.7}
-                               &\multirow{1}{*}{MobileNetv2}
-                                   &\multirow{1}{*}{YOLOv2}
+                       &\multirow{1}{*}{CNN4@0.7}
+                           &\multirow{1}{*}{MobileNetv2}
+                               &\multirow{1}{*}{YOLOv2}
+                                   &\multirow{1}{*}{Virtex-7}
                                        &\multirow{1}{*}{93.3 (AP)}
                                            &\multirow{1}{*}{0.11}
                                                &\multirow{1}{*}{0.56G}\\
    &   &   &   &\multirow{1}{*}{\cite{yangAlgorithmHardwareCodesign2022}}
                    &\multirow{1}{*}{2022}
-                       &\multirow{1}{*}{Virtex-7}
-                           &\multirow{1}{*}{CNN6@1.6}
-                               &\multirow{1}{*}{SqueezeNet}
-                                   &\multirow{1}{*}{YOLOv2}
+                       &\multirow{1}{*}{CNN6@1.6}
+                           &\multirow{1}{*}{SqueezeNet}
+                               &\multirow{1}{*}{YOLOv2}
+                                   &\multirow{1}{*}{Virtex-7}
                                        &\multirow{1}{*}{92.8 (AP)}
                                            &\multirow{1}{*}{0.09}
                                                &\multirow{1}{*}{0.6G}\\
 \cmidrule{1-13}
-\multirow{1}{*}{R$^b$}
+\multirow{1}{*}{Regr.}
    &\multirow{1}{*}{SAR}
        &\multirow{1}{*}{Oil spills mon.}
            &\multirow{1}{*}{\textit{SAR (sim.)}}
                &\multirow{1}{*}{\cite{hammoudArtificialNeuralNetworksBased2022a}}
                    &\multirow{1}{*}{2022}
-                       &\multirow{1}{*}{Zynq 7000}
-                           &\multirow{1}{*}{MLP}
-                               &\multirow{1}{*}{-}
-                                   &\multirow{1}{*}{MLP}
+                       &\multirow{1}{*}{MLP}
+                           &\multirow{1}{*}{-}
+                               &\multirow{1}{*}{MLP}
+                                   &\multirow{1}{*}{Zynq 7000}
                                        &\multirow{1}{*}{-}
                                            &\multirow{1}{*}{-}
                                                &\multirow{1}{*}{-}\\
 
-\bottomrule 
-\multicolumn{13}{l}{$^a$ Google Earth Studio} \\
-\multicolumn{13}{l}{$^b$ Regression} \\
+\bottomrule
 \end{tabular}
 \end{adjustbox}
+\flushleft{
+\tiny
+\textit{Task:} \textbf{Regr.} Regression. \textit{Dataset:} \textbf{GES} Google Earth Studio, \textbf{MMW} MilliMeter-Wave radar \\
+}
 \end{table}

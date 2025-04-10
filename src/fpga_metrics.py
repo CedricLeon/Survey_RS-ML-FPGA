@@ -154,4 +154,31 @@ print(comp_vals)
 print(power_vals)
 
 
+## Get precision metrics
+fixed_tags = {
+        "i4":       ['(CloudSatNet-1 Q4) Fixed (4)','Fixed (4)'],
+        "i8":       ['Fixed (8)'],
+        "i8,f32":   ['Mixed (Fixed 8 and Float 32)','Mixed (Fixed 4 and Float 32)'],
+        "i16":      ['Fixed (16)'],
+        "i32":      ['Fixed (32)'],
+        "i8,i32":   ['Mixed width (Fixed 32 and 8)'],
+        "f32":      ['Float (32)','float'],
+        "-":        ['N/A'],
+        "b":      ["Binary"],
+        "i?":       ['Mixed width (Fixed)','Mixed width (MPQAT)','Mixed (Fixed)'],
+        "i(mix)":  ['Mixed (Fixed (1 to 24) weights (3) act)'],
+        "f32*":     ["Original"],
+        "???":      ['???']
+        }
+
+i8_vals = data.loc[data["Precision"].isin(fixed_tags["i8"]) | data["Precision"].isin(fixed_tags["i8,i32"]) | data["Precision"].isin(fixed_tags["i8,f32"])  ].shape[0]
+manual = data.loc[(data["Implementation"].isin(impl_tags["HDL"]) )| (data["Implementation"].isin(impl_tags["HLS"]) )]
+i8_man_vals = manual.loc[data["Precision"].isin(fixed_tags["i8"]) | data["Precision"].isin(fixed_tags["i8,i32"]) | data["Precision"].isin(fixed_tags["i8,f32"])  ].shape[0]
+
+num_total = data.shape[0]
+
+print(f"Per of int8: {i8_vals/float(num_total)}")
+print(f"Per of int8 in manual: {i8_man_vals/float(total_manual)}")
+
+
 

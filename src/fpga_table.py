@@ -110,13 +110,17 @@ class TexTable:
         self.columns = columns
         self.start = TexNode("Start",df,columns,0,5)
 
-    def render(self,text_in,max_depth,custom_head = None):
+    def render(self,text_in,max_depth,custom_head = None,custom_foot = None):
         self.text = text_in
         self.text += self.header(custom_head)
         for n in self.start.nodes:
             self.text = n.render(self.text,(n == self.start.nodes[0]),(n == self.start.nodes[-1]),max_depth)
         self.text += "\\bottomrule \n"
-        self.text += "\\end{tabular}\n\\end{adjustbox}\n\\end{table}"
+        self.text += "\\end{tabular}\n"
+        if(custom_foot):
+            self.text += custom_foot + "}\n\\end{table}"
+        else:
+            "}\n\\end{table}"
         # self.text += "\\end{tabular}\n\n"
         return self.text
 
@@ -126,7 +130,8 @@ class TexTable:
 \\caption{FPGA Optimization Table}
 \\label{table:fpga_optim}
 """
-        text+="\\begin{adjustbox}{totalheight=\\textheight-2\\baselineskip,}\n"
+        # text+="\\begin{adjustbox}{totalheight=\\textheight-2\\baselineskip,}\n"
+        text+="{\\tiny"
         if(custom_head == None):
             text+="\\begin{tabular}{"
             text += "".join([f"c" for c in self.columns])
@@ -245,15 +250,55 @@ for t in sorted(data["FPGA Util"].unique()):
 
 
 freq_tags = {f.split(" ")[0].split(".")[0]: [f]  for f in data["Frequency"].unique()}
-compl_task = {f.split(" ")[0]: [f]  for f in data["Complexity"].unique()}
-# print(compl_task)
-kk = (compl_task["O(n)"])
-del compl_task["O(n)"]
-compl_task["-"]= (kk)
+cc_tasks= {f.split(" ")[0]: [f]  for f in data["Complexity"].unique()}
+
+
+compl_task = {}
+compl_task["-"]= cc_tasks["O(n)"]
+compl_task[""]= cc_tasks[""]
+
+del cc_tasks["O(n)"]
+
+
+rd_compl= {"G": "M","M":"K","K": ""}
+
+for k,v in cc_tasks.items():
+    if((k == "-") or (k == "")):
+        continue
+    l = k[-1]
+    val = float(k[:-1])
+    if(val < 1):
+        l = rd_compl[l]
+        val = val*1000
+    val= "%.2f" % val  
+    if(len(val.split(".")[0]) < 3):
+        val = val[:4] + l
+    else:
+        val = val[:3] + " " + l
+    print(val)
+    if(val in compl_task):
+        compl_task[val].extend(v)
+    else:
+        compl_task[val] = v
+
+
 
 power_tags = {f.split(" ")[0]: [f]  for f in data["Power consumption"].unique()}
 cit_tags  = {f"\\cite{{{f}}}": [f]  for f in sorted(data["BBT Citation Key"].unique())}
-through_tags  = {f.split(" ")[0]: [f]  for f in sorted(data["Throughput"].unique())}
+through_tags = {}
+for t in sorted(data["Throughput"].unique()):
+    if(t.split(" ")[0] == ""):
+        through_tags[""] = [t]
+    else:
+        v = float(t.split(" ")[0])
+        print(v)
+        st = "%.1f" % v
+        if(st[-1] == '0'):
+            st = st[:-2]
+
+        through_tags[st] = [t]
+# through_tags  = {".1f" % float(f.split(" ")[0]) : [f]  for f in sorted(data["Throughput"].unique())}
+
 lat_tags = {f: [f]  for f in data["Latency"].unique()}
 fps_tags = {f.split(" ")[0]: [f]  for f in data["FPS"].unique()}
 
@@ -282,7 +327,8 @@ for f in sorted(data["Board"].unique()):
     board = f.split("{")[1].split("}")[0]
     part = f.split("(")[1].split(")")[0]
 
-    k = part
+    k = part.split("XC")[-1]
+
     # if(len(board) > 0):
     #     k = k + "(" + board +")"
     # else:
@@ -335,6 +381,11 @@ model_tags = {f: [f] for f in sorted(data["Model"].unique())}
 
 model_tags["BRAM\_DSP"] = model_tags.pop("BRAM_DSP")
 model_tags["LUT\_MUL"] = model_tags.pop("LUT_MUL")
+
+model_tags["RDBC"] = model_tags.pop("Roller Dung Bettle Clustering")
+model_tags["WNS"] = model_tags.pop("Weightless Neural Systems")
+
+
 
 print(data.columns)
 print(data["Equivalent model"].unique())
@@ -411,10 +462,10 @@ columns = [
         TexColumn("Board",              board_tags,                     "FPGA","2.5em"),
         TexColumn("Model",              model_tags,                     "Model Name","2.5em"),
         # TexColumn("Task",               task_tags,                      "Task","3em"),
-        TexColumn("Footprint",          fp_tags,                        "Mem [MB]","2em"),
+        TexColumn("Precision",          fixed_tags,                     "Prec. ","2em"),
         # TexColumn("Memory",             mem_tags,                       "Loc.","2em"),
         TexColumn("Complexity",         compl_task,                     "Model Compl. [GOPS]","2em"),
-        TexColumn("Precision",          fixed_tags,                     "Prec. ","2em"),
+        TexColumn("Footprint",          fp_tags,                        "Mem [MB]","2em"),
         TexColumn("FPGA Util",          util_tags,                      "DSP[\%]","1em"),
         TexColumn("FPGA Util",          bram_tags,                      "BRAM[\%]","1em"),
 
@@ -451,14 +502,24 @@ table_head= """
  \\multicolumn{7}{c}{\\textbf{Implementation Choices}} & \\multicolumn{5}{c}{\\textbf{Design Metrics}} & \\multicolumn{5}{c}{\\textbf{Peformance Metrics}}  \\\\
  \\cmidrule(lr){1-7}  \\cmidrule(lr){8-12} \\cmidrule (lr){13-18}
 
-&\\textbf{Impl.}&\\textbf{Fam.} &\\textbf{P} &\\textbf{Ref.} &\\textbf{FPGA} &\\textbf{Model Name} &\\textbf{Mem[MB]} &\\textbf{C[OP]} &\\textbf{Prec.} &\\textbf{D[\\%]} &\\textbf{B[\\%]} &\\textbf{MHz} &\\textbf{T[GOP/s]} & \\textbf{P[W]} & \\textbf{T/P} &\\textbf{Latency} &\\textbf{FPS}\\\\
+&\\textbf{Impl.}&\\textbf{Fam.} &\\textbf{P} &\\textbf{Ref.} &\\textbf{FPGA} &\\textbf{Model Name} &\\textbf{Prec.} &\\textbf{C[OP]}&\\textbf{Mem[MB]}  &\\textbf{D[\\%]} &\\textbf{B[\\%]} &\\textbf{MHz} &\\textbf{T[GOP/s]} & \\textbf{P[W]} & \\textbf{T/P} &\\textbf{Latency} &\\textbf{FPS}\\\\
  \\toprule
  """
+
+table_foot = """
+\\flushleft{
+\\textit{FPGA:} AMD/XILINX Fpga names are stripped of leading  to increase readability\\\\
+\\textit{Mem:} \\textbf{\\textdagger} Uses On-Chip Memory, \\textbf{?} Memory Location unknown\\\\
+\\textit{Latency:} \\textbf{*} Latency of a single Pixel\\\\
+\\textit{Model Name:} \\textbf{RDBC} Roller Dung Beetle Clustering, \\textbf{WNS} Weightless Neural System\\\\
+}
+"""
+
 
 print(table_head)
 
 tab = TexTable(data,columns)
-text = tab.render("",4,table_head)
+text = tab.render("",4,table_head,table_foot)
 
 footer = "\n\end{document}\n"
 

@@ -110,13 +110,17 @@ class TexTable:
         self.columns = columns
         self.start = TexNode("Start",df,columns,0,5)
 
-    def render(self,text_in,max_depth,custom_head = None):
+    def render(self,text_in,max_depth,custom_head = None,custom_foot = None):
         self.text = text_in
         self.text += self.header(custom_head)
         for n in self.start.nodes:
             self.text = n.render(self.text,(n == self.start.nodes[0]),(n == self.start.nodes[-1]),max_depth)
         self.text += "\\bottomrule \n"
-        self.text += "\\end{tabular}\n\\end{adjustbox}\n\\end{table}"
+        self.text += "\\end{tabular}\n"
+        if(custom_foot):
+            self.text += custom_foot + "}\n\\end{table}"
+        else:
+            "}\n\\end{table}"
         # self.text += "\\end{tabular}\n\n"
         return self.text
 
@@ -126,7 +130,8 @@ class TexTable:
 \\caption{FPGA Optimization Table}
 \\label{table:fpga_optim}
 """
-        text+="\\begin{adjustbox}{totalheight=\\textheight-2\\baselineskip,}\n"
+        # text+="\\begin{adjustbox}{totalheight=\\textheight-2\\baselineskip,}\n"
+        text+="{\\tiny"
         if(custom_head == None):
             text+="\\begin{tabular}{"
             text += "".join([f"c" for c in self.columns])
@@ -179,13 +184,24 @@ impl_tags = {
         "-":        ['N/A'],
         }
 
-task_tags = {
-        'Class': ['Classification'],
-        'PClass': ['Pixel classification'],
-        'Obj': ['Object detection'],
-        'Reg': ['Regression'],
-        'Seg': ['Segmentation']
+frame_tags = {
+        "Manual"    : [],
+        "Automatic" : [],
+        "Unclassified"          : []
         }
+
+for k,v in impl_tags.items():
+    if(k == "HDL" or k == "HLS"):
+        frame_tags["Manual"].extend(v)
+    elif(k == "-"):
+        frame_tags["Unclassified"].extend(v)
+    else:
+        frame_tags["Automatic"].extend(v)
+
+print(frame_tags)
+
+
+
 
 design_tags = {
         'S':   ['Model Specific (All layers on FPGA)','Algorithm Specific','Model Specific'],
@@ -233,44 +249,63 @@ for t in sorted(data["FPGA Util"].unique()):
 
 
 
-freq_tags = {f.split(" ")[0]: [f]  for f in data["Frequency"].unique()}
-compl_task = {f.split(" ")[0]: [f]  for f in data["Complexity"].unique()}
-# print(compl_task)
-kk = (compl_task["O(n)"])
-del compl_task["O(n)"]
-compl_task["-"]= (kk)
+freq_tags = {f.split(" ")[0].split(".")[0]: [f]  for f in data["Frequency"].unique()}
+cc_tasks= {f.split(" ")[0]: [f]  for f in data["Complexity"].unique()}
+
+
+compl_task = {}
+compl_task["-"]= cc_tasks["O(n)"]
+compl_task[""]= cc_tasks[""]
+
+del cc_tasks["O(n)"]
+
+
+rd_compl= {"G": "M","M":"K","K": ""}
+
+for k,v in cc_tasks.items():
+    if((k == "-") or (k == "")):
+        continue
+    l = k[-1]
+    val = float(k[:-1])
+    if(val < 1):
+        l = rd_compl[l]
+        val = val*1000
+    val= "%.2f" % val  
+    if(len(val.split(".")[0]) < 3):
+        val = val[:4] + l
+    else:
+        val = val[:3] + " " + l
+    print(val)
+    if(val in compl_task):
+        compl_task[val].extend(v)
+    else:
+        compl_task[val] = v
+
+
 
 power_tags = {f.split(" ")[0]: [f]  for f in data["Power consumption"].unique()}
 cit_tags  = {f"\\cite{{{f}}}": [f]  for f in sorted(data["BBT Citation Key"].unique())}
-through_tags  = {f.split(" ")[0]: [f]  for f in sorted(data["Throughput"].unique())}
+through_tags = {}
+for t in sorted(data["Throughput"].unique()):
+    if(t.split(" ")[0] == ""):
+        through_tags[""] = [t]
+    else:
+        v = float(t.split(" ")[0])
+        print(v)
+        st = "%.1f" % v
+        if(st[-1] == '0'):
+            st = st[:-2]
+
+        through_tags[st] = [t]
+# through_tags  = {".1f" % float(f.split(" ")[0]) : [f]  for f in sorted(data["Throughput"].unique())}
+
 lat_tags = {f: [f]  for f in data["Latency"].unique()}
 fps_tags = {f.split(" ")[0]: [f]  for f in data["FPS"].unique()}
 
 
 
-# Merge footprint and location
-mem_tags = {
-        "On":          ['On-chip'],
-        "Off":         ['Off-chip','Off-chip (HBM)'],
-        "-":         ['N/A'],
-        }
 
 
-## This can be used to merge Mem and Loc columns
-# for index, row in data.iterrows():
-#     nw = row["Footprint"].split(" ")[0]
-#     if(row["Memory"] in mem_tags["On"]):
-#         nw += " (On)"
-#     elif(row["Memory"] in mem_tags["Off"]):
-#         nw += " (Off)"
-#     else:
-#         nw += " (-)"
-#     data.loc[index,"Footprint"] = nw
-
-# fp_tags  = {f.split(" ")[0]: [f]  for f in sorted(data["Footprint"].unique())}
-fp_tags  = {f: [f]  for f in sorted(data["Footprint"].unique())}
-
-print(data["Footprint"].unique())
 
 board_tags  = {} 
 for f in sorted(data["Board"].unique()):
@@ -292,7 +327,8 @@ for f in sorted(data["Board"].unique()):
     board = f.split("{")[1].split("}")[0]
     part = f.split("(")[1].split(")")[0]
 
-    k = part
+    k = part.split("XC")[-1]
+
     # if(len(board) > 0):
     #     k = k + "(" + board +")"
     # else:
@@ -316,10 +352,10 @@ fixed_tags = {
         "i8,i32":   ['Mixed width (Fixed 32 and 8)'],
         "f32":      ['Float (32)','float'],
         "-":        ['N/A'],
-        "bin":      ["Binary"],
+        "b":      ["Binary"],
         "i?":       ['Mixed width (Fixed)','Mixed width (MPQAT)','Mixed (Fixed)'],
         "i(mix)":  ['Mixed (Fixed (1 to 24) weights (3) act)'],
-        "Orig":     ["Original"],
+        "f32*":     ["Original"],
         "???":      ['???']
         }
 
@@ -346,37 +382,21 @@ model_tags = {f: [f] for f in sorted(data["Model"].unique())}
 model_tags["BRAM\_DSP"] = model_tags.pop("BRAM_DSP")
 model_tags["LUT\_MUL"] = model_tags.pop("LUT_MUL")
 
+model_tags["RDBC"] = model_tags.pop("Roller Dung Bettle Clustering")
+model_tags["WNS"] = model_tags.pop("Weightless Neural Systems")
+
+
+
 print(data.columns)
 print(data["Equivalent model"].unique())
 #print(data["Model"].unique())
 
 em_tags = {
     "CNN": ['CNN','YOLOv4','LeNet-5','AlexNet','YOLOv2', 'SSD','YOLOv3','YOLOv4-tiny'],
-    "Trad. ML": ['Fuzzy ARTMAP','RBM','MLP','ML', 'WNS' ],
+    "ML": ['Fuzzy ARTMAP','RBM','MLP','ML', 'WNS' ],
     "GNN": ['GNN']
     }
  
-
-
-# df = raw_data["Tags"]
-# for j in range(len(df)):
-#     tags = df.iloc[[j]][0]
-#     for tag in tags:
-#         if(tag.startswith("Model:")):
-#             key =   tag.split("Model: ")[1].split("(")[0].strip()
-#             t   =   tag.split("Model: ")[1].split("(")[1].split(")")[0]
-#             if(t == "LeNet-5"):
-#                 t = "CNN"
-#             if(t == "AlexNet"):
-#                 t = "CNN"
-#             if(t.startswith("YOLO")):
-#                 t = "YOLO"
-#             if(t == "Diverse"):
-#                 t = "ML"
-#             if(t in model_tags.keys()):
-#                 model_tags[t].append(key)
-#             else:
-#                 model_tags[t] = [key]
 
 # Add various kernels to all Vitis AI stuff
 df = data.loc[data["Implementation"].isin(impl_tags["Vitis AI"])]
@@ -388,11 +408,53 @@ df["Design"] = df["Design"].replace('N/A',"Model Specific")
 data.loc[data["Implementation"].isin(impl_tags["FINN"])] = df
 
 df = data.loc[data["Implementation"].isin(impl_tags["Vitis AI"])]
-df["Memory"] = df["Memory"].replace('',"On-chip")
+df["Memory"] = df["Memory"].replace('',"Off-chip")
 data.loc[data["Implementation"].isin(impl_tags["Vitis AI"])] = df
 
 
+# data.insert(4,"Power efficiency","")
+for i,r in data.iterrows():
+    pc = (r["Power consumption"].split(" ")[0])
+    tp = (r["Throughput"].split(" ")[0])
+    if((pc != "" ) and ( tp != "")):
+        data.loc[i,"Power efficiency"]= "{:.1f}".format(float(tp)/float(pc))
+    else:
+        data.loc[i,"Power efficiency"] = ""
+
+eff_tags = {x : [x] for x in data["Power efficiency"].unique()}
+
+# Merge footprint and location
+mem_tags = {
+        "On":          ['On-chip'],
+        "Off":         ['Off-chip','Off-chip (HBM)'],
+        "-":         ['N/A'],
+        }
+
+
+# This can be used to merge Mem and Loc columns
+for index, row in data.iterrows():
+    nw = row["Footprint"].split(" ")[0]
+    if(nw == ""):
+        nw = "-"
+    if(row["Memory"] in mem_tags["On"]):
+        nw += "\\textsuperscript{\\textbf{\\textdagger}}"
+        # \\footnote[2]{text}"
+    elif(row["Memory"] in mem_tags["Off"]):
+        nw += ""
+    else:
+        nw += "\\textsuperscript{\\textbf{?}}"
+    data.loc[index,"Footprint"] = nw
+
+# fp_tags  = {f.split(" ")[0]: [f]  for f in sorted(data["Footprint"].unique())}
+fp_tags  = {f: [f]  for f in sorted(data["Footprint"].unique())}
+
+def fun(x):
+    t = f"\\rotatebox[origin=c]{{90}}{{\\textbf{{{x}}}}}"
+    return t
+
+
 columns = [
+        TexColumn("Implementation",     frame_tags,                     "","2.5em",hook=fun),
         TexColumn("Implementation",     impl_tags,                      "Impl.","2.5em"),
         TexColumn("Equivalent model",   em_tags,                        "Model Family","2.5em"),
         TexColumn("Design",             design_tags,                    "Pat.","1.5em"),
@@ -400,18 +462,19 @@ columns = [
         TexColumn("Board",              board_tags,                     "FPGA","2.5em"),
         TexColumn("Model",              model_tags,                     "Model Name","2.5em"),
         # TexColumn("Task",               task_tags,                      "Task","3em"),
-        TexColumn("Footprint",          fp_tags,                        "Mem [MB]","2em"),
-        TexColumn("Memory",             mem_tags,                       "Loc.","2em"),
-        TexColumn("Complexity",         compl_task,                     "Model Compl. [GOPS]","2em"),
         TexColumn("Precision",          fixed_tags,                     "Prec. ","2em"),
+        # TexColumn("Memory",             mem_tags,                       "Loc.","2em"),
+        TexColumn("Complexity",         compl_task,                     "Model Compl. [GOPS]","2em"),
+        TexColumn("Footprint",          fp_tags,                        "Mem [MB]","2em"),
         TexColumn("FPGA Util",          util_tags,                      "DSP[\%]","1em"),
         TexColumn("FPGA Util",          bram_tags,                      "BRAM[\%]","1em"),
 
         TexColumn("Frequency",          freq_tags,                      "f[MHz]","2em"),
         TexColumn("Throughput",         through_tags,                   "Throughput [GOP/s]","2.5em"),
+        TexColumn("Power consumption",  power_tags,                     "Power[W]","2em"),
+        TexColumn("Power efficiency",   eff_tags,                     "Power[W]","2em"),
         TexColumn("Latency",            lat_tags,                       "BW/Lat[FPS/ms]","2.5em"),
         TexColumn("FPS",                fps_tags,                       "FPS","2.5em"),
-        TexColumn("Power consumption",  power_tags,                     "Power[W]","2em"),
 
         # TexColumn("Optimizations",      optimTag(data,"Multiple PEs"),  "MP","1em",True),
         # TexColumn("DPU Config",         dpu_config,                     "DC","1em"),
@@ -435,18 +498,28 @@ header = """
 """
 
 table_head= """
-\\begin{tabular}{ccccccclccccccccc}
- \\multicolumn{6}{c}{\\textbf{General}} & \\multicolumn{6}{c}{\\textbf{Design}} & \\multicolumn{5}{c}{\\textbf{Peformance}}  \\\\
- \\cmidrule(lr){1-6}  \\cmidrule(lr){7-12} \\cmidrule (lr){13-17}
+\\begin{tabular}{cccccccclccccccccc}
+ \\multicolumn{7}{c}{\\textbf{Implementation Choices}} & \\multicolumn{5}{c}{\\textbf{Design Metrics}} & \\multicolumn{5}{c}{\\textbf{Peformance Metrics}}  \\\\
+ \\cmidrule(lr){1-7}  \\cmidrule(lr){8-12} \\cmidrule (lr){13-18}
 
-\\textbf{Impl.}&\\textbf{Fam.} &\\textbf{Pat.} &\\textbf{Ref.} &\\textbf{FPGA} &\\textbf{Model Name} &\\textbf{Mem[MB]} & \\textbf{Loc.} &\\textbf{Compl.[OP]} &\\textbf{Prec.} &\\textbf{DSP[\\%]} &\\textbf{BRAM[\\%]} &\\textbf{f[MHz]} &\\textbf{Comp.[GOP/s]} &\\textbf{Latency} &\\textbf{FPS}&\\textbf{P[W]} \\\\
+&\\textbf{Impl.}&\\textbf{Fam.} &\\textbf{P} &\\textbf{Ref.} &\\textbf{FPGA} &\\textbf{Model Name} &\\textbf{Prec.} &\\textbf{C[OP]}&\\textbf{Mem[MB]}  &\\textbf{D[\\%]} &\\textbf{B[\\%]} &\\textbf{MHz} &\\textbf{T[GOP/s]} & \\textbf{P[W]} & \\textbf{T/P} &\\textbf{Latency} &\\textbf{FPS}\\\\
  \\toprule
  """
+
+table_foot = """
+\\flushleft{
+\\textit{FPGA:} AMD/XILINX Fpga names are stripped of leading  to increase readability\\\\
+\\textit{Mem:} \\textbf{\\textdagger} Uses On-Chip Memory, \\textbf{?} Memory Location unknown\\\\
+\\textit{Latency:} \\textbf{*} Latency of a single Pixel\\\\
+\\textit{Model Name:} \\textbf{RDBC} Roller Dung Beetle Clustering, \\textbf{WNS} Weightless Neural System\\\\
+}
+"""
+
 
 print(table_head)
 
 tab = TexTable(data,columns)
-text = tab.render("",5,table_head)
+text = tab.render("",4,table_head,table_foot)
 
 footer = "\n\end{document}\n"
 

@@ -1,7 +1,8 @@
 import re
 import tabulate
 
-get_total_in_dict_of_lists = lambda dict: sum([len(dict[tag]) for tag in dict])
+def get_total_in_dict_of_lists(d):
+    return sum(len(d[tag]) for tag in d)
 
 def wrap_label(label, maxWidth=15):
     words = label.split(' ')

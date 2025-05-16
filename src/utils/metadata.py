@@ -68,6 +68,14 @@ fpga_part_info = {
     "5CSEMA5F31C6"  : [2012,  87,    "Cyclone"]  # Terasic DE-01 board (Link: https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/607/Cyclone_V_Device_Overview_Web.pdf (page 13 (A5)
 }
 
+def assign_model_core(row):
+    # Combine the values from the three columns
+    combined_info = f"{row['Model']} {row['Equivalent model']} {row['Backbone']}".upper()
+    for keyword, core_label in model_core_map.items():
+        if keyword.upper() in combined_info:
+            return core_label
+    raise ValueError(f"Model core not found for row: {row}")
+
 # Define the grouping keywords and their corresponding group labels
 model_core_map = {
     # Deep Learning

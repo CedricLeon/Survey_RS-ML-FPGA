@@ -67,3 +67,42 @@ fpga_part_info = {
     "5CSXC6"        : [2012,   112,    "Cyclone"],
     "5CSEMA5F31C6"  : [2012,  87,    "Cyclone"]  # Terasic DE-01 board (Link: https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/607/Cyclone_V_Device_Overview_Web.pdf (page 13 (A5)
 }
+
+# Define the grouping keywords and their corresponding group labels
+model_core_map = {
+    # Deep Learning
+    'ALEXNET': 'AlexNet',
+    'YOLO': 'YOLO',
+    'SSD': 'SSD',
+    'VGG': 'VGG',
+    'RESNET': 'ResNet',
+    'GHOSTNET': 'GhostNet',
+    'U-NET': 'U-Net',
+    'MOBILENET': 'Custom CNN', # to avoid being identify as "LeNet"
+    # 'FPN': 'Custom CNN',
+    # 'SQUEEZENET': 'Custom CNN',
+    # 'ENET': 'Custom CNN',
+    # 'ESPNET': 'Custom CNN',
+    'LENET': 'LeNet',
+
+    # Shallow Neural Networks
+    'MLP': 'Shallow NN',
+    'DEEP BELIEF NETWORK': 'Shallow NN',
+    'WEIGHTLESS NEURAL SYSTEMS': 'Shallow NN',
+
+    # Graph Neural Networks
+    'GNN': 'GNN',
+
+    # Traditionnal Machine Learning
+    'SVM': 'Trad. ML',
+    'DECISION TREE': 'Trad. ML',
+    'Fuzzy ARTMAP': 'Trad. ML',
+    'LPDBL': 'Trad. ML',
+    'ROLLER DUNG BETTLE CLUSTERING': 'Trad. ML',
+    # Weird and mixed models
+    'CAL-SC2S': 'Trad. ML',
+    'CAG-SC2S': 'Trad. ML',
+
+    # Not enough information
+    'CNN': 'Custom CNN',
+}

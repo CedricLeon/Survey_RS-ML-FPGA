@@ -76,7 +76,6 @@ def assign_model_core(row):
             return core_label
     raise ValueError(f"Model core not found for row: {row}")
 
-# Define the grouping keywords and their corresponding group labels
 model_core_map = {
     # Deep Learning
     'ALEXNET': 'AlexNet',
@@ -107,7 +106,7 @@ model_core_map = {
     'Fuzzy ARTMAP': 'Trad. ML',
     'LPDBL': 'Trad. ML',
     'ROLLER DUNG BETTLE CLUSTERING': 'Trad. ML',
-    # Weird and mixed models
+    # Mixed models
     'CAL-SC2S': 'Trad. ML',
     'CAG-SC2S': 'Trad. ML',
 

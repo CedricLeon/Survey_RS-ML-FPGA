@@ -23,6 +23,7 @@ Below you will find supplemental sections of the survey (moved because of the 35
 **Figure generation**:
 - [fig_dataset_treemap.ipynb](src/fig_dataset_treemap.ipynb): Visualization of the datasets and tasks as a treemap using [squarify](https://github.com/laserson/squarify) (unused in the manuscript)
 - [fig_FPGA_boards.ipynb](src/fig_FPGA_boards.ipynb): Visualization of the FPGA boards used in the articles (Fig. 3)
+- [fig_ML_models.ipynb](src/fig_ML_models.ipynb): Visualization of all ML models used in the experiments (Fig. 2)
 
 ### Workflow
 This systematic survey was conducted following the PRISMA 2020 guidelines. Studies were exported from Web of Science to Zotero, where records have been, screened, tagged and summarized.

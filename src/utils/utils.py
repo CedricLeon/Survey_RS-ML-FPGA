@@ -1,6 +1,13 @@
 import re
 import tabulate
 
+# Quick ANSI color code shortcuts
+r = "\033[31m"
+y = "\033[33m"
+g = "\033[32m"
+b = "\033[34m"
+e = "\033[0m"
+
 def get_total_in_dict_of_lists(d):
     return sum(len(d[tag]) for tag in d)
 

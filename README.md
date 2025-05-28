@@ -22,6 +22,7 @@ Below you will find supplemental sections of the survey (moved because of the 35
 - [metadata.py](src/utils/metadata.py): Contains color, model cores, and FPGA information used in the different notebooks.
 - [analysis.ipynb](src/analysis.ipynb): Contains high-level analysis of the experiments.
 - [fpga_metrics.py](src/fpga_metrics.py): ???? @dirkstober
+- [plotting_exploration.ipynb](src/plotting_exploration.ipynb: Contains a wide diversity of deprecated figures)
 
 **Figure generation**:
 - [fig_applications_tasks.ipynb](src/fig_applications_tasks.ipynb): Visualization of relations between RS applications and ML tasks (Fig.1)

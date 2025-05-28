@@ -19,7 +19,10 @@ Below you will find supplemental sections of the survey (moved because of the 35
 
 #### Notebooks
 - [analysis.ipynb](src/analysis.ipynb): Contains high-level analysis of the experiments.
-- 
+
+**Figure generation**:
+- [fig_dataset_treemap.ipynb](src/fig_dataset_treemap.ipynb): Visualization of the datasets and tasks as a treemap using [squarify](https://github.com/laserson/squarify) (unused in the manuscript)
+- [fig_FPGA_boards.ipynb](src/fig_FPGA_boards.ipynb): Visualization of the FPGA boards used in the articles (Fig. 3)
 
 ### Workflow
 This systematic survey was conducted following the PRISMA 2020 guidelines. Studies were exported from Web of Science to Zotero, where records have been, screened, tagged and summarized.

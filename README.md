@@ -17,14 +17,21 @@ This repository provides context to the manuscript "FPGA-Enabled Machine Learnin
 The literature data, the code for the data analysis, figure and table generation, as well as the supplemental material are available here.
 Below you will find supplemental sections of the survey (moved because of the 35-page limit) and instructions to run code snippets. @TODO: add links to markdown sections.
 
-#### Notebooks
+#### Repo structure
+**General**:
+- [metadata.py](src/utils/metadata.py): Contains color, model cores, and FPGA information used in the different notebooks.
 - [analysis.ipynb](src/analysis.ipynb): Contains high-level analysis of the experiments.
+- [fpga_metrics.py](src/fpga_metrics.py): ???? @dirkstober
 
 **Figure generation**:
 - [fig_applications_tasks.ipynb](src/fig_applications_tasks.ipynb): Visualization of relations between RS applications and ML tasks (Fig.1)
 - [fig_ML_models.ipynb](src/fig_ML_models.ipynb): Visualization of all ML models used in the experiments (Fig. 2)
 - [fig_FPGA_boards.ipynb](src/fig_FPGA_boards.ipynb): Visualization of the FPGA boards used in the articles (Fig. 3)
 - [fig_dataset_treemap.ipynb](src/fig_dataset_treemap.ipynb): Visualization of the datasets and tasks as a treemap using [squarify](https://github.com/laserson/squarify) (unused in the manuscript)
+
+**Table generation**:
+- [table_RS-ML.ipynb](src/table_RS-ML.ipynb): Generates the LaTeX code for the RS/ML taxonomy (Table 2)
+- [table_FPGA.py](src/table_FPGA.py): Generates the LaTeX code for the FPGA taxonomy (Table 3)
 
 ### Workflow
 This systematic survey was conducted following the PRISMA 2020 guidelines. Studies were exported from Web of Science to Zotero, where records have been, screened, tagged and summarized.

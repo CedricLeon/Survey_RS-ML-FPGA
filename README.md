@@ -1,11 +1,14 @@
 # Survey RS-ML-FPGA
 @TODO: add the html tags
-@TODO: add LICENSE file
-@TODO: clean repo: original_messy_notebook, uneccessary notebooks (still available through commits) table sketches and deprecated figures, old dataframes
+@TODO: clean repo:
+- [ ] original_messy_notebook,
+- [ ] uneccessary notebooks (still available through commits)
+- [ ] table sketches and deprecated figures
+- [ ] old dataframes
 
 ## Description
 ***
-This repository provides context to the manustcript "FPGA-Enabled Machine Learning Applications in Earth Observation: A Systematic Review" submitted at ACM CSUR and available on [arXiv]().
+This repository provides context to the manuscript "FPGA-Enabled Machine Learning Applications in Earth Observation: A Systematic Review" submitted at ACM CSUR and available on [arXiv]().
 
 ### How to cite
 @TODO + move at the end of README?
@@ -13,6 +16,10 @@ This repository provides context to the manustcript "FPGA-Enabled Machine Learni
 ### Content
 The literature data, the code for the data analysis, figure and table generation, as well as the supplemental material are available here.
 Below you will find supplemental sections of the survey (moved because of the 35-page limit) and instructions to run code snippets. @TODO: add links to markdown sections.
+
+#### Notebooks
+- [analysis.ipynb](src/analysis.ipynb): Contains high-level analysis of the experiments.
+- 
 
 ### Workflow
 This systematic survey was conducted following the PRISMA 2020 guidelines. Studies were exported from Web of Science to Zotero, where records have been, screened, tagged and summarized.

@@ -1,21 +1,17 @@
 # Survey RS-ML-FPGA
 @TODO: add the html tags
-@TODO: clean repo:
-- [ ] original_messy_notebook,
-- [ ] uneccessary notebooks (still available through commits)
-- [ ] table sketches and deprecated figures
-- [ ] old dataframes
+@TODO: add links to markdown sections.
 
 ## Description
 ***
 This repository provides context to the manuscript "FPGA-Enabled Machine Learning Applications in Earth Observation: A Systematic Review" submitted at ACM CSUR and available on [arXiv]().
 
-### How to cite
+**How to cite**
 @TODO + move at the end of README?
 
 ### Content
 The literature data, the code for the data analysis, figure and table generation, as well as the supplemental material are available here.
-Below you will find supplemental sections of the survey (moved because of the 35-page limit) and instructions to run code snippets. @TODO: add links to markdown sections.
+Below you will find supplemental sections of the survey (moved because of the 35-page limit) and instructions to run code snippets. 
 
 #### Repo structure
 **General**:
@@ -59,7 +55,7 @@ In cases where studies utilize multiple FPGA products, we select the device used
 To standardize performance reporting, we preferred to report the most common accuracy metric for each task: Overall Accuracy (**OA**) for Classification and Pixel Classification, mean Intersection over Union (**mIoU**) for Segmentation, and mean Average Precision (**mAP**) for Object Detection (**mIoU** would have been preferred, but too few articles reported **mIoU**). When such accuracy is unavailable, we turn to second-choice metrics such as **F1-score** or **SSIM**. Model size, computational Throughput, and Power consumption are converted to MegaBytes **[MB]**, Giga Operation per second **[GOP/s]**, and Watts **[W]**, respectively. Although processing time is a highly relevant metric, especially for real-time solutions, varying image sizes across studies makes direct comparisons impossible. Nevertheless, algorithms processing one pixel at a time, and thus subject to significantly lower latencies, are marked with an asterisk **$^*$**. Latency, when available, in milliseconds (**[ms]**) is preferred over Frames Per Second (**[FPS]**) but is left unconverted due to the common usage of pipelining.
 
 ### Space Constraints on Edge Systems
-*The section below was originally contained in the manuscript, before comparing FPGAs to other PUs.*
+*The section below was originally contained in the manuscript, before comparing FPGAs to other Processing Units (PUs).*
 Deploying edge systems in space introduces unique challenges beyond terrestrial applications. Foremost is radiation exposure, where spaceborne equipment is continuously bombarded by radiation, causing Single-Event Effects (SEEs) in onboard electronics **[6]**. These SEEs manifest as Single Event Upsets (SEUs), which are non-destructive soft errors that alter the logic state of memory, or as Single Event Latch-ups (SELs), potentially destructive hard errors requiring a power reset. The frequency of SEEs and their potential to cause operational and functional changes pose significant challenges to reliable operation. Siegle et al. **[7]** provide a comprehensive overview of radiation effects and established mitigation strategies.
 From a 2017 NASA report on SmallSats **[8]**:
 > Single event effects (SEE) is the disturbance created by single particles hitting the electronics (Nguyen, 2015). Total dose is measured in krad and can affect transistor performance. Single event upsets (SEU) can affect the logic state of memory. A single event latchup (SEL) can affect the output transistors on CMOS logic, potentially causing a high-current state.
@@ -95,13 +91,15 @@ Furthermore, extreme temperature variations—from $-150^\circ$C to $+150^\circ$
 ## Repository instructions
 ***
 ### Run the notebooks
-If you're goal is simply to recreate the figures/tables or to play around with the code analysis. You should be able to simply run the notebooks, once you have created a virtual environment with the required packages:
-@TODO: generate the `requirements.txt` and describe the steps to setup a conda environment (careful Python version) below
-```
+If your goal is simply to recreate the figures/tables or to play around with the code analysis. You should be able to simply run the notebooks, once you have created a virtual environment with the required packages:
+```bash
+conda create -n rs_ml_fpga # @TODO: Python version?
+conda activate rs_ml_fpga
+pip install -r requirements.txt
 ```
 
 ### Follow a similar workflow
-This repository was also created for future researcher interested to recreate such processing pipelines. If this is your case, the instructions below should be a good starting point. While, these instructions do not act as a tutorial, we hope they can help the start of your journey 🙃.
+This repository was also created for future researcher interested to recreate such processing pipelines. If this is your case, the instructions below should be a good starting point. While these instructions do not act as a tutorial, we hope they can help the start of your journey 🙃.
 
 #### Exporting records to Zotero
 After prompting the research searchbase of your choice, you have to export your results to the bibliographic tool of your choice. 
@@ -111,7 +109,7 @@ We recommend selecting the RIS file format.
 #### Setting up Zotero
 For organization's sake, we recommend creating new collections at each step of your processing, for example when importing the records in Zotero.
 If you want to collaborate directly on the Zotero collection, have a look at @TODO add link to shared collections
-Finally, Zotero's tags have a color system.
+Finally, Zotero's tags have a color system which can come really handy when several authors read the articles.
 
 #### Accessing Zotero's API
 Before any coding you should obtain a couple information, mainly: Your private Zotero API Key accessible here @TODO: add link.
@@ -121,16 +119,16 @@ Zotero API Key: <your_api_key>
 ```
 You will also need your collection keys @TODO or identifier
 
-#### fecthing your Zotero's data
+#### Fecthing your Zotero's data
 It is very likely that by that time, your setup will have differed in some manner. Nevertheless, if you want to run the scripts exactly as they are:
 ```bash
-python ./src/Zotero_data_processing/create_articles_df.py
-python ./src/Zotero_data_processing/create_datapoints_df.py -i data/Dataframes/all_articles_<currentTime>.pkl -o data/Dataframes/all_datapoints.pkl
+python ./src/Zotero_data_processing/create_articles_df.py -o data/Dataframes/all_articles.pkl
+python ./src/Zotero_data_processing/create_datapoints_df.py -i data/Dataframes/all_articles.pkl -o data/Dataframes/all_datapoints.pkl
 ```
-You can also force the naming of the first scripts with `-i all_articles.pkl` for example.
+You can also force the naming of the first scripts with `-o all_articles.pkl` for example.
 `create_datapoints_df.py` can also be run with different verbose levels (`-v`, `-vv`, or `-vvv`) to see more details.
 
-> Keep in mind that the second scripts already parses Zotero tags, which will result in an error if your implemenation does not have exactly the same structure than ours 
+> Keep in mind that the second scripts already parses Zotero tags, which will result in an error if your implementqtion does not have exactly the same structure than ours 
 
 
 ##  Acknowledgement

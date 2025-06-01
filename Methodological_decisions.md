@@ -1,5 +1,5 @@
 # Methodological decisions
-*This file was used to track all decisions we made during the literature analysis and reporting. It is somehow redundant with the Methodology section of the paper, but is also more exhaustive.*
+*This file was used to track all decisions made during the literature analysis and reporting. It is more exhaustive than the Methodology section of the paper.*
 
 ## Data Selection
 ***
@@ -9,33 +9,30 @@ Examples of representative datasets chosen (These choices are arbitrary, within 
 - MSTAR for SAR classification.
 - DOTAv1.0 for RGB object detection.
 
-For simplicity, the unusual modalities have been simplified. More explicitly, \citet{yahiaouiParallelizationFuzzyARTMAP2017a} uses an infrared channel in addition to RGB, and \citet{wangFastDetectionObstacle2024} uses RGB and MilliMeter-Wave (MMW) radar data.
+For simplicity, the unusual modalities have been simplified in the table. More explicitly, \citet{yahiaouiParallelizationFuzzyARTMAP2017a} uses an infrared channel in addition to RGB, and \citet{wangFastDetectionObstacle2024} uses RGB and MilliMeter-Wave (MMW) radar data. These details are mentionned when describing the contribution of the study.
 
 ## Model Reporting
 ***
 When a study evaluates the same model at different stages of optimization, we only report the "best" or last stage model. Refer to Section~\ref{section:RQ4_optimizations} for detailed descriptions of iterative design workflows.
 
-Reporting DL architectures is challenging due to the number of different architectures.
-- Some names are well-spread (VGG, ResNet), but some older architectures (AlexNet, GoogleNet) are commonly re-created, re-branded, or simply called "CNN."
+Reporting DL architectures is challenging due to the number of different architectures. Indeed, some names are well-spread (VGG, ResNet), but some older architectures (AlexNet, GoogleNet) are commonly re-created, re-branded, or simply called "CNN". Therefore:
 - We report the model's name used in the study.
-- We also report the "ground architecture" it is based on, i.e., its Backbone when available, otherwise its "equivalent model." (Empty field means referenced backbone.)
-- When the model is based on an established backbone specified in the paper, it is added between parentheses, and when not obvious.
-About the model selection in \cite{yangAlgorithmHardwareCodesign2022}: They target a specific latency, and it's a no-brainer to pick the lower latency MobileNets because the same accuracy score, but it's arbitrary for SqueezeNet.
+- We also report the "core architecture" it is based on, i.e., its Backbone when available, otherwise its "equivalent model."
+About the model selection in \cite{yangAlgorithmHardwareCodesign2022}: They target a specific latency, and it was obvious to pick the lower latency MobileNets because the same accuracy score, but we selected the model usnig more hardware ressources for SqueezeNet.
 
 ## Metric Reporting
 ***
-We try to not hazard into figure reading. Metrics that could not be found in the text of the articles were not reported, at the exception of the accuracies.
+We try to not hazard into figure reading. Metrics that could not be found in the text of the articles were not reported, at the exception of the accuracies (that we considered primordial).
 When several accuracy metrics were available, we chose to report the most common one for the task. This means in detail:
 - OA for all classification and pixel classification.
 - mIoU for Segmentation.
 - mAP for Object detection (mIoU would have been preferred, but too few articles reported mIoU).
-Also, by default, when someone says "accuracy" in Classification, it means OA.
+Also, by default, we assumed that says "accuracy" in Classification, meant Overall Accuracy (OA).
 
 Model size, Computational Throughput, and Power were all converted to respectively MB, GOP/s, and W.
 For "Latency," we preferred the latency in ms over the image throughput in FPS. However, many studies report only the FPS.
 Because of the possible use of pipelining within the accelerator, translating FPS to ms is not straightforward and was left as the original on-purpose.
-
-The processing time of a method is a relevant and important metric, especially for solutions aiming at real-time performance.
+In general, the processing time of a method is a relevant and important metric, especially for solutions aiming at real-time performance.
 However, given the different problems and image sizes of the studies, direct comparisons are impossible.
 Nevertheless, we consider such metric to be informative and report it in the tables.
 Algorithms processing 1 pixel at a time, therefore subject to significantly lower latencies, are marked with *.
@@ -43,7 +40,7 @@ Algorithms processing 1 pixel at a time, therefore subject to significantly lowe
 
 ## FPGA: Choices Made
 ***
-5 out of 46 articles used several FPGA boards. In each of these articles, one of the FPGAs was used for more experiments, and the authors reported more results.Therefore, we reported the most used board.
+5 out of 46 articles used several FPGA boards. In each of these articles, one of the FPGAs was used for more experiments, and the authors reported more results. Therefore, we reported the most used board.
 For example, in Table~\ref{table:rs-ml_taxonomy}, we report only the ZC106 and not the KU060 of \cite{rapuanoFPGAbasedHardwareAccelerator2021a}. This is also because the Zynq US+ family is more common than the Kintex US.
 All FPGAs used in the studies are plotted in Figure~\ref{fig:fpga_distribution}.
 

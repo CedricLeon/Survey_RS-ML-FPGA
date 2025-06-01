@@ -1,48 +1,50 @@
 # Survey RS-ML-FPGA
-@TODO: add the html tags
-@TODO: add links to markdown sections.
+[![Static Badge](https://img.shields.io/badge/Zotero-CC2936?logo=zotero&logoColor=CC2936&labelColor=white)](https://www.zotero.org/) [![Static Badge](https://img.shields.io/badge/python-3.9_%7C_3.10_%7C_3.11_%7C_3.12-blue)](https://www.python.org/)
+
+
+This repository provides context to the manuscript "FPGA-Enabled Machine Learning Applications in Earth Observation: A Systematic Review" submitted at ACM CSUR.
+
+The data from the surveyed research articles, the code for the data analysis, figure and table generation, as well as the supplemental material are available here.
+You will also find [supplemental sections](#supplemental-material) of the survey and [instructions to run](#repository-instructions) code snippets.
 
 ## Description
 ***
-This repository provides context to the manuscript "FPGA-Enabled Machine Learning Applications in Earth Observation: A Systematic Review" submitted at ACM CSUR and available on [arXiv]().
-
-**How to cite**
-@TODO + move at the end of README?
-
-### Content
-The literature data, the code for the data analysis, figure and table generation, as well as the supplemental material are available here.
-Below you will find supplemental sections of the survey (moved because of the 35-page limit) and instructions to run code snippets. 
-
-#### Repo structure
-**General**:
-- [metadata.py](src/utils/metadata.py): Contains color, model cores, and FPGA information used in the different notebooks.
-- [analysis.ipynb](src/analysis.ipynb): Contains high-level analysis of the experiments.
-- [fpga_metrics.py](src/fpga_metrics.py): ???? @dirkstober
-- [plotting_exploration.ipynb](src/plotting_exploration.ipynb: Contains a wide diversity of deprecated figures)
-
-**Figure generation**:
-- [fig_applications_tasks.ipynb](src/fig_applications_tasks.ipynb): Visualization of relations between RS applications and ML tasks (Fig.1)
-- [fig_ML_models.ipynb](src/fig_ML_models.ipynb): Visualization of all ML models used in the experiments (Fig. 2)
-- [fig_FPGA_boards.ipynb](src/fig_FPGA_boards.ipynb): Visualization of the FPGA boards used in the articles (Fig. 3)
-- [fig_dataset_treemap.ipynb](src/fig_dataset_treemap.ipynb): Visualization of the datasets and tasks as a treemap using [squarify](https://github.com/laserson/squarify) (unused in the manuscript)
-
-**Table generation**:
-- [table_RS-ML.ipynb](src/table_RS-ML.ipynb): Generates the LaTeX code for the RS/ML taxonomy (Table 2)
-- [table_FPGA.py](src/table_FPGA.py): Generates the LaTeX code for the FPGA taxonomy (Table 3)
 
 ### Workflow
-This systematic survey was conducted following the PRISMA 2020 guidelines. Studies were exported from Web of Science to Zotero, where records have been, screened, tagged and summarized.
+This systematic survey was conducted following the [PRISMA 2020](https://www.prisma-statement.org/prisma-2020) guidelines. Studies were exported from [Web of Science](https://www.webofscience.com/wos/) to [Zotero](https://www.zotero.org/), where records have been, screened, tagged and summarized.
 Zotero API was later accessed through Python to analyze the data and generate the survey's material.
 
-> Note: While the surveyed studies and their tags are available in this repository (`data/Dataframes/`), the complete original Zotero collection is locked behind Zotero API key system.
-> See `src/utils/Zotero_data_processing/create_articles_df.py` and @TODO: find URL to obtain personal Zotero API keys, and @TODO: add file links
+> Note: While the surveyed studies and their tags are available in this repository, the original Zotero collection is locked behind Zotero API key system.
+
+### Repo structure
+The `data/` folder contains all the data related to the project. The `Dataframes/` contain the original literature data classified and annotated in Zotero, while `Figures/` and `Tables/` host the generated products that can be found in the manuscript.
+The source code can be found in `src/` and mostly consists in Jupyter Notebooks. Refer to the repository instructions section [below](#run-the-notebooks) if you wish to execute them.
+
+In particular, you might be interested by:
+- **Figure generation**
+  - [fig_applications_tasks.ipynb](src/fig_applications_tasks.ipynb): Visualization of relations between RS applications and ML tasks (Fig.1)
+  - [fig_ML_models.ipynb](src/fig_ML_models.ipynb): Visualization of all ML models used in the experiments (Fig. 2)
+  - [fig_FPGA_boards.ipynb](src/fig_FPGA_boards.ipynb): Visualization of the FPGA boards used in the articles (Fig. 3)
+  - [fig_dataset_treemap.ipynb](src/fig_dataset_treemap.ipynb): Visualization of the datasets and tasks as a treemap using [squarify](https://github.com/laserson/squarify) (unused in the manuscript)
+  - [plotting_exploration.ipynb](src/plotting_exploration.ipynb): Contains a wide diversity of deprecated figures
+- **Table generation**
+  - [table_RS-ML.ipynb](src/table_RS-ML.ipynb): Generates the LaTeX code for the RS/ML taxonomy (Table 2)
+  - [table_FPGA.py](src/table_FPGA.py): Generates the LaTeX code for the FPGA taxonomy (Table 3)
+
+- **Other**
+  - [metadata.py](src/utils/metadata.py): Contains color, model cores, and FPGA information used in the different notebooks.
+  - [analysis.ipynb](src/analysis.ipynb): Contains explorative, high-level analysis of the experiments.
+  - [fpga_metrics.py](src/fpga_metrics.py): ???? @dirkstober
+
+
 
 
 ## Supplemental material
 ***
 
 ### Methodological Considerations
-*The section below was originally contained in the manuscript. It consists in a shortened version of the complete [methodological considerations](Methodological_decisions.md).*
+> The section below was originally contained in the manuscript. It consists in a shortened version of the complete [methodological considerations](Methodological_decisions.md).
+
 Due to the heterogeneity of the surveyed research, arising from diverse backgrounds, motivations, data, models, and hardware platforms, we make several methodological decisions to ensure consistency and clarity in result reporting.
 
 #### Data and Model Reporting
@@ -55,17 +57,16 @@ In cases where studies utilize multiple FPGA products, we select the device used
 To standardize performance reporting, we preferred to report the most common accuracy metric for each task: Overall Accuracy (**OA**) for Classification and Pixel Classification, mean Intersection over Union (**mIoU**) for Segmentation, and mean Average Precision (**mAP**) for Object Detection (**mIoU** would have been preferred, but too few articles reported **mIoU**). When such accuracy is unavailable, we turn to second-choice metrics such as **F1-score** or **SSIM**. Model size, computational Throughput, and Power consumption are converted to MegaBytes **[MB]**, Giga Operation per second **[GOP/s]**, and Watts **[W]**, respectively. Although processing time is a highly relevant metric, especially for real-time solutions, varying image sizes across studies makes direct comparisons impossible. Nevertheless, algorithms processing one pixel at a time, and thus subject to significantly lower latencies, are marked with an asterisk **$^*$**. Latency, when available, in milliseconds (**[ms]**) is preferred over Frames Per Second (**[FPS]**) but is left unconverted due to the common usage of pipelining.
 
 ### Space Constraints on Edge Systems
-*The section below was originally contained in the manuscript, before comparing FPGAs to other Processing Units (PUs).*
+> The section below was originally contained in the manuscript, before comparing FPGAs to other Processing Units (PUs).
+> 
 Deploying edge systems in space introduces unique challenges beyond terrestrial applications. Foremost is radiation exposure, where spaceborne equipment is continuously bombarded by radiation, causing Single-Event Effects (SEEs) in onboard electronics **[6]**. These SEEs manifest as Single Event Upsets (SEUs), which are non-destructive soft errors that alter the logic state of memory, or as Single Event Latch-ups (SELs), potentially destructive hard errors requiring a power reset. The frequency of SEEs and their potential to cause operational and functional changes pose significant challenges to reliable operation. Siegle et al. **[7]** provide a comprehensive overview of radiation effects and established mitigation strategies.
 From a 2017 NASA report on SmallSats **[8]**:
-> Single event effects (SEE) is the disturbance created by single particles hitting the electronics (Nguyen, 2015). Total dose is measured in krad and can affect transistor performance. Single event upsets (SEU) can affect the logic state of memory. A single event latchup (SEL) can affect the output transistors on CMOS logic, potentially causing a high-current state.
+"*Single event effects (SEE) is the disturbance created by single particles hitting the electronics (Nguyen, 2015). Total dose is measured in krad and can affect transistor performance. Single event upsets (SEU) can affect the logic state of memory. A single event latchup (SEL) can affect the output transistors on CMOS logic, potentially causing a high-current state.*"
 
 Furthermore, extreme temperature variations—from $-150^\circ$C to $+150^\circ$C **[9]**—necessitate sophisticated thermal management. Because vacuum conditions prevent fan-based cooling, electronic components must dissipate heat through radiation, a significantly less efficient method. This constraint underscores the imperative for energy-efficient solutions that minimize heat generation. In addition to radiation and thermal challenges, edge devices must comply with strict Size, Weight, and Power (SWaP) constraints, which directly impact their feasibility for space deployment. In particular, power budgets remain highly limited, typically ranging from $20$W to $95$W for SmallSat payloads **[10]**, reinforcing the need for low-power hardware acceleration. These systems must also endure the extreme conditions of launch, including substantial vibrations **[11]**, without compromising structural integrity. Operating reliably in a vacuum environment requires careful material selection to prevent outgassing, which could degrade performance or contaminate optical sensors.
 
-### Other supplemental material
-*@TODO: add description*
 
-### References
+**References**
 **[1]** Hyperspectral Remote Sensing Scenes—Grupo de Inteligencia Computacional. (n.d.). Retrieved November 7, 2024, from https://www.ehu.eus/ccwintco/index.php/Hyperspectral_Remote_Sensing_Scenes
 **[2]** MSTAR dataset. (n.d.). Retrieved November 6, 2024, from https://www.sdms.afrl.af.mil/index.php?collection=mstar
 **[3]** Xia, G.-S., Bai, X., Ding, J., Zhu, Z., Belongie, S., Luo, J., Datcu, M., Pelillo, M., & Zhang, L. (2018). DOTA: A Large-Scale Dataset for Object Detection in Aerial Images. 3974–3983. https://openaccess.thecvf.com/content_cvpr_2018/html/Xia_DOTA_A_Large-Scale_CVPR_2018_paper.html
@@ -79,45 +80,36 @@ Furthermore, extreme temperature variations—from $-150^\circ$C to $+150^\circ$
 **[11]** Jung, I. H., Park, T. W., Seo, J. H., Han, S. W., & Kim, S. H. (2004). Structural Vibration Analysis of Electronic Equipment for Satellite under Launch Environment. Key Engineering Materials, 270–273, 1440–1445. https://doi.org/10.4028/www.scientific.net/KEM.270-273.1440
 
 
-
-
-
-
-
-
-### Other
-*@TODO: Add future supplemental materials*
-
 ## Repository instructions
 ***
 ### Run the notebooks
 If your goal is simply to recreate the figures/tables or to play around with the code analysis. You should be able to simply run the notebooks, once you have created a virtual environment with the required packages:
 ```bash
-conda create -n rs_ml_fpga # @TODO: Python version?
+conda create -n rs_ml_fpga python=3.11
 conda activate rs_ml_fpga
 pip install -r requirements.txt
 ```
 
 ### Follow a similar workflow
-This repository was also created for future researcher interested to recreate such processing pipelines. If this is your case, the instructions below should be a good starting point. While these instructions do not act as a tutorial, we hope they can help the start of your journey 🙃.
+This repository was also created for future researcher interested to recreate such processing pipelines. If this is your case, the instructions below should be a good starting point. While these instructions do not act as a tutorial, we hope they can help the start of your journey 🙃
 
 #### Exporting records to Zotero
-After prompting the research searchbase of your choice, you have to export your results to the bibliographic tool of your choice. 
-> I do not have experience with any other tool, but I have never encountered something I could not do in Zotero.
-We recommend selecting the RIS file format.
+After prompting the research base of your choice (e.g., WoS or Scopus), you have to export your results to the bibliographic tool of your choice. We recommend exporting to RIS file format.
+
+> While we have not tried them, other bibliographic tools should fit this workflow. That said, we have never encountered something we could not do in Zotero.
 
 #### Setting up Zotero
-For organization's sake, we recommend creating new collections at each step of your processing, for example when importing the records in Zotero.
-If you want to collaborate directly on the Zotero collection, have a look at @TODO add link to shared collections
+For organization's sake, we recommend creating new collections at each step of your processing: when importing the records in Zotero, after the first screening pass, etc.
+If you want to collaborate directly in Zotero, have a look at [shared collections](https://www.zotero.org/support/groups).
 Finally, Zotero's tags have a color system which can come really handy when several authors read the articles.
 
 #### Accessing Zotero's API
-Before any coding you should obtain a couple information, mainly: Your private Zotero API Key accessible here @TODO: add link.
+Before any coding you should obtain a couple information, mainly your private Zotero API Key accessible [here](https://www.zotero.org/settings/security#applications).
 To be able to use similar logic as `explore_zotero_API.ipynb`, you will need to store your Zotero API Key in this file `src/Zotero_data_processing/.keys`. It should have a similar format:
 ```json
 Zotero API Key: <your_api_key>
 ```
-You will also need your collection keys @TODO or identifier
+You will also need your collection keys (see [zotero_API_exploration.ipynb](src/Zotero_data_processing/zotero_API_exploration.ipynb)) and your identifier that can you obtain [here](https://www.zotero.org/settings/security#applications).
 
 #### Fecthing your Zotero's data
 It is very likely that by that time, your setup will have differed in some manner. Nevertheless, if you want to run the scripts exactly as they are:
@@ -128,11 +120,11 @@ python ./src/Zotero_data_processing/create_datapoints_df.py -i data/Dataframes/a
 You can also force the naming of the first scripts with `-o all_articles.pkl` for example.
 `create_datapoints_df.py` can also be run with different verbose levels (`-v`, `-vv`, or `-vvv`) to see more details.
 
-> Keep in mind that the second scripts already parses Zotero tags, which will result in an error if your implementqtion does not have exactly the same structure than ours 
+> Keep in mind that the second script already parses Zotero tags, which will result in an error if your implementation does not have exactly the same structure than ours 
 
 
 ##  Acknowledgement
 ***
-I would like to thank Ivica Obadic and Adrian Höhl, for the early tips of the project, especially about PRISMA and Zotero. @TODO refine and GitHub usernames
+Thanks to [Ivica Obadic](https://github.com/IvicaObadic) and [Adrian Höhl](https://orcid.org/0000-0003-3380-4489) for the early tips of the project, especially about PRISMA and Zotero.
 
 This repository benefited from the use of GitHub Copilot (o1-preview), which assited by proposing code snippets, especially for `matplotlib` figure rendering.

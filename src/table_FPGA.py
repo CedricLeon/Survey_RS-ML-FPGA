@@ -444,7 +444,7 @@ table_head = """
  \\multicolumn{7}{c}{\\textbf{Implementation Choices}} & \\multicolumn{5}{c}{\\textbf{Design Metrics}} & \\multicolumn{5}{c}{\\textbf{Peformance Metrics}}  \\\\
  \\cmidrule(lr){1-7}  \\cmidrule(lr){8-12} \\cmidrule (lr){13-18}
 
-&\\textbf{Impl.}&\\textbf{Fam.} &\\textbf{P} &\\textbf{Ref.} &\\textbf{FPGA} &\\textbf{Model Name} &\\textbf{Prec.} &\\textbf{C[OP]}&\\textbf{MB}  &\\textbf{D[\\%]} &\\textbf{B[\\%]} &\\textbf{MHz} &\\textbf{GOP/s} & \\textbf{P[W]} & \\textbf{T/P} &\\textbf{L[s]} &\\textbf{FPS}\\\\
+&\\textbf{Impl.}&\\textbf{Fam.} &\\textbf{P} &\\textbf{Ref.} &\\textbf{FPGA} &\\textbf{Model Name} &\\textbf{Prec.} &\\textbf{C[OP]}&\\textbf{MB}  &\\textbf{D[\\%]} &\\textbf{B[\\%]} &\\textbf{MHz} &\\textbf{T[GOP/s]} & \\textbf{P[W]} & \\textbf{T/P} &\\textbf{L[s]} &\\textbf{FPS}\\\\
  \\toprule
  """
 

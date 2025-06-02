@@ -127,7 +127,7 @@ class TexTable:
     def header(self, custom_head):
         text = "\\begin{table}\n\\centering\n"
         text += """
-\\caption{FPGA Optimization Table}
+\\caption{FPGA Optimization Taxonomy Table}
 \\label{table:fpga_optim}
 """
         text += "{\\tiny"

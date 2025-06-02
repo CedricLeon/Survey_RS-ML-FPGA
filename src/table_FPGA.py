@@ -1,14 +1,11 @@
+"""This file is responsible for generating the FPGA taxonomy (Table 3). It groups different experiments and outputs the latex table."""
+
 #!/usr/bin/python3
 import pickle
 import re
 from pathlib import Path
 
-
-# This file is responsible for generating the second taxonomy
-# it groups different experiments and outputs the latex table
-
-# Check if the tags is a array if one of the keys is there otherwise
-# Print the last dictionary entry
+# Check if the tags is a array if one of the keys is there otherwise print the last dictionary entry
 def check_array(tags, tdict):
     name = []
     for k, ids in tdict.items():
@@ -162,15 +159,12 @@ class TexColumn:
         self.array = array
 
 
+##### Load Data #####
 with open("../data/Dataframes/all_articles_2025-06-01_12-33-03.pkl", "rb") as f:
     raw_data = pickle.load(f)
 
 with open("../data/Dataframes/all_datapoints.pkl", "rb") as f:
     data = pickle.load(f)
-
-
-### Table
-# Memory, Implementation, Task, Footprint, Utilization
 
 impl_tags = {
     "HDL": ["RTL design (Verilog)", "RTL design (VHDL)", "RTL design (N/A)"],
@@ -197,8 +191,6 @@ for k, v in impl_tags.items():
         frame_tags["Unclassified"].extend(v)
     else:
         frame_tags["Automatic"].extend(v)
-
-
 
 design_tags = {
     "S": [
@@ -343,8 +335,6 @@ model_tags["LUT\_MUL"] = model_tags.pop("LUT_MUL")
 model_tags["RDBC"] = model_tags.pop("Roller Dung Bettle Clustering")
 model_tags["WNS"] = model_tags.pop("Weightless Neural Systems")
 
-
-
 em_tags = {
     "CNN": [
         "CNN",
@@ -467,15 +457,11 @@ table_foot = """
 }
 """
 
-
-
 tab = TexTable(data, columns)
 text = tab.render("", 4, table_head, table_foot)
-
 footer = "\n\end{document}\n"
 
 Path("./gen").mkdir(parents=True, exist_ok=True)
-
 
 # Write single latex document to compile table
 f = open("gen/table.tex", "w")
@@ -486,4 +472,3 @@ f.close()
 f = open("gen/export.tex", "w")
 f.write(text)
 f.close()
-

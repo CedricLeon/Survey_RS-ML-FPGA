@@ -8,9 +8,9 @@ with open("../data/Dataframes/all_articles_2025-06-01_12-33-03.pkl", "rb") as f:
 
 with open("../data/Dataframes/all_datapoints.pkl", "rb") as f:
     data = pickle.load(f)
+
 ### Table
 # Memory, Implementation, Task, Footprint, Utilization
-
 impl_tags = {
     "HDL": ["RTL design (Verilog)", "RTL design (VHDL)", "RTL design (N/A)"],
     "HLS": ["HLS (N/A)", "HLS (Vitis)", "HLS (Vivado)"],
@@ -37,20 +37,18 @@ design_tags = {
     "-": ["???", "", "N/A"],
 }
 
-
 def findN(str_in, key):
     res = re.search(r"\d+%\s*" + key, str_in)
-    if res == None:
+    if res is None:
         return "-"
     else:
         r = res.group().split("%")[0]
         return r
 
 
-## Get the average utilization for DSP,BRAM & freq
-## Nums,Total,Min,Max
+# Get the average utilization for DSP,BRAM & freq
+# Nums,Total,Min,Max
 stats = np.zeros([2, 2, 4])
-
 stats[0][0][2] = 101
 stats[0][1][2] = 101
 stats[1][0][2] = 101
@@ -78,7 +76,7 @@ for index, row in data.iterrows():
             stats[i][j][2] = min(v, stats[i][j][2])
             stats[i][j][3] = max(v, stats[i][j][3])
 
-# Get ze average
+# Get the average
 for i in range(2):
     for j in range(2):
         stats[i][j][1] = stats[i][j][1] / stats[i][j][0]
@@ -87,7 +85,6 @@ print("HDL")
 print(stats[0])
 print("HLS")
 print(stats[0])
-
 
 em_tags = {
     "CNN": [
@@ -104,7 +101,6 @@ em_tags = {
     "GNN": ["GNN"],
 }
 
-
 num_cnn = data.loc[
     (
         data["Implementation"].isin(impl_tags["HDL"])
@@ -120,7 +116,7 @@ total_manual = data.loc[
 print(f"Num CNNs: {num_cnn} CNNs percentage of manual implementations({num_cnn / total_manual})")
 
 
-#### Measure the average memory of off-chip vs on-chip
+##### Measure the average memory of off-chip vs on-chip #####
 # Add various kernels to all Vitis AI stuff
 df = data.loc[data["Implementation"].isin(impl_tags["Vitis AI"])]
 df["Design"] = df["Design"].replace("", "Various Kernels")
@@ -144,8 +140,7 @@ design_tags = {
     "-": ["???", "", "N/A"],
 }
 
-# Number of F with off-chip
-
+##### Number of Flexible designs with off-chip memory #####
 flex_total = data.loc[(data["Design"].isin(design_tags["F"]))].shape[0]
 flex_off = data.loc[
     (data["Design"].isin(design_tags["F"])) & (data["Memory"] == "Off-chip")
@@ -159,7 +154,6 @@ spec_off = data.loc[
 print(f"Number Flexible {(flex_total)}: Avg Off-Chip: {(flex_off) / (flex_total)}")
 print(f"Number Specific {(spec_total)}: Avg Off-Chip: {(spec_off) / (spec_total)}")
 
-
 off_chip = data.loc[(data["Memory"] == "Off-chip") & (data["Footprint"] != "")][
     "Footprint"
 ].to_list()
@@ -167,17 +161,14 @@ on_chip = data.loc[(data["Memory"] == "On-chip") & (data["Footprint"] != "")][
     "Footprint"
 ].to_list()
 
-
 off_chip = [float(x.split(" ")[0]) for x in off_chip]
 on_chip = [float(x.split(" ")[0]) for x in on_chip]
-
-
 print(f"Number Off-chip {len(off_chip)}: Avg Memory Footprint: {sum(off_chip) / len(off_chip)} MB")
 print(f"Number On-chip {len(on_chip)}: Avg Memory Footprint: {sum(on_chip) / len(on_chip)} MB")
 
 
 
-## Get precision metrics
+##### Get precision metrics #####
 fixed_tags = {
     "i4": ["(CloudSatNet-1 Q4) Fixed (4)", "Fixed (4)"],
     "i8": ["Fixed (8)"],
@@ -208,14 +199,9 @@ i8_man_vals = manual.loc[
     | data["Precision"].isin(fixed_tags["i8,i32"])
     | data["Precision"].isin(fixed_tags["i8,f32"])
 ].shape[0]
-
 num_total = data.shape[0]
 
 print(f"Percentage of int8: {i8_vals / float(num_total)}")
 print(f"Percentage of int8 in manual designs: {i8_man_vals / float(total_manual)}")
-
-
 pc = data.loc[data["Power consumption"] != ""]
 print(f"Percentage of experiments reporting power: {(pc.shape[0]*100)/num_total}")
-
-

@@ -4,6 +4,9 @@ import re
 from pathlib import Path
 
 
+# This file is responsible for generating the second taxonomy
+# it groups different experiments and outputs the latex table
+
 # Check if the tags is a array if one of the keys is there otherwise
 # Print the last dictionary entry
 def check_array(tags, tdict):
@@ -28,7 +31,6 @@ class TexNode:
 
         if i > 0:
             self.hook = columns[i - 1].hook
-            self.cwidth = columns[i - 1].cwidth
 
         if i < len(columns):
             self.column = columns[i]
@@ -123,7 +125,6 @@ class TexTable:
             self.text += custom_foot + "}\n\\end{table}"
         else:
             "}\n\\end{table}"
-        # self.text += "\\end{tabular}\n\n"
         return self.text
 
     def header(self, custom_head):
@@ -132,7 +133,6 @@ class TexTable:
 \\caption{FPGA Optimization Table}
 \\label{table:fpga_optim}
 """
-        # text+="\\begin{adjustbox}{totalheight=\\textheight-2\\baselineskip,}\n"
         text += "{\\tiny"
         if custom_head == None:
             text += "\\begin{tabular}{"
@@ -153,20 +153,16 @@ class TexColumn:
         self,
         df_key: str,
         tags: dict,
-        name: str,
-        cwidth: str = "4em",
         array=False,
         hook=None,
     ):
         self.df_key = df_key
         self.tags = tags
-        self.name = name
-        self.cwidth = cwidth
         self.hook = hook
         self.array = array
 
 
-with open("../data/Dataframes/all_articles_2025-03-07_12-43-59.pkl", "rb") as f:
+with open("../data/Dataframes/all_articles_2025-06-01_12-33-03.pkl", "rb") as f:
     raw_data = pickle.load(f)
 
 with open("../data/Dataframes/all_datapoints.pkl", "rb") as f:
@@ -202,7 +198,6 @@ for k, v in impl_tags.items():
     else:
         frame_tags["Automatic"].extend(v)
 
-print(frame_tags)
 
 
 design_tags = {
@@ -266,7 +261,6 @@ for k, v in cc_tasks.items():
         val = val[:4] + l
     else:
         val = val[:3] + " " + l
-    print(val)
     if val in compl_task:
         compl_task[val].extend(v)
     else:
@@ -281,13 +275,11 @@ for t in sorted(data["Throughput"].unique()):
         through_tags[""] = [t]
     else:
         v = float(t.split(" ")[0])
-        print(v)
         st = "%.1f" % v
         if st[-1] == "0":
             st = st[:-2]
 
         through_tags[st] = [t]
-# through_tags  = {".1f" % float(f.split(" ")[0]) : [f]  for f in sorted(data["Throughput"].unique())}
 
 lat_tags = {f: [f] for f in data["Latency"].unique()}
 fps_tags = {f.split(" ")[0]: [f] for f in data["FPS"].unique()}
@@ -314,10 +306,6 @@ for f in sorted(data["Board"].unique()):
 
     k = part.split("XC")[-1]
 
-    # if(len(board) > 0):
-    #     k = k + "(" + board +")"
-    # else:
-    #     k = k + "(" + part +")"
 
     if k in board_tags.keys():
         board_tags[k].append(f)
@@ -356,9 +344,6 @@ model_tags["RDBC"] = model_tags.pop("Roller Dung Bettle Clustering")
 model_tags["WNS"] = model_tags.pop("Weightless Neural Systems")
 
 
-print(data.columns)
-print(data["Equivalent model"].unique())
-# print(data["Model"].unique())
 
 em_tags = {
     "CNN": [
@@ -390,7 +375,7 @@ df["Memory"] = df["Memory"].replace("", "Off-chip")
 data.loc[data["Implementation"].isin(impl_tags["Vitis AI"])] = df
 
 
-# data.insert(4,"Power efficiency","")
+# Calculate Power Efficiency
 for i, r in data.iterrows():
     pc = r["Power consumption"].split(" ")[0]
     tp = r["Throughput"].split(" ")[0]
@@ -408,7 +393,6 @@ mem_tags = {
     "-": ["N/A"],
 }
 
-# This can be used to merge Mem and Loc columns
 for index, row in data.iterrows():
     nw = row["Footprint"].split(" ")[0]
     if nw == "":
@@ -422,7 +406,6 @@ for index, row in data.iterrows():
         nw += "\\textsuperscript{\\textbf{?}}"
     data.loc[index, "Footprint"] = nw
 
-# fp_tags  = {f.split(" ")[0]: [f]  for f in sorted(data["Footprint"].unique())}
 fp_tags = {f: [f] for f in sorted(data["Footprint"].unique())}
 
 
@@ -432,31 +415,24 @@ def fun(x):
 
 
 columns = [
-    TexColumn("Implementation", frame_tags, "", "2.5em", hook=fun),
-    TexColumn("Implementation", impl_tags, "Impl.", "2.5em"),
-    TexColumn("Equivalent model", em_tags, "Model Family", "2.5em"),
-    TexColumn("Design", design_tags, "Pat.", "1.5em"),
-    TexColumn("BBT Citation Key", cit_tags, "Ref.", "1em"),
-    TexColumn("Board", board_tags, "FPGA", "2.5em"),
-    TexColumn("Model", model_tags, "Model Name", "2.5em"),
-    # TexColumn("Task",               task_tags,                      "Task","3em"),
-    TexColumn("Precision", fixed_tags, "Prec. ", "2em"),
-    # TexColumn("Memory",             mem_tags,                       "Loc.","2em"),
-    TexColumn("Complexity", compl_task, "Model Compl. [GOPS]", "2em"),
-    TexColumn("Footprint", fp_tags, "Mem [MB]", "2em"),
-    TexColumn("FPGA Util", util_tags, "DSP[\%]", "1em"),
-    TexColumn("FPGA Util", bram_tags, "BRAM[\%]", "1em"),
-    TexColumn("Frequency", freq_tags, "f[MHz]", "2em"),
-    TexColumn("Throughput", through_tags, "Throughput [GOP/s]", "2.5em"),
-    TexColumn("Power consumption", power_tags, "Power[W]", "2em"),
-    TexColumn("Power efficiency", eff_tags, "Power[W]", "2em"),
-    TexColumn("Latency", lat_tags, "BW/Lat[FPS/ms]", "2.5em"),
-    TexColumn("FPS", fps_tags, "FPS", "2.5em"),
-    # TexColumn("Optimizations",      optimTag(data,"Multiple PEs"),  "MP","1em",True),
-    # TexColumn("DPU Config",         dpu_config,                     "DC","1em"),
-    # TexColumn("DPU Util",         dpu_util,                     "DU","1em"),
-    # TexColumn("DPU Core",         dpu_core,                     "DC2","1em")
-    # TexColumn("Optimizations",      special_ops,                    "Optim","2em",True),
+    TexColumn("Implementation", frame_tags, hook=fun),
+    TexColumn("Implementation", impl_tags),
+    TexColumn("Equivalent model", em_tags),
+    TexColumn("Design", design_tags),
+    TexColumn("BBT Citation Key", cit_tags),
+    TexColumn("Board", board_tags),
+    TexColumn("Model", model_tags),
+    TexColumn("Precision", fixed_tags),
+    TexColumn("Complexity", compl_task),
+    TexColumn("Footprint", fp_tags),
+    TexColumn("FPGA Util", util_tags),
+    TexColumn("FPGA Util", bram_tags),
+    TexColumn("Frequency", freq_tags),
+    TexColumn("Throughput", through_tags),
+    TexColumn("Power consumption", power_tags),
+    TexColumn("Power efficiency", eff_tags),
+    TexColumn("Latency", lat_tags),
+    TexColumn("FPS", fps_tags),
 ]
 
 
@@ -478,7 +454,7 @@ table_head = """
  \\multicolumn{7}{c}{\\textbf{Implementation Choices}} & \\multicolumn{5}{c}{\\textbf{Design Metrics}} & \\multicolumn{5}{c}{\\textbf{Peformance Metrics}}  \\\\
  \\cmidrule(lr){1-7}  \\cmidrule(lr){8-12} \\cmidrule (lr){13-18}
 
-&\\textbf{Impl.}&\\textbf{Fam.} &\\textbf{P} &\\textbf{Ref.} &\\textbf{FPGA} &\\textbf{Model Name} &\\textbf{Prec.} &\\textbf{C[OP]}&\\textbf{Mem[MB]}  &\\textbf{D[\\%]} &\\textbf{B[\\%]} &\\textbf{MHz} &\\textbf{T[GOP/s]} & \\textbf{P[W]} & \\textbf{T/P} &\\textbf{Latency} &\\textbf{FPS}\\\\
+&\\textbf{Impl.}&\\textbf{Fam.} &\\textbf{P} &\\textbf{Ref.} &\\textbf{FPGA} &\\textbf{Model Name} &\\textbf{Prec.} &\\textbf{C[OP]}&\\textbf{MB}  &\\textbf{D[\\%]} &\\textbf{B[\\%]} &\\textbf{MHz} &\\textbf{GOP/s} & \\textbf{P[W]} & \\textbf{T/P} &\\textbf{L[s]} &\\textbf{FPS}\\\\
  \\toprule
  """
 
@@ -492,7 +468,6 @@ table_foot = """
 """
 
 
-print(table_head)
 
 tab = TexTable(data, columns)
 text = tab.render("", 4, table_head, table_foot)
@@ -501,14 +476,14 @@ footer = "\n\end{document}\n"
 
 Path("./gen").mkdir(parents=True, exist_ok=True)
 
+
+# Write single latex document to compile table
 f = open("gen/table.tex", "w")
 f.write(header + text + footer)
 f.close()
 
+# Export table to plain latex to copy into Survey
 f = open("gen/export.tex", "w")
 f.write(text)
 f.close()
 
-
-# \multicolumn{5}{c}{\textbf{General}} & \multicolumn{4}{c}{\textbf{Model}} & \multicolumn{5}{c}{\textbf{Peformance \& Util.}} &\multicolumn{3}{c}{Vitis AI} \\
-# \cmidrule(lr){1-5}  \cmidrule(lr){6-9} \cmidrule (lr){10-14}

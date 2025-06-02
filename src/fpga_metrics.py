@@ -3,7 +3,7 @@ import numpy as np
 import pickle
 import re
 
-with open("../data/Dataframes/all_articles_2025-03-07_12-43-59.pkl", "rb") as f:
+with open("../data/Dataframes/all_articles_2025-06-01_12-33-03.pkl", "rb") as f:
     raw_data = pickle.load(f)
 
 with open("../data/Dataframes/all_datapoints.pkl", "rb") as f:
@@ -117,7 +117,7 @@ total_manual = data.loc[
     (data["Implementation"].isin(impl_tags["HDL"]))
     | (data["Implementation"].isin(impl_tags["HLS"]))
 ].shape[0]
-print(f"Num CNNs: {num_cnn} ({num_cnn / total_manual})")
+print(f"Num CNNs: {num_cnn} CNNs percentage of manual implementations({num_cnn / total_manual})")
 
 
 #### Measure the average memory of off-chip vs on-chip
@@ -156,8 +156,8 @@ spec_off = data.loc[
     (data["Design"].isin(design_tags["S"])) & (data["Memory"] == "Off-chip")
 ].shape[0]
 
-print(f"Number Flexible {(flex_total)}: Avg: {(flex_off) / (flex_total)}")
-print(f"Number Specific {(spec_total)}: Avg: {(spec_off) / (spec_total)}")
+print(f"Number Flexible {(flex_total)}: Avg Off-Chip: {(flex_off) / (flex_total)}")
+print(f"Number Specific {(spec_total)}: Avg Off-Chip: {(spec_off) / (spec_total)}")
 
 
 off_chip = data.loc[(data["Memory"] == "Off-chip") & (data["Footprint"] != "")][
@@ -172,23 +172,9 @@ off_chip = [float(x.split(" ")[0]) for x in off_chip]
 on_chip = [float(x.split(" ")[0]) for x in on_chip]
 
 
-print(f"Number Off-chip {len(off_chip)}: Avg: {sum(off_chip) / len(off_chip)}MB")
-print(f"Number On-chip {len(on_chip)}: Avg: {sum(on_chip) / len(on_chip)}MB")
+print(f"Number Off-chip {len(off_chip)}: Avg Memory Footprint: {sum(off_chip) / len(off_chip)} MB")
+print(f"Number On-chip {len(on_chip)}: Avg Memory Footprint: {sum(on_chip) / len(on_chip)} MB")
 
-# Get stuff that report both power and computationnal througput
-
-comp_vals = data.loc[(data["Power consumption"] != "") & (data["Throughput"] != "")][
-    "Throughput"
-].to_list()
-comp_vals = [float(x.split(" ")[0]) for x in comp_vals]
-
-power_vals = data.loc[(data["Power consumption"] != "") & (data["Throughput"] != "")][
-    "Power consumption"
-].to_list()
-power_vals = [float(x.split(" ")[0]) for x in power_vals]
-
-print(comp_vals)
-print(power_vals)
 
 
 ## Get precision metrics
@@ -225,5 +211,5 @@ i8_man_vals = manual.loc[
 
 num_total = data.shape[0]
 
-print(f"Per of int8: {i8_vals / float(num_total)}")
-print(f"Per of int8 in manual: {i8_man_vals / float(total_manual)}")
+print(f"Percentage of int8: {i8_vals / float(num_total)}")
+print(f"Percentage of int8 in manual designs: {i8_man_vals / float(total_manual)}")

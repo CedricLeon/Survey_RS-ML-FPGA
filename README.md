@@ -34,7 +34,7 @@ In particular, you might be interested by:
 - **Other**
   - [metadata.py](src/utils/metadata.py): Contains color, model cores, and FPGA information used in the different notebooks.
   - [analysis.ipynb](src/analysis.ipynb): Contains explorative, high-level analysis of the experiments.
-  - [fpga_metrics.py](src/fpga_metrics.py): ???? @dirkstober
+  - [fpga_metrics.py](src/fpga_metrics.py): Calculates average design/performance metrics for the second Taxonomy
 
 
 

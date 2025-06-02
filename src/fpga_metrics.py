@@ -213,3 +213,9 @@ num_total = data.shape[0]
 
 print(f"Percentage of int8: {i8_vals / float(num_total)}")
 print(f"Percentage of int8 in manual designs: {i8_man_vals / float(total_manual)}")
+
+
+pc = data.loc[data["Power consumption"] != ""]
+print(f"Percentage of experiments reporting power: {(pc.shape[0]*100)/num_total}")
+
+

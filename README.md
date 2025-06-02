@@ -1,7 +1,7 @@
 # Survey RS-ML-FPGA
-[![Static Badge](https://img.shields.io/badge/Zotero-CC2936?logo=zotero&logoColor=CC2936&labelColor=white)](https://www.zotero.org/) [![Static Badge](https://img.shields.io/badge/python-3.9_%7C_3.10_%7C_3.11_%7C_3.12-blue)](https://www.python.org/)
+[![Static Badge](https://img.shields.io/badge/python-3.9_%7C_3.10_%7C_3.11_%7C_3.12-blue)](https://www.python.org/) [![Static Badge](https://img.shields.io/badge/Zotero-CC2936?logo=zotero&logoColor=CC2936&labelColor=white)](https://www.zotero.org/)
 
-This repository provides context to the manuscript "FPGA-Enabled Machine Learning Applications in Earth Observation: A Systematic Review" submitted at ACM CSUR.
+This repository provides context to the manuscript "FPGA-Enabled Machine Learning Applications in Earth Observation: A Systematic Review" submitted to ACM CSUR.
 
 The data from the surveyed research articles, the code for the data analysis, figure and table generation, as well as the supplemental material are available here.
 You will also find [supplemental sections](#supplemental-material) of the survey and [instructions to run](#repository-instructions) code snippets.
@@ -10,16 +10,16 @@ You will also find [supplemental sections](#supplemental-material) of the survey
 ***
 
 ### Workflow
-This systematic survey was conducted following the [PRISMA 2020](https://www.prisma-statement.org/prisma-2020) guidelines. Studies were exported from [Web of Science](https://www.webofscience.com/wos/) to [Zotero](https://www.zotero.org/), where records have been, screened, tagged and summarized.
+This systematic survey was conducted following the [PRISMA 2020](https://www.prisma-statement.org/prisma-2020) guidelines. Studies were exported from [Web of Science](https://www.webofscience.com/wos/) to [Zotero](https://www.zotero.org/), where records have been screened, tagged, and summarized.
 Zotero API was later accessed through Python to analyze the data and generate the survey's material.
 
 > Note: While the surveyed studies and their tags are available in this repository, the original Zotero collection is locked behind Zotero API key system.
 
 ### Repo structure
 The `data/` folder contains all the data related to the project. The `Dataframes/` contain the original literature data classified and annotated in Zotero, while `Figures/` and `Tables/` host the generated products that can be found in the manuscript.
-The source code can be found in `src/` and mostly consists in Jupyter Notebooks. Refer to the repository instructions section [below](#run-the-notebooks) if you wish to execute them.
+The source code can be found in `src/` and mostly consists of Jupyter Notebooks. Refer to the repository instructions section [below](#run-the-notebooks) if you wish to execute them.
 
-In particular, you might be interested by:
+In particular, you might be interested in:
 - **Figure generation**
   - [fig_applications_tasks.ipynb](src/fig_applications_tasks.ipynb): Visualization of relations between RS applications and ML tasks (Fig.1)
   - [fig_ML_models.ipynb](src/fig_ML_models.ipynb): Visualization of all ML models used in the experiments (Fig. 2)
@@ -38,7 +38,7 @@ In particular, you might be interested by:
 ***
 
 ### Methodological Considerations
-> The section below was originally contained in the manuscript. It consists in a shortened version of the complete [methodological considerations](Methodological_decisions.md).
+> The section below was originally contained in the manuscript. It consists of a shortened version of the complete [methodological considerations](Methodological_decisions.md).
 
 Due to the heterogeneity of the surveyed research, arising from diverse backgrounds, motivations, data, models, and hardware platforms, we make several methodological decisions to ensure consistency and clarity in result reporting.
 
@@ -86,10 +86,10 @@ pip install -r requirements.txt
 ```
 
 ### Follow a similar workflow
-This repository was also created for future researcher interested to recreate such processing pipelines. If this is your case, the instructions below should be a good starting point. These instructions are no tutorial, but act as tips that (we hope) can help the start of your journey 🙃
+This repository was also created for future researchers interested in recreating such processing pipelines. If this is your case, the instructions below should be a good starting point. These instructions are not a tutorial, but act as tips that (we hope) can help the start of your journey 🙃
 
 #### Exporting records to Zotero
-After prompting the research base of your choice (e.g., WoS or Scopus), you have to export your results to the bibliographic tool of your choice. We recommend exporting to RIS file format.
+After querying the research database of your choice (e.g., WoS or Scopus), you have to export your results to the bibliographic tool of your choice. We recommend exporting to RIS file format.
 
 > While we have not tried them, other bibliographic tools should fit this workflow. That said, we have never encountered something we could not do in Zotero.
 
@@ -99,15 +99,15 @@ If you want to collaborate directly in Zotero, have a look at [shared collection
 Finally, Zotero's tags have a color system which can come really handy when several authors read the articles.
 
 #### Accessing Zotero's API
-Before any coding you should obtain a couple information, mainly your private Zotero API Key accessible [here](https://www.zotero.org/settings/security#applications).
+Before any coding you should obtain a couple of information, mainly your private Zotero API Key accessible [here](https://www.zotero.org/settings/security#applications).
 To be able to use similar logic as [zotero_API_exploration.ipynb](src/Zotero_data_processing/zotero_API_exploration.ipynb), you will need to store your Zotero API Key in this file `src/Zotero_data_processing/.keys`. It should have a similar format:
 ```json
 Zotero API Key: <your_api_key>
 ```
-You will also need your collection keys (that you can find with the `all_collections()` method) and your identifier that can you obtain [here](https://www.zotero.org/settings/security#applications).
+You will also need your collection keys (that you can find with the `all_collections()` method) and your identifier that you can obtain [here](https://www.zotero.org/settings/security#applications).
 
 #### Fetching your Zotero's data
-Once you can access your Zotero collections, you can basically read and write anything, have a look at  [PyZotero documentation](https://pyzotero.readthedocs.io/en/latest/).
+Once you can access your Zotero collections, you can basically read and write anything, have a look at [PyZotero documentation](https://pyzotero.readthedocs.io/en/latest/).
 
 It is very likely that by that time, your setup will have differed in some manner. Nevertheless, if you want to run the scripts exactly as they are:
 ```bash
@@ -116,12 +116,12 @@ python ./src/Zotero_data_processing/create_datapoints_df.py -i data/Dataframes/a
 ```
 `create_datapoints_df.py` can also be run with different verbose levels (`-v`, `-vv`, or `-vvv`) to see more details.
 
-Refer to these scripts for more details about their features. At a high-level [create_articles_df.py](src/Zotero_data_processing/create_articles_df.py) simply fetches all article from a collection and formats it to a Dataframe. It also has some checking/filtering mechanisms to spot mistakes in the tagging process. The pre-processing happens in [create_datapoints_df.py](src/Zotero_data_processing/create_datapoints_df.py) where all the tags from each article are parsed and experiments are extracted from the studies.
+Refer to these scripts for more details about their features. At a high-level [create_articles_df.py](src/Zotero_data_processing/create_articles_df.py) simply fetches all articles from a collection and formats it to a Dataframe. It also has some checking/filtering mechanisms to spot mistakes in the tagging process. The pre-processing happens in [create_datapoints_df.py](src/Zotero_data_processing/create_datapoints_df.py) where all the tags from each article are parsed and experiments are extracted from the studies.
 
-> Keep in mind that, as the second script already parses Zotero tags, it will result in an error if your implementation does not have exactly the same structure than ours 
+> Keep in mind that, as the second script already parses Zotero tags, it will result in an error if your implementation does not have exactly the same structure as ours.
 
 ##  Acknowledgement
 ***
 Thanks to [Ivica Obadic](https://github.com/IvicaObadic) and [Adrian Höhl](https://orcid.org/0000-0003-3380-4489) for the early tips of the project, especially about PRISMA and Zotero.
 
-This repository benefited from the use of GitHub Copilot (o1-preview), which assited by proposing code snippets, especially for `matplotlib` figure rendering.
+This repository benefited from the use of GitHub Copilot (o1-preview), which assisted by proposing code snippets, especially for `matplotlib` figure rendering.

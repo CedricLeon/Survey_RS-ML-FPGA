@@ -1,10 +1,14 @@
 # Survey RS-ML-FPGA
 [![Static Badge](https://img.shields.io/badge/python-3.9_%7C_3.10_%7C_3.11_%7C_3.12-blue)](https://www.python.org/) [![Static Badge](https://img.shields.io/badge/Zotero-CC2936?logo=zotero&logoColor=CC2936&labelColor=white)](https://www.zotero.org/)
 
-This repository provides context to the manuscript "FPGA-Enabled Machine Learning Applications in Earth Observation: A Systematic Review" submitted to ACM CSUR.
+This repository provides context to the manuscript "FPGA-Enabled Machine Learning Applications in Earth Observation: A Systematic Review" submitted to ACM CSUR and available on [arXiv](https://arxiv.org/abs/2506.03938).
 
 The data from the surveyed research articles, the code for the data analysis, figure and table generation, as well as the supplemental material are available here.
 You will also find [supplemental sections](#supplemental-material) of the survey and [instructions to run](#repository-instructions) code snippets.
+
+**How to cite**:
+"Léonard, C., Stober, D., & Schulz, M. (2025). FPGA-Enabled Machine Learning Applications in Earth Observation: A Systematic Review (No. arXiv:2506.03938). arXiv. https://doi.org/10.48550/arXiv.2506.03938"
+
 
 ## Description
 ***

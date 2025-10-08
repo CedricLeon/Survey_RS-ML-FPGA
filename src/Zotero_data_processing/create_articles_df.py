@@ -21,7 +21,7 @@ def initialize_zotero_API(libraryID: str, libraryType: str) -> zotero.Zotero:
 def get_all_articles_in_collection(zoteroAPI: zotero.Zotero, collectionKey: str) -> list:
     # Add search paprameters to select only conference papers and journal articles
     # /!\ Ideally I just want to NOT select notes and attachments, but I did not find the API syntax to do so
-    zoteroAPI.add_parameters(itemType="conferencePaper || journalArticle")
+    zoteroAPI.add_parameters(itemType="conferencePaper || journalArticle || Preprint")
     # Fetch all the items in the library (Without the limitation of 100 items per request)
     items = zoteroAPI.everything(zoteroAPI.collection_items(collectionKey))
     print(f"{len(items)} items fetched from collection {collectionKey}.")
@@ -119,8 +119,7 @@ if __name__ == '__main__':
     groupLibraryID = "5602981"
     userLibraryID = "8968938"
     zoteroAPI = initialize_zotero_API(groupLibraryID, "group")
-    # Key of the group "included in review" collection: 'PEWYQYGG'
-    # Key of my private user collection: 'LWR4HAWY'
+    # Key of the group "2. Studies included in review" collection: 'PEWYQYGG'
     zoteroCollectionKey = args.collection if args.collection else 'PEWYQYGG'
 
     # Paths to save Dataframes

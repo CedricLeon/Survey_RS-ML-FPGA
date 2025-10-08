@@ -91,6 +91,7 @@ model_core_map = {
     # 'ENET': 'Custom CNN',
     # 'ESPNET': 'Custom CNN',
     'LENET': 'LeNet',
+    'VIT': 'ViT',
 
     # Shallow Neural Networks
     'MLP': 'Shallow NN',

@@ -288,7 +288,7 @@ def get_hardcoded_articles(citationKey, nameUsedInArticle):
             return {
                 "Dataset": "NWPU-RESISC45 {Classification}",
                 "Task": "Classification",
-                "Application": "Landcover/Land use",
+                "Application": "Land Use Land Cover",
             }
     else:
         return None
@@ -412,7 +412,7 @@ if __name__ == "__main__":
         allDatapointsPath = Path(args.output)
         allDatapointsPath.parent.mkdir(parents=True, exist_ok=True)
     else:
-        allDfPaths = Path(__file__).parent.parent.parent / "data" / "Review_ML-RS-FPGA" / "Dataframes"
+        allDfPaths = Path(__file__).parent.parent.parent / "data" / "Dataframes"
         allDatapointsPath = allDfPaths / f"all_datapoints_{datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.pkl"
 
     log_debug(f"Dataframe read from path: {args.input}")

@@ -24,9 +24,9 @@ plot_colors: dict[str, str] = {
 }
 general_task_colors = {
     'Classification': plot_colors["blue_1"],
-    'Pixel classification': plot_colors["teal_2"],
+    'Segmentation - Pixel': plot_colors["teal_2"],
     'Object detection': plot_colors["red_1"],
-    'Segmentation': plot_colors["green_1"],
+    'Segmentation - Tile': plot_colors["green_1"],
     'Regression': plot_colors["gray"],
 }
 
@@ -75,6 +75,17 @@ def assign_model_core(row):
         if keyword.upper() in combined_info:
             return core_label
     raise ValueError(f"Model core not found for row: {row}")
+
+def rename_application(app: str) -> str:
+    if app == "Safe UAV landing site identification":
+        return "UAV landing site id."
+    elif app == "Railway track fastener defect detection":
+        return "Railway defect det."
+    app = app.replace("identification", "id.")
+    app = app.replace("detection", "det.")
+    app = app.replace("classification", "class.")
+    app = app.replace("extraction", "extr.")
+    return app
 
 model_core_map = {
     # Deep Learning

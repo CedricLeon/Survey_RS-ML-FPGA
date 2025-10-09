@@ -282,7 +282,7 @@ def get_hardcoded_articles(citationKey, nameUsedInArticle):
             return {
                 "Dataset": "DOTAv1.0 {Object Detection}",
                 "Task": "Object detection",
-                "Application": "Diverse",
+                "Application": "Diverse detection",
             }
         else:
             return {

@@ -31,7 +31,8 @@ general_task_colors = {
 }
 
 
-# About the DSPs, the 7-series use DSP48E1 and the US+ DSP48E2
+# About the DSPs, the 7-series use DSP48E1 and the US+ DSP48E2.
+# See https://github.com/erinadreno/list_of_Xilinx_FPGAs
 #         "PART":  [YEAR,  DSP,   "Family/Type"]
 fpga_part_info = {
     # 3 -Series
@@ -61,6 +62,7 @@ fpga_part_info = {
     "XCZU3EG"       : [2015,   360,    "Zynq"],
     "XCZU7EV"       : [2015,  1728,    "Zynq"],
     "U280"          : [2018,  9024,    "Alveo"],   # Released Q1 2019 https://www.hpcwire.com/off-the-wire/xilinx-announces-new-alveo-u280-hbm2-accelerator-card/
+    "U250"          : [2018,  12288,   "Alveo"],
     "XCK26"         : [2021,  1248,    "Kria"],    # (Internet search but uses Zynq MPSOC (2015 ...))
 
     # Intel

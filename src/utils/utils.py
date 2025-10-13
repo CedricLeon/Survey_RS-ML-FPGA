@@ -33,7 +33,8 @@ def wrap_label(label, maxWidth=15):
     return wrapped
 
 def print_pretty_df(df, max_rows=-1):
-    if max_rows == -1: max_rows = len(df)
+    if max_rows == -1:
+        max_rows = len(df)
     print(
         tabulate.tabulate(
             df.head(max_rows),

@@ -22,11 +22,11 @@ plot_colors: dict[str, str] = {
     "gray":     "#aaaaaa",  # Gray
     "dark_gray": "#7A7A7A", 
 }
-general_task_colors = {
+cv_task_colors = {
     'Classification': plot_colors["blue_1"],
     'Segmentation - Pixel': plot_colors["teal_2"],
+    'Segmentation - Patch': plot_colors["green_1"],
     'Object detection': plot_colors["red_1"],
-    'Segmentation - Tile': plot_colors["green_1"],
     'Regression': plot_colors["gray"],
 }
 

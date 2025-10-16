@@ -163,6 +163,13 @@ class TexColumn:
 with open("../data/Dataframes/all_articles_2025-06-01_12-33-03.pkl", "rb") as f:
     raw_data = pickle.load(f)
 
+
+print(raw_data.columns)
+
+ddd = raw_data[raw_data["Zotero Key"]=="suhAlgorithmHardwareCoOptimizationEnergyEfficient2021"]
+print(ddd)
+quit()
+
 with open("../data/Dataframes/all_datapoints.pkl", "rb") as f:
     data = pickle.load(f)
 
@@ -205,7 +212,7 @@ util_tags = {"-": ["???", "N/A", ""], "TS": ["41% (total slices)"]}
 bram_tags = {"-": ["???", "N/A", ""]}
 
 
-def findN(str_in, key):
+def findN(str_in,key):
     res = re.search(r"\d+%\s*" + key, str_in)
     if res == None:
         return "-"
@@ -213,19 +220,29 @@ def findN(str_in, key):
         r = res.group().split("%")[0]
         return r
 
+ddd = data[data["BBT Citation Key"]=="suhAlgorithmHardwareCoOptimizationEnergyEfficient2021"]
 
-for t in sorted(data["FPGA Util"].unique()):
-    s = findN(t, "DSP")
-    l = findN(t, "BRAM")
-    if s in util_tags.keys():
-        util_tags[s].append(t)
-    else:
-        util_tags[s] = [t]
+print(ddd["FPGA Util"])
 
-    if l in bram_tags.keys():
-        bram_tags[l].append(t)
-    else:
-        bram_tags[l] = [t]
+data["dsp_util"] = data["FPGA Util"].apply(findN,key="DSP")
+data["bram_util"] = data["FPGA Util"].apply(findN,key = "BRAM")
+
+dsp_tags = {f: [f] for f in data["dsp_util"].unique()}
+bram_tags = {f: [f] for f in data["bram_util"].unique()}
+
+
+# for t in sorted(data["FPGA Util"].unique()):
+#     s = findN(t, "DSP")
+#     l = findN(t, "BRAM")
+#     if s in util_tags.keys():
+#         util_tags[s].append(t)
+#     else:
+#         util_tags[s] = [t]
+#
+#     if l in bram_tags.keys():
+#         bram_tags[l].append(t)
+#     else:
+#         bram_tags[l] = [t]
 
 
 freq_tags = {f.split(" ")[0].split(".")[0]: [f] for f in data["Frequency"].unique()}
@@ -298,7 +315,6 @@ for f in sorted(data["Board"].unique()):
 
     k = part.split("XC")[-1]
 
-
     if k in board_tags.keys():
         board_tags[k].append(f)
     else:
@@ -311,6 +327,7 @@ fixed_tags = {
     "i16": ["Fixed (16)"],
     "i32": ["Fixed (32)"],
     "i8,i32": ["Mixed width (Fixed 32 and 8)"],
+    "i8,i16": ["Mixed (Fixed 8 and 16)"],
     "f32": ["Float (32)", "float"],
     "-": ["N/A"],
     "b": ["Binary"],
@@ -326,7 +343,7 @@ dpu_core = {f.split(" ")[0]: [f] for f in sorted(data["DPU Core"].unique())}
 
 model_tags = {"CNN": [], "YOLO": [], "SSD": [], "MLP": [], "GNN": []}
 
-em_tags = {f: [f] for f in sorted(data["Equivalent model"].unique())}
+# em_tags = {f: [f] for f in sorted(data["Equivalent model"].unique())}
 model_tags = {f: [f] for f in sorted(data["Model"].unique())}
 
 model_tags["BRAM\_DSP"] = model_tags.pop("BRAM_DSP")
@@ -348,6 +365,7 @@ em_tags = {
     ],
     "ML": ["Fuzzy ARTMAP", "RBM", "MLP", "ML", "WNS"],
     "GNN": ["GNN"],
+    "ViT": ["ViT"]
 }
 
 
@@ -415,8 +433,8 @@ columns = [
     TexColumn("Precision", fixed_tags),
     TexColumn("Complexity", compl_task),
     TexColumn("Footprint", fp_tags),
-    TexColumn("FPGA Util", util_tags),
-    TexColumn("FPGA Util", bram_tags),
+    TexColumn("dsp_util", dsp_tags),
+    TexColumn("bram_util", bram_tags),
     TexColumn("Frequency", freq_tags),
     TexColumn("Throughput", through_tags),
     TexColumn("Power consumption", power_tags),
@@ -458,7 +476,7 @@ table_foot = """
 """
 
 tab = TexTable(data, columns)
-text = tab.render("", 4, table_head, table_foot)
+text = tab.render("", 5, table_head, table_foot)
 footer = "\n\end{document}\n"
 
 Path("./gen").mkdir(parents=True, exist_ok=True)

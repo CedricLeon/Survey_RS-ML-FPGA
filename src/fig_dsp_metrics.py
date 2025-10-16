@@ -82,6 +82,12 @@ def get_first(t):
     except:
         return "-"
 
+def get_total_dsp(inp):
+    print(inp)
+    if(inp["dsp_util"] == '-'):
+        return "-"
+    total = inp["dsp_util"]*inp["dsp"]
+    return int(total)
 
 data["Board"] = data["Board"].apply(get_part)
 data["dsp"] = data["Board"].apply(get_num)
@@ -92,6 +98,7 @@ data["Power consumption"] = data["Power consumption"].apply(get_first)
 data["Throughput"] = data["Throughput"].apply(get_first)
 data["Footprint"] = data["Footprint"].apply(get_first)
 
+data["num_dsp"] = data.apply(get_total_dsp,axis=1)
 
 
 def replace_comp(val):
@@ -146,64 +153,75 @@ def get_data_points(data,xkey,ykey,ignore):
     return out_data
 
 
-def best_fit(X_in,Y_in,log2=True):
-    Y = np.array(Y_in)
-    if(log2):
-        X = np.log2(np.array(X_in))
-    else:
-        X = np.array(X_in)
-    xbar = sum(X)/len(X)
-    ybar = sum(Y)/len(Y)
-    n = len(X) # or len(Y)
-    numer = sum([xi*yi for xi,yi in zip(X, Y)]) - n * xbar * ybar
-    denum = sum([xi**2 for xi in X]) - n * xbar**2
-
-    b = numer / denum
-    a = ybar - b * xbar
-
-    first,last = X.min(),X.max()
+def best_fit(X_in,Y_in):
+    y = np.array(Y_in)
     
-    x,y = [first,last],[a + b*first,a + b*last]
+    x = np.array(X_in)
+    m_x = np.mean(x)
+    m_y = np.mean(y)
+    n = len(x) # or len(Y)
 
-    return x,y
+    ss_xy = np.sum(y*x) - n*m_x*m_y
+    ss_xx = np.sum(x*x) - n*m_x*m_x
+
+    b = ss_xy/ss_xx
+    a = m_y - b*m_x
+
+    xx = np.sort(x)
+    yy = a + b*xx
+
+    return xx,yy
 
 
-def scatter_fit(ax,data,key,ignore,index="dsp"):
+def scatter_fit(ax,data,key,ignore,x_log=True,y_log=True,index="dsp"):
     df =data[data[key] != ignore]
-    dd = np.array(df[index])
-    x,y = best_fit(df[index],df[key])
+    x_in = np.array(df[index])
+    y_in = np.array(df[key])
+    if(x_log):
+        x_in = np.log2(x_in)
+    if(y_log):
+        tmp = y_in + 1
+        y_in = np.log10(tmp.astype(float))
+    lr_x,lr_y = best_fit(x_in,y_in)
     xt = np.array(df[index].unique())
 
     sz = np.ones(len(df[key]))*60
-    ax.plot(x,y,color='k',lw=3)
-    ax.scatter(np.log2(dd),df[key],sizes=sz)#,color='orange',marker="d")
+
+    ax.plot(lr_x,lr_y,color='k',lw=3)
+
+    ax.scatter(x_in,y_in,sizes=sz)#,color='orange',marker="d")
+    # ax.scatter((dd),df[key],sizes=sz)#,color='orange',marker="d")
     # ax.set_xticks(np.log2(xt),xt,rotation=90,fontsize=20)
     xt = np.array([6+i for i in range(0,8)])
     ax.set_xticks(xt,2**xt,fontsize=20,rotation=90)
+    if(y_log):
+        yt = np.array([0,1,2,3])
+        yl = np.array(["0",r"$10^0$",r"$10^1$",r"$10^2$"])
+        ax.set_yticks(yt,yl)
 
 
 
 plt.rcParams.update({'font.size': 20})
 
+
+
 fig,ax = plt.subplots(1,4,layout="constrained")#,sharex=True)
 # scatter_fit(ax[0],data,"dsp_util","-")
 # scatter_fit(ax[0],data,"bram_util","-")
-scatter_fit(ax[0],data,"max_util","-")
-scatter_fit(ax[1],data,"Power consumption","-")
+scatter_fit(ax[0],data,"max_util","-",y_log=False)
+scatter_fit(ax[1],data,"Power consumption","-",y_log=False)
 scatter_fit(ax[2],data,"Throughput","-")
 scatter_fit(ax[3],data,"Footprint","-")
 
-ax[2].set_yscale('symlog')
-ax[3].set_yscale('symlog')
 ax[0].set_ylim(0,100)
-ax[2].set_ylim(0)
-ax[3].set_ylim(0)
+ax[2].set_ylim(0,4)
+ax[3].set_ylim(0,4)
 
 ax[0].set_ylabel("Max BRAM/DSP Util. [%]")
 ax[1].set_ylabel("Power [W]")
 ax[2].set_ylabel("Throughput [GOP/s]")
-ax[3].set_ylabel("Footprint MB")
-fig.supxlabel("Number of DSPs")
+ax[3].set_ylabel("Footprint [MB]")
+fig.supxlabel("Total number of DSPs available")
 
 # print(data[data["dsp"] != 12288])
 xt = np.array(data[data["dsp"] != 12288]["dsp"].unique())

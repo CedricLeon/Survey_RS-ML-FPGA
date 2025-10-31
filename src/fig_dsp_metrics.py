@@ -12,33 +12,6 @@ with open("../data/Dataframes/all_datapoints.pkl", "rb") as f:
     data = pickle.load(f)
 
 
-# print(data.columns)
-# print(data["Precision"].unique())
-# print(data["Publication year"].unique())
-#
-# prec_dict = {
-#         "float": ["Original","Float (32)",],
-#         "mixed": ["Mixed (Fixed (1 to 24) weights (3) act)","Mixed width (Fixed 32 and 8)","Mixed (Fixed 8 and Float 32)",
-#             'Mixed (Fixed)','Mixed (Fixed 4 and Float 32)' ,'Mixed width (MPQAT)'],
-#         "fixed8":["Fixed (8)"],
-#         "fixed16":["Fixed (16)"],
-#         "fixed32":["Fixed (32)"],
-#         "fixed4":["Fixed (4)"],
-#         'bin':["Binary"],
-#         "N/A":["N/A"]
-#         }
-# kk=(data["Publication year"].unique())
-# kk.sort()
-# print(kk)
-#
-# val_dict = {}
-# for k,v in prec_dict.items():
-#     nums =[]
-#     for y in kk:
-#         num=data.loc[(data["Publication year"] ==y) & (data["Precision"].isin(v))].shape[0]
-#         nums.append(num)
-#     val_dict[k]=nums
-# print(val_dict)
 
 
 def get_part(board_str):
@@ -86,7 +59,7 @@ def get_total_dsp(inp):
     print(inp)
     if(inp["dsp_util"] == '-'):
         return "-"
-    total = inp["dsp_util"]*inp["dsp"]
+    total = inp["dsp_util"]*inp["dsp"]*0.01
     return int(total)
 
 data["Board"] = data["Board"].apply(get_part)
@@ -99,6 +72,12 @@ data["Throughput"] = data["Throughput"].apply(get_first)
 data["Footprint"] = data["Footprint"].apply(get_first)
 
 data["num_dsp"] = data.apply(get_total_dsp,axis=1)
+
+
+
+
+
+
 
 
 def replace_comp(val):

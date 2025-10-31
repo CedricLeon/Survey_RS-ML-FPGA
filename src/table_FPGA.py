@@ -159,19 +159,19 @@ class TexColumn:
         self.array = array
 
 
-##### Load Data #####
-with open("../data/Dataframes/all_articles_2025-06-01_12-33-03.pkl", "rb") as f:
-    raw_data = pickle.load(f)
-
-
-print(raw_data.columns)
-
-ddd = raw_data[raw_data["Zotero Key"]=="suhAlgorithmHardwareCoOptimizationEnergyEfficient2021"]
-print(ddd)
-quit()
+# ##### Load Data #####
+# with open("../data/Dataframes/all_articles_2025-06-01_12-33-03.pkl", "rb") as f:
+#     raw_data = pickle.load(f)
 
 with open("../data/Dataframes/all_datapoints.pkl", "rb") as f:
     data = pickle.load(f)
+
+print(data.columns)
+
+ddd = data[data["BBT Citation Key"]=="suhAlgorithmHardwareCoOptimizationEnergyEfficient2021"]
+print(ddd["FPGA Util"])
+# quit()
+
 
 impl_tags = {
     "HDL": ["RTL design (Verilog)", "RTL design (VHDL)", "RTL design (N/A)"],
@@ -476,7 +476,7 @@ table_foot = """
 """
 
 tab = TexTable(data, columns)
-text = tab.render("", 5, table_head, table_foot)
+text = tab.render("", 4, table_head, table_foot)
 footer = "\n\end{document}\n"
 
 Path("./gen").mkdir(parents=True, exist_ok=True)

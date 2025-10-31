@@ -41,6 +41,11 @@ In particular, you might be interested in:
 ## Supplemental material
 ***
 
+![PRISMA 2020 flow diagram](data/Figures/PRISMA_2020_flow_diagram_new_SRs.jpg)
+
+[PRISMA 2020 flow diagram](https://www.prisma-statement.org/prisma-2020-flow-diagram) for new systematic reviews which included searches of databases, registers and other sources.
+Source: Page MJ, et al. BMJ 2021;372:n71. [doi: 10.1136/bmj.n71](https://doi.org/10.1136/bmj.n71)
+
 ### Methodological Considerations
 > The section below was originally contained in the manuscript. It consists of a shortened version of the complete [methodological considerations](Methodological_decisions.md).
 

@@ -23,9 +23,9 @@ plot_colors: dict[str, str] = {
     "dark_gray": "#7A7A7A", 
 }
 cv_task_colors = {
-    'Classification': plot_colors["blue_1"],
+    'Classification': plot_colors["green_1"],
     'Segmentation - Pixel': plot_colors["teal_2"],
-    'Segmentation - Patch': plot_colors["green_1"],
+    'Segmentation - Patch': plot_colors["blue_1"],
     'Object detection': plot_colors["red_1"],
     'Regression': plot_colors["gray"],
 }

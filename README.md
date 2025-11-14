@@ -1,7 +1,7 @@
 # Survey RS-ML-FPGA
 [![Static Badge](https://img.shields.io/badge/python-3.9_%7C_3.10_%7C_3.11_%7C_3.12-blue)](https://www.python.org/) [![Static Badge](https://img.shields.io/badge/Zotero-CC2936?logo=zotero&logoColor=CC2936&labelColor=white)](https://www.zotero.org/)
 
-This repository provides context to the manuscript "FPGA-Enabled Machine Learning Applications in Earth Observation: A Systematic Review" submitted to ACM CSUR and available on [arXiv](https://arxiv.org/abs/2506.03938).
+This repository provides context to the manuscript "*FPGA-Enabled Machine Learning Applications in Earth Observation: A Systematic Review*" submitted to ACM CSUR and available on [arXiv](https://arxiv.org/abs/2506.03938).
 
 The data from the surveyed research articles, the code for the data analysis, figure and table generation, as well as the supplemental material are available here.
 You will also find [supplemental sections](#supplemental-material) of the survey and [instructions to run](#repository-instructions) code snippets.
@@ -25,14 +25,14 @@ The source code can be found in `src/` and mostly consists of Jupyter Notebooks.
 
 In particular, you might be interested in:
 - **Figure generation**
-  - [fig_applications_tasks.ipynb](src/fig_applications_tasks.ipynb): Visualization of relations between RS applications and ML tasks (Fig.1)
-  - [fig_ML_models.ipynb](src/fig_ML_models.ipynb): Visualization of all ML models used in the experiments (Fig. 2)
-  - [fig_FPGA_boards.ipynb](src/fig_FPGA_boards.ipynb): Visualization of the FPGA boards used in the articles (Fig. 3)
+  - [fig_applications_tasks.ipynb](src/fig_applications_tasks.ipynb): Visualization of relations between RS applications and ML tasks (Fig. 2)
+  - [fig_ML_models.ipynb](src/fig_ML_models.ipynb): Visualization of all ML models used in the experiments (Fig. 3)
+  - [fig_FPGA_boards.ipynb](src/fig_FPGA_boards.ipynb): Visualization of the FPGA boards used in the articles (Fig. 4)
   - [fig_dataset_treemap.ipynb](src/fig_dataset_treemap.ipynb): Visualization of the datasets and tasks as a treemap using [squarify](https://github.com/laserson/squarify) (unused in the manuscript)
   - [plotting_exploration.ipynb](src/plotting_exploration.ipynb): Contains a wide diversity of deprecated figures
 - **Table generation**
   - [table_RS-ML.ipynb](src/table_RS-ML.ipynb): Generates the LaTeX code for the RS/ML taxonomy (Table 2)
-  - [table_FPGA.py](src/table_FPGA.py): Generates the LaTeX code for the FPGA taxonomy (Table 3)
+  - [table_FPGA.py](src/table_FPGA.py): Generates the LaTeX code for the FPGA taxonomy (Table 4)
 - **Other**
   - [metadata.py](src/utils/metadata.py): Contains color, model cores, and FPGA information used in the different notebooks.
   - [analysis.ipynb](src/analysis.ipynb): Contains explorative, high-level analysis of the experiments.
@@ -40,6 +40,7 @@ In particular, you might be interested in:
 
 ## Supplemental material
 ***
+### PRISMA 2020 flow diagram
 
 ![PRISMA 2020 flow diagram](data/Figures/PRISMA_2020_flow_diagram_new_SRs.jpg)
 
@@ -55,7 +56,7 @@ Due to the heterogeneity of the surveyed research, arising from diverse backgrou
 When studies evaluate multiple datasets for the same task, we select a representative dataset for reporting (e.g., University of Pavia **[1]** for HSI pixel classification, MSTAR **[2]** for SAR classification, DOTAv1.0 **[3]** for RGB object detection). Similarly, for studies iteratively optimizing models, we report results for the best-performing final-stage model; see Section 4.1 for a description of iterative optimization workflows. To address the challenge of diverse naming conventions for Deep Learning architectures, we report the model's name as used in the study alongside its underlying backbone architecture when available. Such practice aims to clarify model architectures, given that some older architectures, e.g., LeNet **[4]** or AlexNet **[5]**, are commonly re-branded, called "CNN."
 
 ##### Hardware and Implementation Decisions
-In cases where studies utilize multiple FPGA products, we select the device used in most experiments. However, for a fair snapshot of the landscape, Fig. ***3*** shows the complete distribution of FPGAs used in the surveyed studies. When solutions involve a combination of software tools, we extract the toolchain used for the Machine Learning component. We classify FPGA designs based on their architectural paradigm (*Specific* or *Flexible*), depending on their ability to support different networks, diverse hyperparameters, or various sequences of layers without re-implementation of the bitstream. Furthermore, memory accesses are separated based on the location from which parameters are loaded during the operation of the network. We use the notation *i(width)* for fixed-point and integer as fixed-point arithmetic equals an integer operation followed by a shift. *f(width)* represents floating-point datatype and *b* for binary.
+In cases where studies utilize multiple FPGA products, we select the device used in most experiments. However, for a fair snapshot of the landscape, Fig. ***4*** shows the complete distribution of FPGAs used in the surveyed studies. When solutions involve a combination of software tools, we extract the toolchain used for the Machine Learning component. We classify FPGA designs based on their architectural paradigm (*Specific* or *Flexible*), depending on their ability to support different networks, diverse hyperparameters, or various sequences of layers without re-implementation of the bitstream. Furthermore, memory accesses are separated based on the location from which parameters are loaded during the operation of the network. We use the notation *i(width)* for fixed-point and integer as fixed-point arithmetic equals an integer operation followed by a shift. *f(width)* represents floating-point datatype and *b* for binary.
 
 ##### Metrics and Units Standardization
 To standardize performance reporting, we preferred to report the most common accuracy metric for each task: Overall Accuracy (**OA**) for Classification and Pixel Classification, mean Intersection over Union (**mIoU**) for Segmentation, and mean Average Precision (**mAP**) for Object Detection (**mIoU** would have been preferred, but too few articles reported **mIoU**). When such accuracy is unavailable, we turn to second-choice metrics such as **F1-score** or **SSIM**. Model size, computational Throughput, and Power consumption are converted to MegaBytes **[MB]**, Giga Operation per second **[GOP/s]**, and Watts **[W]**, respectively. Although processing time is a highly relevant metric, especially for real-time solutions, varying image sizes across studies makes direct comparisons impossible. Nevertheless, algorithms processing one pixel at a time, and thus subject to significantly lower latencies, are marked with an asterisk **$^*$**. Latency, when available, in milliseconds (**[ms]**) is preferred over Frames Per Second (**[FPS]**) but is left unconverted due to the common usage of pipelining.

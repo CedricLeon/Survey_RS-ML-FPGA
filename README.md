@@ -104,9 +104,7 @@ After querying the research database of your choice (e.g., WoS or Scopus), you h
 > While we have not tried them, other bibliographic tools should fit this workflow. That said, we have never encountered something we could not do in Zotero.
 
 #### Setting up Zotero
-For organization's sake, we recommend creating new collections at each step of your processing: when importing the records in Zotero, after the first screening pass, etc.
-If you want to collaborate directly in Zotero, have a look at [shared collections](https://www.zotero.org/support/groups).
-Finally, Zotero's tags have a color system which can come really handy when several authors read the articles.
+For organization's sake, we recommend creating new collections at each step of your processing: when importing the records in Zotero, after the first screening pass, etc. If you want to collaborate directly in Zotero, have a look at [shared collections](https://www.zotero.org/support/groups). Finally, Zotero's tags have a color system which can come really handy when several authors read the articles.
 
 #### Accessing Zotero's API
 Before any coding you should obtain a couple of information, mainly your private Zotero API Key accessible [here](https://www.zotero.org/settings/security#applications).

@@ -75,6 +75,7 @@ def fetch_articles_data(zoteroAPI: zotero.Zotero, keys: list[str]) -> pd.DataFra
         abstractNote = data.get("abstractNote", "")
         date = data.get("date", "")
         itemType = data.get("itemType", "")
+        citationKey = data.get("citationKey", "")
         extra = parse_string_to_dict(data.get("extra", ""))
 
         # print(f" Extracting \"{extra['Citation Key']}\"...")
@@ -91,7 +92,7 @@ def fetch_articles_data(zoteroAPI: zotero.Zotero, keys: list[str]) -> pd.DataFra
 
         articlesData.append(
             {
-                "BBT Citation Key": extra["Citation Key"],
+                "BBT Citation Key": extra["Citation Key"] if citationKey == "" else citationKey,
                 "Title": title,
                 "List": authorsList,
                 "DOI": doi,
